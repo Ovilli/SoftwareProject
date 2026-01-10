@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdb7s7mv8kosa"]
+
+[ext_resource type="Script" uid="uid://d4c8ouajwo3mt" path="res://scripts/board_manager.gd" id="1_bw3vb"]
+[ext_resource type="ArrayMesh" uid="uid://bl1n22ir8vygx" path="res://assets/models/board/board.vox" id="3_nglv8"]
+
+[node name="Board" type="Node3D"]
+script = ExtResource("1_bw3vb")
+
+[node name="Board" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, 0, -5)
+mesh = ExtResource("3_nglv8")
+
+[node name="0|0" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.228, -10)
