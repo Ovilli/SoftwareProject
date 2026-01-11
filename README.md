@@ -60,7 +60,6 @@ cd SoftwareProject
 
 <video width="640" height="360" controls>
   <source src="./assets-github/anIeitung.mp4">
-  Your browser does not support the video tag.
 </video>
 
 
