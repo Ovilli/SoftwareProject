@@ -7,7 +7,11 @@ const CELL_WIDTH = 1.10000002384186
 const BOX = preload("uid://kin1civoox8r")
 const DICE = preload("uid://cejfohddoqyog")
 const DICE_BLACK = preload("uid://qybkw75qflsr")
+const KING = preload("uid://dyg82xwpwinl3")
+const KING_BLACK = preload("uid://43g6o0d0v0yb")
+
 @onready var _0_0: Marker3D = $"0|0"
+
 
 
 # Need some type of State ( Players Turn , Player Selecting Pice , Players_turn) 
@@ -42,17 +46,25 @@ func display_board():
 	for x in range(BOARD_SIZE):
 		for y in range(BOARD_SIZE):
 			var piece_id = board[x][y]
-			if piece_id == 0:
+			if piece_id == 0:  # 0 = nichts 
 				continue
 
 			var mesh : Mesh
-			if piece_id > 0:
+			if piece_id > 0 and piece_id < 7: # gucken ob es weiß ist 
 				mesh = DICE
 			else:
-				mesh = DICE_BLACK
+				if piece_id == 10: # gucken ob es ein könig ist 
+					mesh = KING
+				else:
+					if piece_id < 0 and piece_id > -7: # gucken ob es schwarz ist
+						mesh = DICE_BLACK
+					else: # gucken ob es ein schwarzer könig ist 
+						mesh = KING_BLACK 
+						
+				
 
 			spawn_piece(mesh, x, y)
-			print("Spawning piece at:", x, y)
+			print("Spawning piece at:", x, y, mesh)
 
 
 func spawn_piece(mesh:Mesh, x:int, y:int):
