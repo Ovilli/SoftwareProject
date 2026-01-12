@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://faukux1xo508"
+path="res://.godot/imported/hand.vox-ef86ee3c7e7ff5b35275da952cbfdd34.res"
+
+[deps]
+
+source_file="res://assets/models/hand/hand.vox"
+dest_files=["res://.godot/imported/hand.vox-ef86ee3c7e7ff5b35275da952cbfdd34.res"]
+
+[params]
+
