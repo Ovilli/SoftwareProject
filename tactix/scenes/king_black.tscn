@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://butdnoxa57koo"]
+
+[ext_resource type="ArrayMesh" uid="uid://43g6o0d0v0yb" path="res://assets/models/king/king_black.vox" id="1_hki8s"]
+
+[node name="KING_BLACK" type="Node3D"]
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="KingBlack" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_hki8s")

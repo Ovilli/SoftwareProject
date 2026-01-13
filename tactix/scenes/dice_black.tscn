@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bd4l0snpnjinc"]
+
+[ext_resource type="Shader" uid="uid://5xmiss1l4sy7" path="res://scripts/perfect_outlineshader.gdshader" id="1_l3s2c"]
+[ext_resource type="ArrayMesh" uid="uid://qybkw75qflsr" path="res://assets/models/dice/dice_black.vox" id="1_pgnn6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m3nb0"]
+render_priority = 0
+shader = ExtResource("1_l3s2c")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 20.0
+
+[node name="DICE_BLACK" type="Node3D"]
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="DiceBlack" type="MeshInstance3D" parent="Pivot"]
+material_overlay = SubResource("ShaderMaterial_m3nb0")
+mesh = ExtResource("1_pgnn6")
+skeleton = NodePath("../..")

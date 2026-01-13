@@ -61,7 +61,7 @@ func display_board():
 							mesh = KING_BLACK # setzen variable mesh auf KING_BLACK => ein schwarzer  könig wird gepsawnt
 						
 			spawn_piece(mesh, x, y, piece_id)
-			print("Spawning piece at:", x, y, mesh)
+			# print("Spawning piece at:", x, y, mesh)
 			
 func find_rotation_of_piece(piece_id):
 				# https://docs.godotengine.org/en/stable/tutorials/3d/using_transforms.html
@@ -85,20 +85,38 @@ func find_rotation_of_piece(piece_id):
 					return Vector3(deg_to_rad(90), 0, 0) # ist das pice eine 6 ?
 				return Vector3.ZERO
 								
-func spawn_piece(mesh, x, y, piece_id): # function um ein mesh zu spawnen 
-	# wir mussen nun das 3d model spawnen was dem mesh was wir oben nennen entschpricht 
-	var dice_mesh := MeshInstance3D.new() # sagen variable dice_mesh = ein 3d Mesh Objekt 
-	dice_mesh.mesh = mesh # sagen das mesh = unser vairable (KING; WEIß , SChWARZ )
-	add_child(dice_mesh) # fügen es als "kind" zur unsere main scene hinzu 
-
-	dice_mesh.global_position = _0_0.global_position + Vector3( # wir starten bei 0 0 
-		x * CELL_WIDTH + CELL_WIDTH * 0.5, # wir gehen zur x postion des würfels + die breite des würfels
-		0.0,# wir gehen nicht nach oben
-		y * CELL_WIDTH + CELL_WIDTH * 0.5 # wir gehen zur y postion des würfels + die breite des würfels
+func spawn_piece(mesh, x, y, piece_id):
+	# Create a pivot node
+	var pivot := Node3D.new()
+	add_child(pivot)
+	
+	
+	
+	# Position the pivot at the center of the cell
+	pivot.global_position = _0_0.global_position + Vector3(
+		x * CELL_WIDTH + CELL_WIDTH * 0.5,
+		0.0,
+		y * CELL_WIDTH + CELL_WIDTH * 0.5
 	)
 
-	dice_mesh.rotation = find_rotation_of_piece(piece_id) # wir rotiren den w+rfel das er immer die richtige seite zeigt
+	# Create the mesh instance as a child of the pivot
+	var dice_mesh := MeshInstance3D.new()
+	dice_mesh.mesh = mesh
+	pivot.add_child(dice_mesh)
 	
+	var collider := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = Vector3(CELL_WIDTH * 0.8, CELL_WIDTH * 0.8, CELL_WIDTH * 0.8)
+	collider.shape = box
+	dice_mesh.add_child(collider)
+	
+	# Use AABB to center mesh on pivot
+	var aabb = mesh.get_aabb()
+	dice_mesh.position = -aabb.position - aabb.size * 0.5
+
+	# Rotate the pivot instead of the mesh
+	pivot.rotation = find_rotation_of_piece(piece_id)
+
 	
 	#TOD0
 	# Fixen das die Würfel sich nicht beim rotieren bewegen : ( 
