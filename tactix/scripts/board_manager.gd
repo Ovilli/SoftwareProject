@@ -4,11 +4,13 @@ extends Node3D
 const BOARD_SIZE =  9 # 9 x 9 Board 
 const CELL_WIDTH = 1.10000002384186 # mesh size damit all genau auf ihr feld passen
 
-const BOX = preload("uid://kin1civoox8r")
-const DICE = preload("uid://cejfohddoqyog")
-const DICE_BLACK = preload("uid://qybkw75qflsr")
-const KING = preload("uid://dyg82xwpwinl3")
-const KING_BLACK = preload("uid://43g6o0d0v0yb")
+
+
+const DICE_BLACK = preload("uid://bd4l0snpnjinc")
+const DICE_BLACK_KING = preload("uid://cetr5sbfhrby0")
+const DICE = preload("uid://c7afdlm1rpk1o")
+const DICE_KING = preload("uid://cgbm78yds67ov")
+
 
 @onready var _0_0: Marker3D = $"0|0" # Marker der 0 0 markiert und woran sich alle figuren orientieren
 
@@ -46,21 +48,21 @@ func display_board():
 			if piece_id == 0:  # 0 = nichts 
 				continue
 				
-			var mesh : Mesh
+			var scene : PackedScene
 			if piece_id > 0 and piece_id < 7: # gucken ob es weiß ist 
-				mesh = DICE # setzen variable mesh auf DICE => eine weiße figur  wird gepsawnt
+				scene = DICE # setzen variable mesh auf DICE => eine weiße figur  wird gepsawnt
 			else:
 				if piece_id == 10: # gucken ob es ein könig ist 
-					mesh = KING # setzen variable mesh auf KING => ein könig wird gepsawnt
+					scene = DICE_KING # setzen variable mesh auf KING => ein könig wird gepsawnt
 				else:
 					if piece_id < 0 and piece_id > -7: # gucken ob es schwarz ist
-						mesh = DICE_BLACK # setzen variable mesh auf DICE_BLACK => eine schwarze figur wird gepsawnt
+						scene = DICE_BLACK # setzen variable mesh auf DICE_BLACK => eine schwarze figur wird gepsawnt
 					else:
 						# gucken ob es ein schwarzer könig ist 
 						if piece_id == -10:
-							mesh = KING_BLACK # setzen variable mesh auf KING_BLACK => ein schwarzer  könig wird gepsawnt
+							scene = DICE_BLACK_KING # setzen variable mesh auf KING_BLACK => ein schwarzer  könig wird gepsawnt
 						
-			spawn_piece(mesh, x, y, piece_id)
+			spawn_piece(scene, x, y, piece_id)
 			# print("Spawning piece at:", x, y, mesh)
 			
 func find_rotation_of_piece(piece_id):
@@ -85,38 +87,17 @@ func find_rotation_of_piece(piece_id):
 					return Vector3(deg_to_rad(90), 0, 0) # ist das pice eine 6 ?
 				return Vector3.ZERO
 								
-func spawn_piece(mesh, x, y, piece_id):
-	# Create a pivot node
-	var pivot := Node3D.new()
-	add_child(pivot)
-	
-	
-	
-	# Position the pivot at the center of the cell
-	pivot.global_position = _0_0.global_position + Vector3(
+func spawn_piece(scene: PackedScene, x, y, piece_id):
+	var piece_instance = scene.instantiate() as Node3D
+	add_child(piece_instance) # add to tree first
+
+	# Now you can safely use global_position
+	piece_instance.global_position = _0_0.global_position + Vector3(
 		x * CELL_WIDTH + CELL_WIDTH * 0.5,
-		0.0,
+		- CELL_WIDTH/2,
 		y * CELL_WIDTH + CELL_WIDTH * 0.5
 	)
 
-	# Create the mesh instance as a child of the pivot
-	var dice_mesh := MeshInstance3D.new()
-	dice_mesh.mesh = mesh
-	pivot.add_child(dice_mesh)
-	
-	var collider := CollisionShape3D.new()
-	var box := BoxShape3D.new()
-	box.size = Vector3(CELL_WIDTH * 0.8, CELL_WIDTH * 0.8, CELL_WIDTH * 0.8)
-	collider.shape = box
-	dice_mesh.add_child(collider)
-	
-	# Use AABB to center mesh on pivot
-	var aabb = mesh.get_aabb()
-	dice_mesh.position = -aabb.position - aabb.size * 0.5
-
-	# Rotate the pivot instead of the mesh
+	# Rotate around pivot
+	var pivot = piece_instance.get_node("Pivot") as Node3D
 	pivot.rotation = find_rotation_of_piece(piece_id)
-
-	
-	#TOD0
-	# Fixen das die Würfel sich nicht beim rotieren bewegen : ( 
