@@ -7,11 +7,10 @@ size = Vector3(0.90966797, 0.90185547, 0.9025879)
 
 [node name="Dice" type="Node3D"]
 
-[node name="Collision" type="Area3D" parent="."]
-transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0, 0, 0)
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.045166016, 0.44907227, 0.04870606)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.04516603, 0.44907233, 0.04870605)
 shape = SubResource("BoxShape3D_mdhvv")
 
 [node name="Pivot" type="Node3D" parent="."]

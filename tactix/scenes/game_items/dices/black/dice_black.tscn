@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7afdlm1rpk1o"]
+[gd_scene load_steps=3 format=3 uid="uid://ca35rikf3jygt"]
 
-[ext_resource type="ArrayMesh" uid="uid://cejfohddoqyog" path="res://assets/models/dice/dice.vox" id="1_27nyo"]
+[ext_resource type="ArrayMesh" uid="uid://qybkw75qflsr" path="res://assets/models/dice/dice_black.vox" id="1_uf7bm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s4717"]
 size = Vector3(0.90966797, 0.90185547, 0.9025879)
@@ -19,6 +19,7 @@ transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.046
 
 [node name="Dice" type="MeshInstance3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0.027957086)
-mesh = ExtResource("1_27nyo")
+mesh = ExtResource("1_uf7bm")
 skeleton = NodePath("../..")
 metadata/_edit_lock_ = true
+metadata/input_pickable = true

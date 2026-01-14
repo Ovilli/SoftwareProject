@@ -6,7 +6,8 @@ const CELL_WIDTH = 1.10000002384186 # mesh size damit all genau auf ihr feld pas
 
 
 
-const DICE_BLACK = preload("uid://bd4l0snpnjinc")
+const DICE_BLACK = preload("uid://ca35rikf3jygt")
+
 const DICE_BLACK_KING = preload("uid://cetr5sbfhrby0")
 const DICE = preload("uid://c7afdlm1rpk1o")
 const DICE_KING = preload("uid://cgbm78yds67ov")
@@ -97,6 +98,8 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 		- CELL_WIDTH/2,
 		y * CELL_WIDTH + CELL_WIDTH * 0.5
 	)
+	
+	
 
 	# Rotate around pivot
 	var pivot = piece_instance.get_node("Pivot") as Node3D
