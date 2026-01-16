@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://did22sx424q51"]
+[gd_scene load_steps=16 format=3 uid="uid://did22sx424q51"]
 
 [ext_resource type="PackedScene" uid="uid://cdb7s7mv8kosa" path="res://scenes/game_items/board.tscn" id="1_p2514"]
 [ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="2_rpywg"]
 [ext_resource type="Script" uid="uid://k43jh2dljvr1" path="res://scripts/camera_3d.gd" id="3_ef7fl"]
 [ext_resource type="Texture2D" uid="uid://ch3dhv7x8vhqy" path="res://assets/cursor/cursor.png" id="4_11nld"]
 [ext_resource type="Texture2D" uid="uid://deykoy3eeh5fv" path="res://assets/texture/kenney_prototype-textures/PNG/Dark/texture_07.png" id="5_qsdf0"]
+[ext_resource type="PackedScene" uid="uid://bnnq35t23urw5" path="res://scenes/game_items/player/player.tscn" id="6_rpywg"]
+[ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="7_ef7fl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_11nld"]
 
@@ -142,3 +144,9 @@ size = Vector3(1, 50, 90)
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Room"]
 transform = Transform3D(0.4869757, 0.6508257, 0.582478, 0, -0.66689676, 0.7451501, 0.8734155, -0.36286998, -0.32476252, 60.624634, 4.463516, 0)
+
+[node name="player" parent="." instance=ExtResource("6_rpywg")]
+transform = Transform3D(-0.9998247, 0, 0.018726327, 0, 1, 0, -0.018726327, 0, -0.9998247, 3.64848, -13.851682, 14.962184)
+
+[node name="Room2" parent="." instance=ExtResource("7_ef7fl")]
+transform = Transform3D(0.9999536, 0.009595942, 0.0008377902, -0.009561958, 0.99937737, -0.033964697, -0.0011631916, 0.0339551, 0.9994226, 0, -2.2429714, 0)

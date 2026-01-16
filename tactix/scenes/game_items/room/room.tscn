@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvpcnpov0ds1p"]
+
+[ext_resource type="Texture2D" uid="uid://deykoy3eeh5fv" path="res://assets/texture/kenney_prototype-textures/PNG/Dark/texture_07.png" id="1_jostv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ov3s4"]
+albedo_texture = ExtResource("1_jostv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i6e3"]
+albedo_texture = ExtResource("1_jostv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8nb5"]
+albedo_texture = ExtResource("1_jostv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y2bs4"]
+albedo_texture = ExtResource("1_jostv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j30lh"]
+albedo_texture = ExtResource("1_jostv")
+
+[node name="Room" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1643472, -14.005642, -3.7958689)
+material_override = SubResource("StandardMaterial3D_ov3s4")
+use_collision = true
+size = Vector3(90.85596, 1, 92.08252)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.316935, 34.97932, -4.2851095)
+material_override = SubResource("StandardMaterial3D_6i6e3")
+use_collision = true
+size = Vector3(90.55078, 1, 91.35156)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.019814, 10.592075, -3.7615564)
+material_override = SubResource("StandardMaterial3D_w8nb5")
+use_collision = true
+size = Vector3(1, 49.749878, 91.88721)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.9695435, 10.083656, 41.219418)
+material_override = SubResource("StandardMaterial3D_y2bs4")
+use_collision = true
+size = Vector3(1, 49.17865, 89.99255)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.0753174, 8.851723, -49.64746)
+material_override = SubResource("StandardMaterial3D_ov3s4")
+use_collision = true
+size = Vector3(1, 51.642517, 89.781006)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.274338, 9.779724, -3.8272285)
+material_override = SubResource("StandardMaterial3D_j30lh")
+use_collision = true
+size = Vector3(1, 50, 90)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.4869757, 0.6508257, 0.582478, 0, -0.66689676, 0.7451501, 0.8734155, -0.36286998, -0.32476252, 60.624634, 4.463516, 0)
