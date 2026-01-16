@@ -4,7 +4,7 @@ extends Node3D
 const BOARD_SIZE =  9 # 9 x 9 Board 
 const CELL_WIDTH = 1.10000002384186 # mesh size damit all genau auf ihr feld passen
 
-
+var times: int = 0
 
 const DICE_BLACK = preload("uid://ca35rikf3jygt")
 
@@ -98,9 +98,18 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 		- CELL_WIDTH/2,
 		y * CELL_WIDTH + CELL_WIDTH * 0.5
 	)
-	
+	times += 1
+
 	
 
 	# Rotate around pivot
 	var pivot = piece_instance.get_node("Pivot") as Node3D
 	pivot.rotation = find_rotation_of_piece(piece_id)
+	
+	#Custom Pice ID
+	var custom_piece_node := Node.new()
+	custom_piece_node.name = "PieceData"
+	custom_piece_node.set_meta("piece_id", piece_id)
+	custom_piece_node.set_meta("index", times)
+
+	piece_instance.add_child(custom_piece_node)
