@@ -29,7 +29,7 @@ func shoot_ray():
 	var ray_query = PhysicsRayQueryParameters3D.new()
 	ray_query.from = from
 	ray_query.to = to
-	
+	#34343
 	var raycast_result = space.intersect_ray(ray_query)
 	
 			
