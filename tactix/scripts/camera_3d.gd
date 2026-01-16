@@ -12,10 +12,6 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		yaw -= event.relative.x * sensitivity
-		pitch -= event.relative.y * sensitivity
-		pitch = clamp(pitch, -1.5, 1.5)
-		rotation = Vector3(pitch, yaw, 0)
 		shoot_ray()
 
 # this is ai ai ai ai ai ai 
@@ -38,4 +34,4 @@ func shoot_ray():
 	
 			
 	
-	#print(raycast_result)
+	print(raycast_result)

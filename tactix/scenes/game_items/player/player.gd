@@ -1,12 +1,11 @@
 extends CharacterBody3D
 
-
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED = 17.0
+const JUMP_VELOCITY = 7.0
 
 var look_dir: Vector2
 @onready var camera=$Camera3D
-var camera_sens = 50
+var camera_sens = 30
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -39,3 +38,9 @@ func _rotate_camera(delta: float, sens_mod: float= 1.0):
 	rotation.y -= look_dir.x * camera_sens * delta
 	camera.rotation.x = clamp(camera.rotation.x - look_dir.y * camera_sens * sens_mod * delta, -1.5, 1.5)
 	look_dir = Vector2.ZERO
+	
+
+	
+			
+	
+	#print(raycast_result)
