@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtr152fgi0j5n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y4eu4"]
+size = Vector3(0.90966797, 0.90185547, 0.9025879)
+
+[node name="hidden" type="Node3D"]
+
+[node name="Dice_Black" type="StaticBody3D" parent="."]
+transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dice_Black"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.045166016, 0.44907227, 0.04870606)
+shape = SubResource("BoxShape3D_y4eu4")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.046486497, 0.45895898, 0.027957082)
+
+[node name="Dice" type="MeshInstance3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0.027957086)
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+metadata/input_pickable = true

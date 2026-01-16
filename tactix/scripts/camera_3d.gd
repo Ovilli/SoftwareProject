@@ -2,39 +2,94 @@ extends Camera3D
 
 @export var sensitivity: float = 0.003
 @onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
+@onready var top_camera: Camera3D = $"../../Camera-Top"
+@onready var player_camera: Camera3D = self
+
 
 var yaw: float = 0.0
 var pitch: float = 0.0
 
 func _ready():
-	# Lock mouse for FPS-style rotation
+	# mouse locken
+	switch_to_player_camera()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 
 func _input(event):
+	if event is InputEvent and Input.is_action_just_pressed("esc"):
+		switch_to_player_camera()
+	# Mouse motion: shoot ray for hover
 	if event is InputEventMouseMotion:
 		shoot_ray()
+	# Left mouse button pressed: shoot ray for click
+	elif event is InputEventMouseButton and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event.pressed:
+		shoot_ray(true)  # Pass click flag
+		
+	
+		
 
 # this is ai ai ai ai ai ai 
 # this not
 # https://www.youtube.com/watch?v=mJRDyXsxT9g
 # shader #https://godotshaders.com/shader/clean-pixel-perfect-outline-via-material-3/
-
-func shoot_ray():
+func shoot_ray(is_click=false):
 	var mouse_pos = get_viewport().get_mouse_position()
 	var ray_length = 1000.0
 	var from = project_ray_origin(mouse_pos)
 	var to = from + project_ray_normal(mouse_pos) * ray_length
-	
+
 	var space = get_world_3d().direct_space_state
 	var ray_query = PhysicsRayQueryParameters3D.new()
 	ray_query.from = from
 	ray_query.to = to
-	
+
 	var raycast_result = space.intersect_ray(ray_query)
+	if raycast_result.is_empty():
+		return
+
+	var hit_object = raycast_result.collider
+	if hit_object == null:
+		return
+		
 	
+	check_for_piece_data(hit_object, is_click)
+
+func check_for_piece_data(node: Node, is_click=false):
+	if node == null:
+		return
+
+	# Second: check for PieceData up the parent chain
+	var current = node
+	while current != null:
+		
+		current = current.get_parent()
+		
+		if current.has_node("PieceData"):
+			var piece_data = current.get_node("PieceData")
+			var piece_id = piece_data.get_meta("piece_id")
+			var index = piece_data.get_meta("index")
+			if is_click:
+				select_or_move_piece()
+			print(piece_id, "|", index)
+			return
 			
-	if raycast_result:
-		var hit_object = raycast_result["collider"]
-		if hit_object:
-			if hit_object.name == "Dice_Black":
-				print("Black") 
+		if current.name == "Tabel" and current is Node3D:
+			if is_click:
+				switch_to_top_camera()
+			return
+
+		current = current.get_parent()
+
+
+func select_or_move_piece():
+	print("Nice")
+
+
+func switch_to_top_camera():
+	player_camera.current = false
+	top_camera.current = true
+	
+	
+func switch_to_player_camera():
+	player_camera.current = true
+	top_camera.current = false

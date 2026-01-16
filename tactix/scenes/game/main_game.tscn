@@ -2,15 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://cdb7s7mv8kosa" path="res://scenes/game_items/board.tscn" id="1_p2514"]
 [ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="2_rpywg"]
-[ext_resource type="Script" uid="uid://k43jh2dljvr1" path="res://scripts/camera_3d.gd" id="3_ef7fl"]
 [ext_resource type="Texture2D" uid="uid://ch3dhv7x8vhqy" path="res://assets/cursor/cursor.png" id="4_11nld"]
+[ext_resource type="AudioStream" uid="uid://dr74sh8vbo1cv" path="res://assets/sounds/jazz-lounge-elevator-music-332339.mp3" id="6_ef7fl"]
 [ext_resource type="PackedScene" uid="uid://bnnq35t23urw5" path="res://scenes/game_items/player/player.tscn" id="6_rpywg"]
 [ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="7_ef7fl"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_11nld"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_p2514"]
-size = Vector3(3.8615723, 5.709839, 3.9824219)
 
 [sub_resource type="Environment" id="Environment_d2op2"]
 fog_light_color = Color(1, 1, 1, 1)
@@ -19,23 +14,18 @@ fog_sky_affect = 0.0
 adjustment_enabled = true
 adjustment_saturation = 0.01
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_11nld"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p2514"]
+size = Vector3(3.8615723, 5.709839, 3.9824219)
+
 [node name="Main-Game" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.99765456, -0.019564716, -0.065594964, 0.06845063, 0.2851519, 0.95603526, 2.4334446e-09, -0.9582829, 0.28582227, 0, -7.401053, -2.1744833)
 
 [node name="Board" parent="." instance=ExtResource("1_p2514")]
-
-[node name="Tabel" type="MeshInstance3D" parent="."]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 5, -13.116686, -6)
-material_overlay = SubResource("ShaderMaterial_11nld")
-mesh = ExtResource("2_rpywg")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Tabel"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09222412)
-shape = SubResource("BoxShape3D_p2514")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1647048, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_d2op2")
@@ -58,10 +48,6 @@ spot_angle_attenuation = 0.21022487
 
 [node name="Camera-Pivot" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
-
-[node name="Camera3D AI AI AI" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3745437, 3.8388739, 6.5361857)
-script = ExtResource("3_ef7fl")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -94,8 +80,31 @@ texture = ExtResource("4_11nld")
 stretch_mode = 4
 metadata/_edit_use_anchors_ = true
 
-[node name="player" parent="." instance=ExtResource("6_rpywg")]
+[node name="Player" parent="." instance=ExtResource("6_rpywg")]
 transform = Transform3D(-0.9998247, 0, 0.018726327, 0, 1, 0, -0.018726327, 0, -0.9998247, 3.64848, -13.851682, 14.962184)
 
 [node name="Room2" parent="." instance=ExtResource("7_ef7fl")]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, -2.2429714, 0)
+
+[node name="Camera-Top" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 4.8095465, 8.433849, -4.9821086)
+fov = 66.7
+
+[node name="Tabel" type="Node3D" parent="."]
+
+[node name="Tabel" type="MeshInstance3D" parent="Tabel"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 5, -13.116686, -6)
+material_overlay = SubResource("ShaderMaterial_11nld")
+mesh = ExtResource("2_rpywg")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tabel/Tabel"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/Tabel/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09222412)
+shape = SubResource("BoxShape3D_p2514")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_ef7fl")
+volume_db = -20.0
+autoplay = true

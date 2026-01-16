@@ -5,13 +5,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_6g0du"]
 size = Vector3(0.90966797, 0.90185547, 0.9025879)
 
-[node name="Dice" type="Node3D"]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.04516603, 0.44907233, 0.04870605)
-shape = SubResource("BoxShape3D_6g0du")
+[node name="Dice" type="StaticBody3D"]
 
 [node name="Pivot" type="Node3D" parent="."]
 transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.046486497, 0.45895898, 0.027957082)
@@ -21,3 +15,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0
 mesh = ExtResource("1_6g0du")
 skeleton = NodePath("../..")
 metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.04516603, 0.44907233, 0.04870605)
+shape = SubResource("BoxShape3D_6g0du")

@@ -7,6 +7,7 @@ const CELL_WIDTH = 1.10000002384186 # mesh size damit all genau auf ihr feld pas
 var times: int = 0
 
 const DICE_BLACK = preload("uid://ca35rikf3jygt")
+const HIDDEN = preload("uid://dtr152fgi0j5n")
 
 const DICE_BLACK_KING = preload("uid://cetr5sbfhrby0")
 const DICE = preload("uid://c7afdlm1rpk1o")
@@ -21,6 +22,7 @@ var board : Array = [] # an list of all positions of the board aswell as what pi
 var players_state := true # if true player is selecting , if false player confirmed turn
 
 # num with an + are white / num with an - are black 
+
 
 func load_board():
 	print("Cleard the Board")
@@ -38,7 +40,9 @@ func load_board():
 	display_board()
 
 func _ready():
+	times = 0
 	load_board()
+	
 	
 
 func display_board():
@@ -46,10 +50,12 @@ func display_board():
 	for x in range(BOARD_SIZE):
 		for y in range(BOARD_SIZE):
 			var piece_id = board[x][y]
-			if piece_id == 0:  # 0 = nichts 
-				continue
+			
 				
 			var scene : PackedScene
+			if piece_id == 0:  # 0 = nichts 
+				scene = HIDDEN
+				
 			if piece_id > 0 and piece_id < 7: # gucken ob es weiß ist 
 				scene = DICE # setzen variable mesh auf DICE => eine weiße figur  wird gepsawnt
 			else:
@@ -90,9 +96,9 @@ func find_rotation_of_piece(piece_id):
 								
 func spawn_piece(scene: PackedScene, x, y, piece_id):
 	var piece_instance = scene.instantiate() as Node3D
-	add_child(piece_instance) # add to tree first
+	add_child(piece_instance)
 
-	# Now you can safely use global_position
+	# setze die globale position
 	piece_instance.global_position = _0_0.global_position + Vector3(
 		x * CELL_WIDTH + CELL_WIDTH * 0.5,
 		- CELL_WIDTH/2,
@@ -102,14 +108,52 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 
 	
 
-	# Rotate around pivot
+	# rotitire am pivot
 	var pivot = piece_instance.get_node("Pivot") as Node3D
 	pivot.rotation = find_rotation_of_piece(piece_id)
 	
-	#Custom Pice ID
-	var custom_piece_node := Node.new()
-	custom_piece_node.name = "PieceData"
-	custom_piece_node.set_meta("piece_id", piece_id)
-	custom_piece_node.set_meta("index", times)
+	#Custom Pice ID ebscpeicher in der meta 
+	var piece_data := Node.new()
+	piece_data.name = "PieceData"
+	piece_data.set_meta("piece_id", piece_id)
+	piece_data.set_meta("index", times)
+	piece_data.set_meta("x", x)
+	piece_data.set_meta("y", y)
+	piece_instance.add_child(piece_data)
 
-	piece_instance.add_child(custom_piece_node)
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_accept"):
+		print("cleard")
+		board_clear()
+
+func board_clear():
+	# Reset das board mit nur 000000
+	board.clear()
+	for x in range(BOARD_SIZE):
+		board.append([])
+		for y in range(BOARD_SIZE):
+			board[x].append(0)
+
+	# update das board
+	update_board()
+
+
+func update_board():
+	# Loop für jedes pieces
+	for piece in get_children():
+		if piece.has_node("PieceData"):
+			var pd = piece.get_node("PieceData")
+
+			# überspringe pieces mit kiner meta data
+			if not pd.has_meta("x") or not pd.has_meta("y") or not pd.has_meta("piece_id"):
+				continue
+
+			var x = pd.get_meta("x")
+			var y = pd.get_meta("y")
+			var piece_id = pd.get_meta("piece_id")
+
+			# sichererheit check von ai ai ai 
+			if x >= 0 and x < BOARD_SIZE and y >= 0 and y < BOARD_SIZE:
+				board[x][y] = piece_id
