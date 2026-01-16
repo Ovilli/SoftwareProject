@@ -33,5 +33,7 @@ func shoot_ray():
 	var raycast_result = space.intersect_ray(ray_query)
 	
 			
-	
-	print(raycast_result)
+	if raycast_result:
+		var hit_object = raycast_result["collider"]
+		#if hit_object:
+			#if hit_object.name == "Dice_Black":

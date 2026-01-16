@@ -12,7 +12,9 @@ height = 29.062378
 script = ExtResource("1_8ga58")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.9998657, 0, -0.016387833, 0, 1, 0, 0.016387833, 0, -0.9998657, 0.021692842, 20.115135, 8.083113)
+transform = Transform3D(-0.9998657, 0, -0.016387833, 0, 1, 0, 0.016387833, 0, -0.9998657, 0, 19, 6)
+keep_aspect = 0
+v_offset = -1.0
 current = true
 fov = 92.0
 script = ExtResource("2_kinl7")
