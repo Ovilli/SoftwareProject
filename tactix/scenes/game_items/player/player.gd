@@ -29,7 +29,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	_rotate_camera(delta)
 	move_and_slide()
-	
+	#äaisdjijaisjdasjdoasdoaisjdoiasdjoaisdj
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion: look_dir = event.relative * 0.01
 
