@@ -26,3 +26,6 @@ mesh = ExtResource("1_m66te")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42951918, 13.539988, 1.7320738)
 shape = SubResource("CapsuleShape3D_kinl7")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+    
