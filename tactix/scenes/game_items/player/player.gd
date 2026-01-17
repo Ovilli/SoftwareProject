@@ -4,12 +4,17 @@ const SPEED = 17.0
 const JUMP_VELOCITY = 7.0
 var look_dir: Vector2
 @onready var camera=$Camera3D
-var camera_sens = 20
+var camera_sens = Globals.SENS
 const walking = preload("uid://bdpbbr32ie2mo")
 @onready var sfx: AudioStreamPlayer = $Sfx
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
+	if camera.fov != Globals.FOV:
+		camera.fov = Globals.FOV
+		
+	if camera_sens != Globals.SENS:
+		camera_sens = Globals.SENS
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 

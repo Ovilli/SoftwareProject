@@ -1,6 +1,9 @@
 extends Node
 
 var options_open := false
+var FOV := 90
+var SENS := 20
+var main_menu := false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.

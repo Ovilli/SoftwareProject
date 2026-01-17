@@ -11,9 +11,6 @@ const SELECT = preload("uid://d4nncgwclo7yu")
 const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
 
 
-
-
-
 var yaw: float = 0.0
 var pitch: float = 0.0
 

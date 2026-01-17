@@ -36,7 +36,6 @@ size = Vector3(3.8615723, 5.709839, 3.9824219)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPlaylist_25xmc")
-volume_db = -30.0
 autoplay = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -123,3 +122,5 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/Tabel/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09222412)
 shape = SubResource("BoxShape3D_p2514")
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]

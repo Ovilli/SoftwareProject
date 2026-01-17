@@ -18,7 +18,7 @@ transform = Transform3D(-0.9998657, 0, -0.016387833, 0, 1, 0, 0.016387833, 0, -0
 keep_aspect = 0
 v_offset = -1.0
 current = true
-fov = 92.0
+fov = 90.0
 script = ExtResource("2_kinl7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
