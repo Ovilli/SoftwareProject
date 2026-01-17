@@ -1,11 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://did22sx424q51"]
+[gd_scene load_steps=14 format=3 uid="uid://did22sx424q51"]
 
 [ext_resource type="PackedScene" uid="uid://cdb7s7mv8kosa" path="res://scenes/game_items/board.tscn" id="1_p2514"]
+[ext_resource type="AudioStream" uid="uid://w1amtigquqd7" path="res://assets/sounds/lounge-jazz-elevator-music-372734.mp3" id="2_11nld"]
 [ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="2_rpywg"]
+[ext_resource type="AudioStream" uid="uid://cb2wk80llpl5y" path="res://assets/sounds/elevator-music-bossa-nova-background-music-version-60s-10900.mp3" id="3_qsdf0"]
 [ext_resource type="Texture2D" uid="uid://ch3dhv7x8vhqy" path="res://assets/cursor/cursor.png" id="4_11nld"]
 [ext_resource type="AudioStream" uid="uid://dr74sh8vbo1cv" path="res://assets/sounds/jazz-lounge-elevator-music-332339.mp3" id="6_ef7fl"]
 [ext_resource type="PackedScene" uid="uid://bnnq35t23urw5" path="res://scenes/game_items/player/player.tscn" id="6_rpywg"]
 [ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="7_ef7fl"]
+[ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/options.tscn" id="9_qsdf0"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_25xmc"]
+shuffle = true
+stream_count = 4
+stream_0 = ExtResource("6_ef7fl")
+stream_1 = ExtResource("6_ef7fl")
+stream_2 = ExtResource("2_11nld")
+stream_3 = ExtResource("3_qsdf0")
 
 [sub_resource type="Environment" id="Environment_d2op2"]
 fog_light_color = Color(1, 1, 1, 1)
@@ -20,6 +31,12 @@ adjustment_saturation = 0.01
 size = Vector3(3.8615723, 5.709839, 3.9824219)
 
 [node name="Main-Game" type="Node3D"]
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPlaylist_25xmc")
+autoplay = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.99765456, -0.019564716, -0.065594964, 0.06845063, 0.2851519, 0.95603526, 2.4334446e-09, -0.9582829, 0.28582227, 0, -7.401053, -2.1744833)
@@ -48,6 +65,8 @@ spot_angle_attenuation = 0.21022487
 
 [node name="Camera-Pivot" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
+
+[node name="Options" parent="." instance=ExtResource("9_qsdf0")]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -103,8 +122,3 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/Tabel/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09222412)
 shape = SubResource("BoxShape3D_p2514")
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("6_ef7fl")
-volume_db = -20.0
-autoplay = true

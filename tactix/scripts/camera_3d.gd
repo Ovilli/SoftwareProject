@@ -4,6 +4,9 @@ extends Camera3D
 @onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
 @onready var top_camera: Camera3D = $"../../Camera-Top"
 @onready var player_camera: Camera3D = self
+const OPEN = preload("uid://u3nth41qu6lu")
+@onready var sfx: AudioStreamPlayer = $"../../SFX"
+@onready var options: Control = $"../../Options"
 
 
 var yaw: float = 0.0
@@ -13,11 +16,26 @@ func _ready():
 	# mouse locken
 	switch_to_player_camera()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	options.hide()
+	print(options, options.visible)
 	
 
 func _input(event):
-	if event is InputEvent and Input.is_action_just_pressed("esc"):
+	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false:
+		if Globals.options_open == false and player_camera.current == true:
+			options.show()
+			Globals.options_open = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			
+		if player_camera.current == false:
+			sfx.stream = OPEN
+			sfx.play()
 		switch_to_player_camera()
+		
+			
+			
+			
+		
 	# Mouse motion: shoot ray for hover
 	if event is InputEventMouseMotion:
 		shoot_ray()
@@ -79,7 +97,9 @@ func check_for_piece_data(node: Node, is_click=false):
 		
 		# Special check for board/table click
 		if current.name == "Tabel" and current is Node3D:
-			if is_click:
+			if is_click and player_camera.current == true and Globals.options_open == false:
+				sfx.stream = OPEN
+				sfx.play()
 				switch_to_top_camera()
 			return
 		
