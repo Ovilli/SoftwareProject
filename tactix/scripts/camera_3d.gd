@@ -69,8 +69,17 @@ func check_for_piece_data(node: Node, is_click=false):
 			var piece_id = piece_data.get_meta("piece_id")
 			var index = piece_data.get_meta("index")
 			if is_click:
-				select_or_move_piece()
-			print(piece_id, "|", index)
+				if TurnMng.current_turn == TurnMng.player.p_white:
+					if piece_id <= 1:
+						print("not your piece")
+					else:
+						select_piece()
+				if TurnMng.current_turn == TurnMng.player.p_black:
+					if piece_id >= 1:
+						print("not your piece")
+					else:
+						select_piece()
+				print(piece_id, "|", index)
 			return
 			
 		if current.name == "Tabel" and current is Node3D:
@@ -81,8 +90,10 @@ func check_for_piece_data(node: Node, is_click=false):
 		current = current.get_parent()
 
 
-func select_or_move_piece():
-	print("Nice")
+func select_piece():
+	print("selected a piece")
+	
+
 
 
 func switch_to_top_camera():
