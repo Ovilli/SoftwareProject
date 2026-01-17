@@ -5,6 +5,8 @@ const JUMP_VELOCITY = 7.0
 var look_dir: Vector2
 @onready var camera=$Camera3D
 var camera_sens = 20
+const walking = preload("uid://bdpbbr32ie2mo")
+@onready var sfx: AudioStreamPlayer = $Sfx
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -24,6 +26,8 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
 		else:
+			sfx.stream = walking
+			sfx.play()
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
 		_rotate_camera(delta)

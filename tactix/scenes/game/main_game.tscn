@@ -36,6 +36,7 @@ size = Vector3(3.8615723, 5.709839, 3.9824219)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPlaylist_25xmc")
+volume_db = -30.0
 autoplay = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

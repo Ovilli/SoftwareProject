@@ -7,6 +7,11 @@ extends Camera3D
 const OPEN = preload("uid://u3nth41qu6lu")
 @onready var sfx: AudioStreamPlayer = $"../../SFX"
 @onready var options: Control = $"../../Options"
+const SELECT = preload("uid://d4nncgwclo7yu")
+const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
+
+
+
 
 
 var yaw: float = 0.0
@@ -83,16 +88,22 @@ func check_for_piece_data(node: Node, is_click=false):
 			
 			if is_click:
 				if TurnMng.current_turn == TurnMng.player.p_white:
-					if piece_id <= 0:
+					if piece_id < 0:
 						print("not your piece")
+						sfx.stream = WRONG_SELECT
+						sfx.play()
 					else:
 						select_piece()
 				elif TurnMng.current_turn == TurnMng.player.p_black:	
-					if piece_id >= 0:
+					if piece_id > 0:
 						print("not your piece")
+						sfx.stream = WRONG_SELECT
+						sfx.play()
 					else:
 						select_piece()
 				print(piece_id, "|", index)
+				
+				
 			return
 		
 		# Special check for board/table click
@@ -109,9 +120,9 @@ func check_for_piece_data(node: Node, is_click=false):
 
 func select_piece():
 	print("selected a piece")
+	sfx.stream = SELECT
+	sfx.play()
 	
-
-
 
 func switch_to_top_camera():
 	player_camera.current = false

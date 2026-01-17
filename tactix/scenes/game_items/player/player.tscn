@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnnq35t23urw5"]
+[gd_scene load_steps=6 format=3 uid="uid://bnnq35t23urw5"]
 
 [ext_resource type="Script" uid="uid://4r4ib3eoofm8" path="res://scenes/game_items/player/player.gd" id="1_8ga58"]
 [ext_resource type="ArrayMesh" uid="uid://w1sxwhtt737n" path="res://assets/models/player/player.vox" id="1_m66te"]
@@ -7,6 +7,8 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kinl7"]
 radius = 4.913086
 height = 29.062378
+
+[sub_resource type="AudioStream" id="AudioStream_kinl7"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_8ga58")
@@ -27,5 +29,6 @@ mesh = ExtResource("1_m66te")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42951918, 13.539988, 1.7320738)
 shape = SubResource("CapsuleShape3D_kinl7")
 
-[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
-    
+[node name="Sfx" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStream_kinl7")
+volume_db = -15.0
