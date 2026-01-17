@@ -55,38 +55,35 @@ func shoot_ray(is_click=false):
 	check_for_piece_data(hit_object, is_click)
 
 func check_for_piece_data(node: Node, is_click=false):
-	if node == null:
-		return
-
-	# Second: check for PieceData up the parent chain
 	var current = node
 	while current != null:
-		
-		current = current.get_parent()
-		
+		# Check current node first before moving up
 		if current.has_node("PieceData"):
 			var piece_data = current.get_node("PieceData")
-			var piece_id = piece_data.get_meta("piece_id")
-			var index = piece_data.get_meta("index")
+			var piece_id = int(piece_data.get_meta("piece_id"))
+			var index = int(piece_data.get_meta("index"))
+			
 			if is_click:
 				if TurnMng.current_turn == TurnMng.player.p_white:
-					if piece_id <= 1:
+					if piece_id <= 0:
 						print("not your piece")
 					else:
 						select_piece()
-				if TurnMng.current_turn == TurnMng.player.p_black:
-					if piece_id >= 1:
+				elif TurnMng.current_turn == TurnMng.player.p_black:	
+					if piece_id >= 0:
 						print("not your piece")
 					else:
 						select_piece()
 				print(piece_id, "|", index)
 			return
-			
+		
+		# Special check for board/table click
 		if current.name == "Tabel" and current is Node3D:
 			if is_click:
 				switch_to_top_camera()
 			return
-
+		
+		# Move up the hierarchy
 		current = current.get_parent()
 
 
