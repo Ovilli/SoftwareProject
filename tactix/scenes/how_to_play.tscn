@@ -8,7 +8,7 @@ shader = ExtResource("1_d4i75")
 shader_parameter/amount = 1.48400007049
 
 [node name="How_to_Play" type="Control"]
-layout_mode = 3 
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
