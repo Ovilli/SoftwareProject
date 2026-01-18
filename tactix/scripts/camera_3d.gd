@@ -89,8 +89,9 @@ func check_for_piece_data(node: Node, is_click=false):
 						print("not your piece")
 						sfx.stream = WRONG_SELECT
 						sfx.play()
+						print(piece_id, "|", index)
 					else:
-						TurnMng.select_piece(piece_id, index)
+						TurnMng.move_piece(piece_id, index)
 						sfx.stream = SELECT
 						sfx.play()
 				elif TurnMng.current_turn == TurnMng.player.p_black:	
@@ -99,7 +100,7 @@ func check_for_piece_data(node: Node, is_click=false):
 						sfx.stream = WRONG_SELECT
 						sfx.play()
 					else:
-						TurnMng.select_piece(piece_id, index)
+						TurnMng.move_piece(piece_id, index)
 						sfx.stream = SELECT
 						sfx.play()
 			return

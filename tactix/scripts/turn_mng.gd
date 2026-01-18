@@ -22,7 +22,7 @@ func start_turn():
 			#controlls
 		player.p_black:
 			print("b")
-func select_piece(piece_id, index):
+func move_piece(piece_id, index):
 	print(piece_id, "|", index)
 	
 	#print("selected a piece")
