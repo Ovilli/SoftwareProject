@@ -1,28 +1,19 @@
 extends Node3D
 
-
-const BOARD_SIZE =  9 # 9 x 9 Board 
-const CELL_WIDTH = 1.10000002384186 # mesh size damit all genau auf ihr feld passen
-
+# Variabels
+const BOARD_SIZE =  9 
+const CELL_WIDTH = 1.10000002384186
 var times: int = 0
-
+var board : Array = [] 
+#Paths
 const DICE_BLACK = preload("uid://ca35rikf3jygt")
 const HIDDEN = preload("uid://dtr152fgi0j5n")
-
 const DICE_BLACK_KING = preload("uid://cetr5sbfhrby0")
 const DICE = preload("uid://c7afdlm1rpk1o")
 const DICE_KING = preload("uid://cgbm78yds67ov")
-
-
-@onready var _0_0: Marker3D = $"0|0" # Marker der 0 0 markiert und woran sich alle figuren orientieren
-
-
-var players_turn := true  # if true it is  whites trun , if false it is  blacks turn 
-var board : Array = [] # an list of all positions of the board aswell as what pice is on it 
-var players_state := true # if true player is selecting , if false player confirmed turn
+@onready var _0_0: Marker3D = $"0|0"
 
 # num with an + are white / num with an - are black 
-
 
 func load_board():
 	print("Cleard the Board")
@@ -44,9 +35,6 @@ func _ready():
 	load_board()
 	if !multiplayer.is_server():
 		return
-
-	
-	
 
 func display_board():
 	print("Displaying Board")

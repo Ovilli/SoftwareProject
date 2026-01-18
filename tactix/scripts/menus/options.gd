@@ -1,6 +1,6 @@
 extends Control
 
-
+#Paths
 @onready var canvas_layer: CanvasLayer = $"../Control/CanvasLayer"
 
 
@@ -26,7 +26,6 @@ func _on_exit_pressed() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
 
 func _on_music_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(0, value)

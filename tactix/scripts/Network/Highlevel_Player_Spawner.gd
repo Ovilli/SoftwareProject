@@ -1,53 +1,38 @@
 extends MultiplayerSpawner
 
+# Variabels
 @export var player_scene: PackedScene
 @export var spawn_points: Array[Node3D] = []
 @export var use_random_spawn := true
-
-var spawned_players: Dictionary = {}  # Track spawned players by peer_id
-var spawn_queue: Array[int] = []  # Queue of peer IDs waiting to spawn
+var spawned_players: Dictionary = {} 
+var spawn_queue: Array[int] = []
 
 func _ready() -> void:
-	# Configure the MultiplayerSpawner
 	spawn_path = get_parent().get_path()
-	
-	# Set up custom spawn function
 	spawn_function = _custom_spawn
 	
-	# Add player scene to spawnable scenes
 	if player_scene:
 		add_spawnable_scene(player_scene.resource_path)
-	
-	# Connect spawn signal
 	spawned.connect(_on_spawned)
-	
 	add_to_group("player_spawner")
-	print("MultiplayerSpawner ready")
 
-# Custom spawn function called by MultiplayerSpawner
 func _custom_spawn(data: Variant) -> Node:
 	var peer_id = data as int
 	
 	if player_scene == null:
-		print("ERROR: player_scene not assigned!")
 		return null
 	
-	# Check if already spawned to prevent duplicates
 	if spawned_players.has(peer_id):
 		print("Player already exists for peer ", peer_id, ", returning existing")
 		return spawned_players[peer_id]
 	
-	# Instantiate player
 	var player = player_scene.instantiate()
 	player.name = str(peer_id)
 	
-	# **CRITICAL: Set multiplayer authority so the client controls their own player**
 	player.set_multiplayer_authority(peer_id)
 	
-	# Track BEFORE getting position so count is correct
 	spawned_players[peer_id] = player
 	
-	# Set spawn position
 	var spawn_position = _get_spawn_position(peer_id)
 	if player is Node3D:
 		player.position = spawn_position
@@ -59,26 +44,19 @@ func _custom_spawn(data: Variant) -> Node:
 
 func _on_spawned(node: Node) -> void:
 	var peer_id = int(node.name)
-	# Don't add again if already tracked
 	if not spawned_players.has(peer_id):
 		spawned_players[peer_id] = node
-	print("Player spawned via MultiplayerSpawner: ", node.name, " with authority: ", node.get_multiplayer_authority())
 
-# Public method called by NetworkManager
 func spawn_player(peer_id: int) -> Node:
 	if spawned_players.has(peer_id):
-		print("WARNING: Player already spawned for peer ", peer_id)
 		return spawned_players[peer_id]
 	
 	var existing = get_parent().get_node_or_null(str(peer_id))
 	if existing:
-		print("WARNING: Player node already exists for peer ", peer_id)
-		# Ensure authority is set correctly even for existing nodes
 		existing.set_multiplayer_authority(peer_id)
 		spawned_players[peer_id] = existing
 		return existing
 	
-	# Use MultiplayerSpawner's spawn method with peer_id as data
 	var player = spawn(peer_id)
 	
 	if player:

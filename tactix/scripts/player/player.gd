@@ -1,15 +1,18 @@
 extends CharacterBody3D
 
+#Variabels
 const BASE_SPEED := 17.0
 const SPRINT_MULTIPLIER := 3
 const JUMP_VELOCITY = 7.0
 var speed := BASE_SPEED
 var look_dir: Vector2
-@onready var camera = $Camera3D
 var camera_sens = Globals.SENS
+
+#Paths
 const walking = preload("uid://bdpbbr32ie2mo")
 @onready var sfx: AudioStreamPlayer = $Sfx
 @onready var speedlines: CanvasLayer = $"../Control/Speedlines"
+@onready var camera = $Camera3D
 
 func _ready() -> void:
 	# Only enable camera for the player we control
@@ -20,7 +23,6 @@ func _ready() -> void:
 			camera.current = false
 
 func _physics_process(delta: float) -> void:
-	# Only process input if we are the authority (owner) of this character
 	if not is_multiplayer_authority():
 		return
 	

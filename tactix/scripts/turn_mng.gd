@@ -1,10 +1,10 @@
 extends Node
 
-
+# Variabels
 enum player {p_black, p_white}
 var current_turn : player =player.p_white
 var game_over : bool=false
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	start_turn()
 

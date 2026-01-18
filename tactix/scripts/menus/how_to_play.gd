@@ -1,8 +1,10 @@
 extends Control
 
+#Variabels
 var PAGE := 0
 var PAGES := []
 
+#Paths
 @onready var canvas_layer: CanvasLayer = $"../Control/CanvasLayer"
 @onready var play_canvas: CanvasLayer = $Play_Canvas
 
@@ -15,8 +17,6 @@ func _ready() -> void:
 	for child in dieces.get_children():
 		if child and child is Control:
 			PAGES.append(child)
-		else:
-			print("Skipped a child in Dieces because it's null or not a Control")
 
 	# Board page
 	var board := $Play_Canvas.get_node_or_null("Board")
@@ -29,9 +29,7 @@ func _ready() -> void:
 	var ruels := $Play_Canvas.get_node_or_null("Ruels")
 	if ruels and ruels is Control:
 		PAGES.append(ruels)
-	else:
-		print("Ruels node missing or not Control")
-
+		
 	_show_current_page()
 	_sync_canvas_visibility()
 
@@ -53,7 +51,7 @@ func _on_next_pressed() -> void:
 		return
 	PAGE += 1
 	if PAGE >= PAGES.size():
-		PAGE = 0  # loop back
+		PAGE = 0
 	_show_current_page()
 
 func _show_current_page() -> void:
@@ -64,9 +62,6 @@ func _show_current_page() -> void:
 			page.hide()
 	if PAGE >= 0 and PAGE < PAGES.size() and PAGES[PAGE]:
 		PAGES[PAGE].show()
-
-
-
 
 func _on_exit_pressed() -> void:
 	Globals.how_to_open = false

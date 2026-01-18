@@ -1,17 +1,19 @@
 extends Camera3D
 
-
+#Variabels
 @export var sensitivity: float = 0.003
-@onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
 @onready var player_camera: Camera3D = self
+
+#Sounds
 const OPEN = preload("uid://u3nth41qu6lu")
 const SELECT = preload("uid://d4nncgwclo7yu")
 const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
+
+#Paths
 @onready var top_camera = get_node("/root/Main-Game/Camera-Top")
 @onready var options = get_node("/root/Main-Game/Options")
+@onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
 @onready var sfx = get_node("../Sfx")
-
-
 
 
 var yaw: float = 0.0
@@ -22,7 +24,6 @@ func _ready():
 	switch_to_player_camera()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	options.hide()
-	
 
 func _input(event):
 	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false:
@@ -36,23 +37,13 @@ func _input(event):
 			sfx.play()
 			Globals.tisch_open = false
 			switch_to_player_camera()
-		
 			
-			
-			
-		
 	# Mouse motion: shoot ray for hover
 	if event is InputEventMouseMotion:
 		shoot_ray()
 	# Left mouse button pressed: shoot ray for click
 	elif event is InputEventMouseButton and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event.pressed:
 		shoot_ray(true)  # Pass click flag
-		
-	
-		
-
-# this is ai ai ai ai ai ai 
-# this not
 # https://www.youtube.com/watch?v=mJRDyXsxT9g
 # shader #https://godotshaders.com/shader/clean-pixel-perfect-outline-via-material-3/
 func shoot_ray(is_click=false):
@@ -119,14 +110,11 @@ func check_for_piece_data(node: Node, is_click=false):
 		
 		# Move up the hierarchy
 		current_node = current_node.get_parent()
-
-
+		
 func switch_to_top_camera():
 	player_camera.current = false
 	top_camera.current = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-
-
 
 
 func switch_to_player_camera():

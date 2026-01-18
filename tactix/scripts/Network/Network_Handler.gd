@@ -1,7 +1,8 @@
 extends Node
 
+#Variabels
 const IP_ADDRESS := "127.0.0.1"
-const PORT := 42069
+var PORT := 42069
 const MAX_PLAYERS := 2
 
 var peer: ENetMultiplayerPeer
@@ -13,7 +14,6 @@ func _ready() -> void:
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
-# --- SERVER ---
 func start_server() -> void:
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(PORT, MAX_PLAYERS)
@@ -30,7 +30,6 @@ func start_server() -> void:
 	await get_tree().process_frame
 	_spawn_player(multiplayer.get_unique_id())
 
-# --- CLIENT ---
 func start_client() -> void:
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(IP_ADDRESS, PORT)
@@ -42,12 +41,9 @@ func start_client() -> void:
 	multiplayer.multiplayer_peer = peer
 	print("Client connecting to ", IP_ADDRESS, ":", PORT)
 
-# --- CALLBACKS ---
 func _on_peer_connected(id: int) -> void:
 	print("Peer connected: ", id)
 	
-	# CRITICAL FIX: Only server spawns players
-	# Without this check, both server AND client try to spawn, creating duplicates
 	if not multiplayer.is_server():
 		return
 	
@@ -77,7 +73,6 @@ func _on_server_disconnected() -> void:
 	print("Server disconnected!")
 	peer = null
 
-# --- SPAWN LOGIC ---
 func _spawn_player(peer_id: int) -> void:
 	var spawner = get_tree().get_first_node_in_group("player_spawner")
 	
@@ -101,9 +96,6 @@ func _remove_player(peer_id: int) -> void:
 	
 	# Fallback: Try multiple possible parent nodes
 	var possible_parents = [
-		"/root/Main-Game",
-		"/root/Game",
-		"/root/World",
 		get_tree().current_scene
 	]
 	
@@ -117,8 +109,7 @@ func _remove_player(peer_id: int) -> void:
 				return
 	
 	print("Player node not found for peer: ", peer_id)
-
-
+	
 func get_player_count() -> int:
 	return multiplayer.get_peers().size() + (1 if multiplayer.multiplayer_peer else 0)
 
