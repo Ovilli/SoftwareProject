@@ -1,5 +1,6 @@
 extends Node
 
+
 enum player {p_black, p_white}
 var current_turn : player =player.p_white
 var game_over : bool=false
@@ -21,7 +22,8 @@ func start_turn():
 			#controlls
 		player.p_black:
 			print("b")
-			#controlls
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-	#print(current_turn)
+func select_piece(piece_id, index):
+	print(piece_id, "|", index)
+	
+	#print("selected a piece")
+	

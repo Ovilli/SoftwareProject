@@ -90,17 +90,18 @@ func check_for_piece_data(node: Node, is_click=false):
 						sfx.stream = WRONG_SELECT
 						sfx.play()
 					else:
-						select_piece()
+						TurnMng.select_piece(piece_id, index)
+						sfx.stream = SELECT
+						sfx.play()
 				elif TurnMng.current_turn == TurnMng.player.p_black:	
 					if piece_id > 0:
 						print("not your piece")
 						sfx.stream = WRONG_SELECT
 						sfx.play()
 					else:
-						select_piece()
-				print(piece_id, "|", index)
-				
-				
+						TurnMng.select_piece(piece_id, index)
+						sfx.stream = SELECT
+						sfx.play()
 			return
 		
 		# Special check for board/table click
@@ -114,12 +115,6 @@ func check_for_piece_data(node: Node, is_click=false):
 		# Move up the hierarchy
 		current = current.get_parent()
 
-
-func select_piece():
-	print("selected a piece")
-	sfx.stream = SELECT
-	sfx.play()
-	
 
 func switch_to_top_camera():
 	player_camera.current = false
