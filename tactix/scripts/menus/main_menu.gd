@@ -8,7 +8,7 @@ func _ready() -> void:
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
-func _process(delta):
+func _process(_delta):
 	if Globals.how_to_open == true or Globals.options_open == true or Globals.muliplayer_open == true:
 		hide()
 	else:

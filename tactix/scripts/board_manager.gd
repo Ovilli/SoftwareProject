@@ -126,7 +126,7 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		print("cleard")
 		board_clear()

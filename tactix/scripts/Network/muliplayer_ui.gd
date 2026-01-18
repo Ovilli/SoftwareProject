@@ -11,7 +11,7 @@ func _ready() -> void:
 		NetworkHandler.multiplayer.connected_to_server.connect(_on_client_connected)
 		NetworkHandler.multiplayer.connection_failed.connect(_on_client_connection_failed)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Globals.how_to_open == true or Globals.options_open == true or Globals.main_menu == true:
 		hide()
 		canvas_layer.hide()
@@ -72,11 +72,13 @@ func _on_client_pressed() -> void:
 func _on_client_connected() -> void:
 	# Successfully connected to server
 	get_tree().change_scene_to_file("res://scenes/game/main_game.tscn")
+	
 
 func _on_client_connection_failed() -> void:
 	# Failed to connect
 	if status_label:
 		status_label.text = "Connection failed! No server found."
+		
 	
 	client.disabled = false
 	server_button.disabled = false

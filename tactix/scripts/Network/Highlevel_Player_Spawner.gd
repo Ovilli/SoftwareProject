@@ -86,7 +86,7 @@ func spawn_player(peer_id: int) -> Node:
 	
 	return player
 
-func _get_spawn_position(peer_id: int) -> Vector3:
+func _get_spawn_position(_peer_id: int) -> Vector3:
 	print("Getting spawn position. spawn_points.size() = ", spawn_points.size(), ", spawned_players.size() = ", spawned_players.size())
 	
 	if spawn_points.is_empty():

@@ -34,10 +34,10 @@ func _on_music_slider_value_changed(value: float) -> void:
 func _on_sfx_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(1, value)
 
-func _on_fov_slider_value_changed(value: float) -> void:
+func _on_fov_slider_value_changed(value: int) -> void:
 	Globals.FOV = value
 
-func _on_sens_slider_value_changed(value: float) -> void:
+func _on_sens_slider_value_changed(value: int) -> void:
 	Globals.SENS = value
 
 func _on_quit_pressed() -> void:
