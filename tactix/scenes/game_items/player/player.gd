@@ -57,5 +57,3 @@ func _rotate_camera(delta: float, sens_mod: float= 1.0):
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion: look_dir = event.relative * 0.01
-	
-	

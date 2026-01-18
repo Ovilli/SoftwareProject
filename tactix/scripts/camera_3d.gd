@@ -1,5 +1,6 @@
 extends Camera3D
 
+
 @export var sensitivity: float = 0.003
 @onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
 @onready var top_camera: Camera3D = $"../../Camera-Top"
@@ -121,8 +122,12 @@ func check_for_piece_data(node: Node, is_click=false):
 func switch_to_top_camera():
 	player_camera.current = false
 	top_camera.current = true
-	
-	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+
+
+
+
 func switch_to_player_camera():
 	player_camera.current = true
 	top_camera.current = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

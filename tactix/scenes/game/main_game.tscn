@@ -151,3 +151,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09
 shape = SubResource("BoxShape3D_p2514")
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+
+[connection signal="visibility_changed" from="Control" to="Player" method="_on_control_visibility_changed"]
