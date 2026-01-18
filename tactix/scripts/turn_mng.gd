@@ -24,6 +24,6 @@ func start_turn():
 			print("b")
 func move_piece(piece_id, index):
 	print(piece_id, "|", index)
-	
-	#print("selected a piece")
-	
+	#var move_dir := Input.get_vector("ui_right", "ui_left", "ui_down", "ui_up")
+	#print(move_dir)
+	#var movement = 
