@@ -46,18 +46,6 @@ size = Vector3(3.8615723, 5.709839, 3.9824219)
 
 [node name="Main-Game" type="Node3D"]
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
-spawn_path = NodePath("..")
-script = ExtResource("12_vde2q")
-player_scene = ExtResource("6_rpywg")
-spawn_points = [NodePath("Spawn1"), NodePath("Spawn2")]
-
-[node name="Spawn2" type="Node3D" parent="MultiplayerSpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 22)
-
-[node name="Spawn1" type="Node3D" parent="MultiplayerSpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, -22)
-
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -160,3 +148,9 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/Tabel/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09222412)
 shape = SubResource("BoxShape3D_p2514")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+spawn_limit = 2
+script = ExtResource("12_vde2q")
+player_scene = ExtResource("6_rpywg")

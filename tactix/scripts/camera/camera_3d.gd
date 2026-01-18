@@ -2,13 +2,15 @@ extends Camera3D
 
 @export var sensitivity: float = 0.003
 @onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
-@onready var top_camera: Camera3D = $"../../Camera-Top"
 @onready var player_camera: Camera3D = self
 const OPEN = preload("uid://u3nth41qu6lu")
-@onready var sfx: AudioStreamPlayer = $"../../SFX"
-@onready var options: Control = $"../../Options"
 const SELECT = preload("uid://d4nncgwclo7yu")
 const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
+@onready var top_camera = get_node("/root/Main-Game/Camera-Top")
+@onready var options = get_node("/root/Main-Game/Options")
+@onready var sfx = get_node("../Sfx")
+
+
 
 
 var yaw: float = 0.0
@@ -75,11 +77,11 @@ func shoot_ray(is_click=false):
 	check_for_piece_data(hit_object, is_click)
 
 func check_for_piece_data(node: Node, is_click=false):
-	var current = node
-	while current != null:
+	var current_node = node
+	while current_node != null:
 		# Check current node first before moving up
-		if current.has_node("PieceData"):
-			var piece_data = current.get_node("PieceData")
+		if current_node.has_node("PieceData"):
+			var piece_data = current_node.get_node("PieceData")
 			var piece_id = int(piece_data.get_meta("piece_id"))
 			var index = int(piece_data.get_meta("index"))
 			
@@ -106,7 +108,7 @@ func check_for_piece_data(node: Node, is_click=false):
 			return
 		
 		# Special check for board/table click
-		if current.name == "Tabel" and current is Node3D:
+		if current_node.name == "Tabel" and current_node is Node3D:
 			if is_click and player_camera.current == true and Globals.options_open == false:
 				sfx.stream = OPEN
 				sfx.play()
@@ -115,7 +117,7 @@ func check_for_piece_data(node: Node, is_click=false):
 			return
 		
 		# Move up the hierarchy
-		current = current.get_parent()
+		current_node = current_node.get_parent()
 
 
 func switch_to_top_camera():

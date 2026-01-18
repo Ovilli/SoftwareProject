@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b20pdcbc1ccy4"]
 
-[ext_resource type="Script" uid="uid://qgalx6vk1ii0" path="res://scripts/how_to_play.gd" id="1_88ieg"]
+[ext_resource type="Script" uid="uid://qgalx6vk1ii0" path="res://scripts/menus/how_to_play.gd" id="1_88ieg"]
 [ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="1_d4i75"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d4i75"]

@@ -46,17 +46,10 @@ size = Vector3(3.8615723, 5.709839, 3.9824219)
 
 [node name="Main-Game" type="Node3D"]
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("spawn_points")]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
 script = ExtResource("12_vde2q")
 player_scene = ExtResource("6_rpywg")
-spawn_points = [NodePath("Spawn1"), NodePath("Spawn2")]
-
-[node name="Spawn2" type="Node3D" parent="MultiplayerSpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 22)
-
-[node name="Spawn1" type="Node3D" parent="MultiplayerSpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, -22)
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cburicronrweg"]
 
 [ext_resource type="PackedScene" uid="uid://cdb7s7mv8kosa" path="res://scenes/game_items/board.tscn" id="1_jka67"]
-[ext_resource type="Script" uid="uid://k43jh2dljvr1" path="res://scripts/camera_3d.gd" id="2_a0tk4"]
+[ext_resource type="Script" uid="uid://k43jh2dljvr1" path="res://scripts/camera/camera_3d.gd" id="2_a0tk4"]
 [ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="2_i5arm"]
 [ext_resource type="Texture2D" uid="uid://ch3dhv7x8vhqy" path="res://assets/cursor/cursor.png" id="4_wc5p8"]
 [ext_resource type="Texture2D" uid="uid://deykoy3eeh5fv" path="res://assets/texture/kenney_prototype-textures/PNG/Dark/texture_07.png" id="5_jsk3o"]

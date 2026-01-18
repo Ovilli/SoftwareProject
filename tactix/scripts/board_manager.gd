@@ -42,6 +42,9 @@ func load_board():
 func _ready():
 	times = 0
 	load_board()
+	if !multiplayer.is_server():
+		return
+
 	
 	
 

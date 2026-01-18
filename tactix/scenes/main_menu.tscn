@@ -1,14 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://bc4prtmihge1t"]
+[gd_scene load_steps=14 format=3 uid="uid://bc4prtmihge1t"]
 
 [ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/options.tscn" id="1_oa1go"]
-[ext_resource type="Script" uid="uid://da8nbnfdiirhr" path="res://scripts/main_menu.gd" id="2_rtw2f"]
+[ext_resource type="Script" uid="uid://da8nbnfdiirhr" path="res://scripts/menus/main_menu.gd" id="2_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://b20pdcbc1ccy4" path="res://scenes/how_to_play.tscn" id="3_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="3_oa1go"]
 [ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="4_tbmy8"]
 [ext_resource type="ArrayMesh" uid="uid://w1sxwhtt737n" path="res://assets/models/player/player.vox" id="5_8ln24"]
 [ext_resource type="AudioStream" uid="uid://dr74sh8vbo1cv" path="res://assets/sounds/jazz-lounge-elevator-music-332339.mp3" id="5_jk1qb"]
 [ext_resource type="ArrayMesh" uid="uid://bl1n22ir8vygx" path="res://assets/models/board/board.vox" id="6_rtw2f"]
-[ext_resource type="Script" uid="uid://y8vvecb2wkd1" path="res://scripts/camera_3d_lobby.gd" id="7_tbmy8"]
+[ext_resource type="Script" uid="uid://y8vvecb2wkd1" path="res://scripts/camera/camera_3d_lobby.gd" id="7_tbmy8"]
+[ext_resource type="PackedScene" uid="uid://c5eyakp750oyj" path="res://scenes/muliplayer_ui.tscn" id="10_5dd4i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lgwnu"]
 
@@ -151,6 +152,8 @@ transform = Transform3D(0.99765456, -0.019564707, -0.065595046, 0.06845063, 0.28
 
 [node name="Camera-Pivot" type="Marker3D" parent="Background"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
+
+[node name="MuliplayerUi" parent="." instance=ExtResource("10_5dd4i")]
 
 [connection signal="pressed" from="Control/CanvasLayer/How_to_play" to="Control/CanvasLayer/BoxContainer" method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="Control/CanvasLayer/BoxContainer/Play" to="Control/CanvasLayer/BoxContainer" method="_on_play_pressed"]

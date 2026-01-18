@@ -16,7 +16,6 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(-0.9994203, 0, -0.03404475, 0, 1, 0, 0.03404475, 0, -0.9994203, 0, 0, 0)
 script = ExtResource("1_8ga58")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -28,7 +27,7 @@ fov = 90.0
 script = ExtResource("2_kinl7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 2.222806, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.222806, 0)
 mesh = ExtResource("1_m66te")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
