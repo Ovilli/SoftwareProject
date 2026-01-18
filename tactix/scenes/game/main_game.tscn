@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://did22sx424q51"]
+[gd_scene load_steps=17 format=3 uid="uid://did22sx424q51"]
 
 [ext_resource type="PackedScene" uid="uid://cdb7s7mv8kosa" path="res://scenes/game_items/board.tscn" id="1_p2514"]
 [ext_resource type="AudioStream" uid="uid://w1amtigquqd7" path="res://assets/sounds/lounge-jazz-elevator-music-372734.mp3" id="2_11nld"]
@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://dr74sh8vbo1cv" path="res://assets/sounds/jazz-lounge-elevator-music-332339.mp3" id="6_ef7fl"]
 [ext_resource type="PackedScene" uid="uid://bnnq35t23urw5" path="res://scenes/game_items/player/player.tscn" id="6_rpywg"]
 [ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="7_ef7fl"]
+[ext_resource type="Shader" uid="uid://70wemi3joy7v" path="res://scripts/shader/speedlines.gdshader" id="7_i2osx"]
+[ext_resource type="Texture2D" uid="uid://dwmha44mfuw25" path="res://assets/texture/noisy-background.jpg" id="8_vde2q"]
 [ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/options.tscn" id="9_qsdf0"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_25xmc"]
@@ -24,6 +26,17 @@ fog_sun_scatter = 1.0
 fog_sky_affect = 0.0
 adjustment_enabled = true
 adjustment_saturation = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5cwfu"]
+shader = ExtResource("7_i2osx")
+shader_parameter/noise = ExtResource("8_vde2q")
+shader_parameter/line_color = Color(0.99116415, 0.99116427, 0.99116415, 1)
+shader_parameter/line_count = 1.20000001788144
+shader_parameter/line_density = 0.3750000178125
+shader_parameter/line_faloff = 0.25
+shader_parameter/mask_size = 0.386000018335
+shader_parameter/mask_edge = 1.0
+shader_parameter/animation_speed = 5.3850002082875
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_11nld"]
 
@@ -98,6 +111,20 @@ size_flags_horizontal = 4
 texture = ExtResource("4_11nld")
 stretch_mode = 4
 metadata/_edit_use_anchors_ = true
+
+[node name="Speedlines" type="CanvasLayer" parent="Control"]
+
+[node name="ColorRect" type="ColorRect" parent="Control/Speedlines"]
+material = SubResource("ShaderMaterial_5cwfu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -3.0
+offset_right = 2.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Player" parent="." instance=ExtResource("6_rpywg")]
 transform = Transform3D(-0.9998247, 0, 0.018726327, 0, 1, 0, -0.018726327, 0, -0.9998247, 3.64848, -13.851682, 14.962184)

@@ -1,0 +1,166 @@
+[gd_scene load_steps=4 format=3 uid="uid://b20pdcbc1ccy4"]
+
+[ext_resource type="Script" uid="uid://qgalx6vk1ii0" path="res://scripts/how_to_play.gd" id="1_88ieg"]
+[ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="1_d4i75"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d4i75"]
+shader = ExtResource("1_d4i75")
+shader_parameter/amount = 1.48400007049
+
+[node name="How_to_Play" type="Control"]
+layout_mode = 3 
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_88ieg")
+
+[node name="Play_Canvas" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Play_Canvas"]
+material = SubResource("ShaderMaterial_d4i75")
+offset_left = -1825.0
+offset_top = -579.0
+offset_right = 4118.0
+offset_bottom = 1528.0
+
+[node name="Dieces" type="Control" parent="Play_Canvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Normal" type="Control" parent="Play_Canvas/Dieces"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text_Normal" type="Label" parent="Play_Canvas/Dieces/Normal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BLA BLA BLA TEXT ABOUT NORMAL DICES AN HOW THEY WORK AN SO AN SO ON "
+
+[node name="King" type="Control" parent="Play_Canvas/Dieces"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text_King" type="Label" parent="Play_Canvas/Dieces/King"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BLA BLA BLA TEXT ABOUT KING DICES AN HOW THEY WORK AN SO AN SO ON "
+
+[node name="Board" type="Control" parent="Play_Canvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text_Board" type="Label" parent="Play_Canvas/Board"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BLA BLA BLA TEXT ABOUT BOARD"
+
+[node name="Ruels" type="Control" parent="Play_Canvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text_Ruels" type="Label" parent="Play_Canvas/Ruels"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BLA BLA BLA TEXT ABOUT RUELS WHO CARES"
+
+[node name="Next" type="Button" parent="Play_Canvas"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -65.0
+offset_top = -61.0
+offset_right = 65.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "NEXT"
+
+[node name="Exit" type="Button" parent="Play_Canvas"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = -61.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "EXIT"
+
+[node name="How_to_Play" type="Label" parent="Play_Canvas"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -355.5
+offset_right = 355.5
+offset_bottom = 28.0
+grow_horizontal = 2
+text = "HOW TO PLAY ?"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Play_Canvas/Next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="Play_Canvas/Exit" to="." method="_on_exit_pressed"]

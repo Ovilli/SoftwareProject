@@ -1,12 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://bc4prtmihge1t"]
+[gd_scene load_steps=13 format=3 uid="uid://bc4prtmihge1t"]
 
 [ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/options.tscn" id="1_oa1go"]
 [ext_resource type="Script" uid="uid://da8nbnfdiirhr" path="res://scripts/main_menu.gd" id="2_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://b20pdcbc1ccy4" path="res://scenes/how_to_play.tscn" id="3_jk1qb"]
 [ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="3_oa1go"]
 [ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="4_tbmy8"]
 [ext_resource type="ArrayMesh" uid="uid://w1sxwhtt737n" path="res://assets/models/player/player.vox" id="5_8ln24"]
 [ext_resource type="AudioStream" uid="uid://dr74sh8vbo1cv" path="res://assets/sounds/jazz-lounge-elevator-music-332339.mp3" id="5_jk1qb"]
 [ext_resource type="ArrayMesh" uid="uid://bl1n22ir8vygx" path="res://assets/models/board/board.vox" id="6_rtw2f"]
+[ext_resource type="Script" uid="uid://y8vvecb2wkd1" path="res://scripts/camera_3d_lobby.gd" id="7_tbmy8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lgwnu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_flqon"]
+size = Vector3(3.8615723, 5.709839, 3.9824219)
 
 [sub_resource type="Environment" id="Environment_5dd4i"]
 fog_light_color = Color(1, 1, 1, 1)
@@ -15,37 +22,7 @@ fog_sky_affect = 0.0
 adjustment_enabled = true
 adjustment_saturation = 0.01
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lgwnu"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_flqon"]
-size = Vector3(3.8615723, 5.709839, 3.9824219)
-
 [node name="MainMenu" type="Node3D"]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.99765456, -0.019564716, -0.065594964, 0.06845063, 0.2851519, 0.95603526, 2.4334446e-09, -0.9582829, 0.28582227, 0, -7.401053, -2.1744833)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_5dd4i")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 5, 7.3138533, -5)
-light_color = Color(0.954374, 0.95869964, 0.96239454, 1)
-light_energy = 170.0
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-light_specular = 0.772
-light_bake_mode = 0
-distance_fade_enabled = true
-distance_fade_shadow = 4096.0
-distance_fade_length = 4096.0
-spot_range = 18.314
-spot_attenuation = 1.91
-spot_angle = 44.28
-spot_angle_attenuation = 0.21022487
-
-[node name="Camera-Pivot" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
 
 [node name="Options" parent="." instance=ExtResource("1_oa1go")]
 
@@ -62,6 +39,21 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+
+[node name="How_to_play" type="Button" parent="Control/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = 22.0
+offset_right = 74.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "HOW TO PLAY ?"
+script = ExtResource("2_rtw2f")
 
 [node name="BoxContainer" type="BoxContainer" parent="Control/CanvasLayer"]
 anchors_preset = 7
@@ -90,42 +82,77 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "QUIT"
 
-[node name="Room2" parent="." instance=ExtResource("3_oa1go")]
+[node name="How_to_Play" parent="." instance=ExtResource("3_jk1qb")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5456066, 13.940023, 38.791084)
+script = ExtResource("7_tbmy8")
+
+[node name="Background" type="Node3D" parent="."]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 0, 0, 0)
+
+[node name="Room2" parent="Background" instance=ExtResource("3_oa1go")]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, -2.2429714, 0)
 
-[node name="Tabel" type="Node3D" parent="."]
+[node name="Tabel" type="Node3D" parent="Background"]
 
-[node name="Tabel" type="MeshInstance3D" parent="Tabel"]
+[node name="Tabel" type="MeshInstance3D" parent="Background/Tabel"]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 5, -13.116686, -6)
 material_overlay = SubResource("ShaderMaterial_lgwnu")
 mesh = ExtResource("4_tbmy8")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Tabel/Tabel"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Background/Tabel/Tabel"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/Tabel/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Background/Tabel/Tabel/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09222412)
 shape = SubResource("BoxShape3D_flqon")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Background"]
 stream = ExtResource("5_jk1qb")
 autoplay = true
 
-[node name="Player" type="MeshInstance3D" parent="."]
+[node name="Player" type="MeshInstance3D" parent="Background"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9448304, -13.548615, -32.952957)
 mesh = ExtResource("5_8ln24")
+skeleton = NodePath("../..")
 
-[node name="Player2" type="MeshInstance3D" parent="."]
+[node name="Player2" type="MeshInstance3D" parent="Background"]
 transform = Transform3D(-1.0000001, 0, 8.7422784e-08, 0, 1, 0, -8.7422784e-08, 0, -1.0000001, 5.9448304, -13.548615, 18.705688)
 mesh = ExtResource("5_8ln24")
+skeleton = NodePath("../..")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 48.621044, 14.840555, -6.045615)
-
-[node name="Board" type="MeshInstance3D" parent="."]
+[node name="Board" type="MeshInstance3D" parent="Background"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.996109, -0.2773304, -5.697357)
 mesh = ExtResource("6_rtw2f")
+skeleton = NodePath("../..")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Background"]
+environment = SubResource("Environment_5dd4i")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Background/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 5, 7.3138533, -5)
+light_color = Color(0.954374, 0.95869964, 0.96239454, 1)
+light_energy = 170.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.772
+light_bake_mode = 0
+distance_fade_enabled = true
+distance_fade_shadow = 4096.0
+distance_fade_length = 4096.0
+spot_range = 18.314
+spot_attenuation = 1.91
+spot_angle = 44.28
+spot_angle_attenuation = 0.21022487
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Background"]
+transform = Transform3D(0.99765456, -0.019564707, -0.065595046, 0.06845063, 0.28515184, 0.956035, 2.4334446e-09, -0.95828265, 0.28582227, 0, -7.401053, -2.1744833)
+
+[node name="Camera-Pivot" type="Marker3D" parent="Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
+
+[connection signal="pressed" from="Control/CanvasLayer/How_to_play" to="Control/CanvasLayer/BoxContainer" method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="Control/CanvasLayer/BoxContainer/Play" to="Control/CanvasLayer/BoxContainer" method="_on_play_pressed"]
 [connection signal="pressed" from="Control/CanvasLayer/BoxContainer/Options" to="Control/CanvasLayer/BoxContainer" method="_on_options_pressed"]
 [connection signal="pressed" from="Control/CanvasLayer/BoxContainer/Quit" to="Control/CanvasLayer/BoxContainer" method="_on_quit_pressed"]

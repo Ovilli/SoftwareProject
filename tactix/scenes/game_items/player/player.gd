@@ -1,12 +1,15 @@
 extends CharacterBody3D
 
-const SPEED = 17.0
-const JUMP_VELOCITY = 7.0
+const BASE_SPEED := 17.0
+const SPRINT_MULTIPLIER := 3
+const  JUMP_VELOCITY = 7.0
+var speed := BASE_SPEED
 var look_dir: Vector2
 @onready var camera=$Camera3D
 var camera_sens = Globals.SENS
 const walking = preload("uid://bdpbbr32ie2mo")
 @onready var sfx: AudioStreamPlayer = $Sfx
+@onready var speedlines: CanvasLayer = $"../Control/Speedlines"
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -17,6 +20,13 @@ func _physics_process(delta: float) -> void:
 		camera_sens = Globals.SENS
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
+	if Input.is_action_pressed("shift") and is_on_floor():
+		speed = BASE_SPEED * SPRINT_MULTIPLIER
+		speedlines.show()
+	else:
+		speed = BASE_SPEED
+		speedlines.hide()
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -28,13 +38,13 @@ func _physics_process(delta: float) -> void:
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if Globals.options_open == false:
 		if direction:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
+			velocity.x = direction.x * speed
+			velocity.z = direction.z * speed
 		else:
 			sfx.stream = walking
 			sfx.play()
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			velocity.z = move_toward(velocity.z, 0, SPEED)
+			velocity.x = move_toward(velocity.x, 0, speed)
+			velocity.z = move_toward(velocity.z, 0, speed)
 		_rotate_camera(delta)
 		move_and_slide()
 	#äaisdjijaisjdasjdoasdoaisjdoiasdjoaisdj
