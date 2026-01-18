@@ -19,22 +19,20 @@ func _ready():
 	switch_to_player_camera()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	options.hide()
-	print(options, options.visible)
 	
 
 func _input(event):
 	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false:
 		if Globals.options_open == false and player_camera.current == true:
-			
 			options.show()
 			Globals.options_open = true
-			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			
 		if player_camera.current == false:
-			Globals.tisch_open = false
 			sfx.stream = OPEN
 			sfx.play()
-		switch_to_player_camera()
+			Globals.tisch_open = false
+			switch_to_player_camera()
 		
 			
 			
@@ -110,10 +108,10 @@ func check_for_piece_data(node: Node, is_click=false):
 		# Special check for board/table click
 		if current.name == "Tabel" and current is Node3D:
 			if is_click and player_camera.current == true and Globals.options_open == false:
-				Globals.tisch_open = true
 				sfx.stream = OPEN
 				sfx.play()
 				switch_to_top_camera()
+				Globals.tisch_open = true
 			return
 		
 		# Move up the hierarchy
