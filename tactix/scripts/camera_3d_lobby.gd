@@ -13,20 +13,20 @@ func _ready() -> void:
 	rotation.y = 0.0
 
 func _process(delta: float) -> void:
-	# Integrate velocity
-	yaw += yaw_velocity * delta
+	if Globals.main_menu == true:
+		yaw += yaw_velocity * delta
 
-	# Spring back to center
-	yaw_velocity += (-yaw * RETURN_FORCE) * delta
+		# Spring back to center
+		yaw_velocity += (-yaw * RETURN_FORCE) * delta
 
-	# Damping
-	yaw_velocity -= yaw_velocity * DAMPING * delta
+		# Damping
+		yaw_velocity -= yaw_velocity * DAMPING * delta
 
-	# Clamp angle
-	yaw = clamp(yaw, -MAX_YAW, MAX_YAW)
+		# Clamp angle
+		yaw = clamp(yaw, -MAX_YAW, MAX_YAW)
 
-	rotation.y = yaw
+		rotation.y = yaw
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Globals.main_menu == true :
 		yaw_velocity -= event.relative.x * MOUSE_SCALE
