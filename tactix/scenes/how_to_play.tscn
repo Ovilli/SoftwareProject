@@ -49,13 +49,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -565.5
+offset_top = -151.25
+offset_right = 565.5
+offset_bottom = 151.25
 grow_horizontal = 2
 grow_vertical = 2
-text = "BLA BLA BLA TEXT ABOUT NORMAL DICES AN HOW THEY WORK AN SO AN SO ON "
+text = "EACH DICE HAS A VALUE FROM 1 - 6 . EACH VALUE DEFINES HOW A PICE CAN MOVE FOR EXAMPEL AN DICE WITH AN 4 CAN MOVE 4 TIELS . WHEN YOU MOVE YOU ALWAYS CAN DECIED IF YOU WANT TO GO TO THE SIDE OF TO THE FRONT."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="King" type="Control" parent="Play_Canvas/Dieces"]
 layout_mode = 1
@@ -72,13 +75,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -551.0
+offset_top = -24.5
+offset_right = 564.0
+offset_bottom = 24.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "BLA BLA BLA TEXT ABOUT KING DICES AN HOW THEY WORK AN SO AN SO ON "
+text = "THE KING IS A SPECIAL TYPE OF CARACTER HE CAN ONLY MOVE ONE TILE AT A TIME."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Board" type="Control" parent="Play_Canvas"]
 layout_mode = 3
@@ -95,13 +101,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -353.0
+offset_top = -24.5
+offset_right = 358.0
+offset_bottom = 24.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "BLA BLA BLA TEXT ABOUT BOARD"
+text = "THE BOARD IS A 9 BY 9 FIELD WHERE DICES ARE PLACED ."
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Ruels" type="Control" parent="Play_Canvas"]
 layout_mode = 3
@@ -124,7 +132,13 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "BLA BLA BLA TEXT ABOUT RUELS WHO CARES"
+text = "1.   THE GAME ENDS WHEN A PLAYER HAS NO PICES 
+2.   EACH PLAYER CAN ONLY MOVE ONE PICES AT A TIME 
+3.   YOU WIN IF THE ENEMY HAS NO PIECES LEFT
+4.   YOU CAN ONLY MOVE IF IT IS YOUR TURN 
+5.    HAVE FUN IN PLAYING 
+6.   REPORT BUGS TO THE GITHUB
+7.   EVERY BUG IS A FEATURE "
 
 [node name="Next" type="Button" parent="Play_Canvas"]
 anchors_preset = 7
