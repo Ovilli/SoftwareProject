@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="7_ef7fl"]
 [ext_resource type="Shader" uid="uid://70wemi3joy7v" path="res://scripts/shader/speedlines.gdshader" id="7_i2osx"]
 [ext_resource type="Texture2D" uid="uid://dwmha44mfuw25" path="res://assets/texture/noisy-background.jpg" id="8_vde2q"]
-[ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/options.tscn" id="9_qsdf0"]
+[ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/menus/options.tscn" id="9_qsdf0"]
 [ext_resource type="Script" uid="uid://bf3lsggwsxm4c" path="res://scripts/Network/Highlevel_Player_Spawner.gd" id="12_vde2q"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_25xmc"]
@@ -53,10 +53,10 @@ player_scene = ExtResource("6_rpywg")
 spawn_points = [NodePath("Spawn1"), NodePath("Spawn2")]
 
 [node name="Spawn2" type="Node3D" parent="MultiplayerSpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20909786, 22)
 
 [node name="Spawn1" type="Node3D" parent="MultiplayerSpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, -22)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 5.491451, -3.3614683, -22)
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 

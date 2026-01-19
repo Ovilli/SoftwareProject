@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cdb7s7mv8kosa"]
 
-[ext_resource type="Script" uid="uid://d4c8ouajwo3mt" path="res://scripts/board_manager.gd" id="1_bw3vb"]
+[ext_resource type="Script" uid="uid://d4c8ouajwo3mt" path="res://scripts/game/board_manager.gd" id="1_bw3vb"]
 [ext_resource type="ArrayMesh" uid="uid://bl1n22ir8vygx" path="res://assets/models/board/board.vox" id="3_nglv8"]
 
 [node name="Board" type="Node3D"]

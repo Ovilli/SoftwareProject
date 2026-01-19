@@ -4,8 +4,15 @@ extends Node
 const IP_ADDRESS := "127.0.0.1"
 var PORT := 42069
 const MAX_PLAYERS := 2
+var player_names: Dictionary = {}
 
 var peer: ENetMultiplayerPeer
+
+@rpc("authority", "reliable")
+func register_player_name(player_name: String) -> void:
+	var sender_id := multiplayer.get_remote_sender_id()
+	player_names[sender_id] = player_name
+	print("Registered name:", player_name, "for peer:", sender_id)
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(_on_peer_connected)
@@ -64,6 +71,7 @@ func _on_connected_to_server() -> void:
 	
 	print("Successfully connected to server!")
 	print("My peer ID: ", multiplayer.get_unique_id())
+	register_player_name.rpc_id(1, Globals.player_name)
 
 func _on_connection_failed() -> void:
 	print("Connection to server failed!")

@@ -7,6 +7,7 @@ extends MultiplayerSpawner
 var spawned_players: Dictionary = {} 
 var spawn_queue: Array[int] = []
 
+
 func _ready() -> void:
 	spawn_path = get_parent().get_path()
 	spawn_function = _custom_spawn
@@ -17,29 +18,31 @@ func _ready() -> void:
 	add_to_group("player_spawner")
 
 func _custom_spawn(data: Variant) -> Node:
-	var peer_id = data as int
-	
+	var peer_id := data as int
+
 	if player_scene == null:
 		return null
-	
+
 	if spawned_players.has(peer_id):
-		print("Player already exists for peer ", peer_id, ", returning existing")
 		return spawned_players[peer_id]
-	
+
 	var player = player_scene.instantiate()
 	player.name = str(peer_id)
-	
 	player.set_multiplayer_authority(peer_id)
-	
+
+	if multiplayer.is_server():
+		if player.has_method("set_player_name") and NetworkHandler.player_names.has(peer_id):
+			player.set_player_name(NetworkHandler.player_names[peer_id])
+
 	spawned_players[peer_id] = player
-	
+
 	var spawn_position = _get_spawn_position(peer_id)
 	if player is Node3D:
 		player.position = spawn_position
 	elif player is Node2D:
 		player.position = Vector2(spawn_position.x, spawn_position.z)
-	
-	print("Custom spawn for peer ", peer_id, " at position ", spawn_position, " with authority: ", peer_id)
+
+	print("Spawned peer", peer_id, "with name:", Globals.player_name)
 	return player
 
 func _on_spawned(node: Node) -> void:
@@ -106,6 +109,7 @@ func get_all_players() -> Array:
 	return spawned_players.values()
 
 func clear_all_players() -> void:
+	
 	for player in spawned_players.values():
 		if is_instance_valid(player):
 			player.queue_free()

@@ -10,3 +10,5 @@ var tisch_open :bool = false
 var muliplayer_open :bool = false
 var server_open :bool = false
 var multiplayer_open: bool = false
+var player_custom_open: bool = false
+var player_name: String = "Player"

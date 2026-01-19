@@ -1,0 +1,188 @@
+[gd_scene load_steps=16 format=3 uid="uid://bc4prtmihge1t"]
+
+[ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/menus/options.tscn" id="1_euy4r"]
+[ext_resource type="Script" uid="uid://da8nbnfdiirhr" path="res://scripts/menus/main_menu.gd" id="2_bre17"]
+[ext_resource type="PackedScene" uid="uid://b20pdcbc1ccy4" path="res://scenes/menus/how_to_play.tscn" id="3_88kup"]
+[ext_resource type="Script" uid="uid://y8vvecb2wkd1" path="res://scripts/game/camera/camera_3d_lobby.gd" id="4_bh4e2"]
+[ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="5_3w8rc"]
+[ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="6_uxao6"]
+[ext_resource type="AudioStream" uid="uid://dr74sh8vbo1cv" path="res://assets/sounds/jazz-lounge-elevator-music-332339.mp3" id="7_vr0hv"]
+[ext_resource type="ArrayMesh" uid="uid://w1sxwhtt737n" path="res://assets/models/player/player.vox" id="8_a3hrp"]
+[ext_resource type="ArrayMesh" uid="uid://bl1n22ir8vygx" path="res://assets/models/board/board.vox" id="9_25m6f"]
+[ext_resource type="PackedScene" uid="uid://c5eyakp750oyj" path="res://scenes/menus/muliplayer_ui.tscn" id="10_nkawv"]
+[ext_resource type="PackedScene" uid="uid://bvl01q360o61k" path="res://scenes/menus/player_custom.tscn" id="11_bre17"]
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="12_bh4e2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lgwnu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_flqon"]
+size = Vector3(3.8615723, 5.709839, 3.9824219)
+
+[sub_resource type="Environment" id="Environment_5dd4i"]
+fog_light_color = Color(1, 1, 1, 1)
+fog_sun_scatter = 1.0
+fog_sky_affect = 0.0
+adjustment_enabled = true
+adjustment_saturation = 0.01
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5456066, 13.940023, 38.791084)
+script = ExtResource("4_bh4e2")
+
+[node name="Background" type="Node3D" parent="."]
+transform = Transform3D(-4.3711385e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -4.3711385e-08, 0, 0, 0)
+
+[node name="Room2" parent="Background" instance=ExtResource("5_3w8rc")]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, -2.2429714, 0)
+
+[node name="Tabel" type="Node3D" parent="Background"]
+
+[node name="Tabel" type="MeshInstance3D" parent="Background/Tabel"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 5, -13.116686, -6)
+material_overlay = SubResource("ShaderMaterial_lgwnu")
+mesh = ExtResource("6_uxao6")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Background/Tabel/Tabel"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Background/Tabel/Tabel/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09222412)
+shape = SubResource("BoxShape3D_flqon")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Background"]
+stream = ExtResource("7_vr0hv")
+autoplay = true
+
+[node name="Player" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9448304, -13.548615, -32.952957)
+mesh = ExtResource("8_a3hrp")
+skeleton = NodePath("../..")
+
+[node name="Player2" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(-1.0000001, 0, 8.7422784e-08, 0, 1, 0, -8.7422784e-08, 0, -1.0000001, 5.9448304, -13.548615, 18.705688)
+mesh = ExtResource("8_a3hrp")
+skeleton = NodePath("../..")
+
+[node name="Board" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.996109, -0.2773304, -5.697357)
+mesh = ExtResource("9_25m6f")
+skeleton = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Background"]
+environment = SubResource("Environment_5dd4i")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Background/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 5, 7.3138533, -5)
+light_color = Color(0.954374, 0.95869964, 0.96239454, 1)
+light_energy = 170.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.772
+light_bake_mode = 0
+distance_fade_enabled = true
+distance_fade_shadow = 4096.0
+distance_fade_length = 4096.0
+spot_range = 18.314
+spot_attenuation = 1.91
+spot_angle = 44.28
+spot_angle_attenuation = 0.21022487
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Background"]
+transform = Transform3D(0.99765456, -0.019564707, -0.065595046, 0.06845063, 0.28515184, 0.956035, 2.4334446e-09, -0.95828265, 0.28582227, 0, -7.401053, -2.1744833)
+
+[node name="Camera-Pivot" type="Marker3D" parent="Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MuliplayerUi" parent="GUI" instance=ExtResource("10_nkawv")]
+layout_mode = 1
+
+[node name="PlayerCustom" parent="GUI" instance=ExtResource("11_bre17")]
+layout_mode = 1
+
+[node name="Options" parent="GUI" instance=ExtResource("1_euy4r")]
+layout_mode = 0
+
+[node name="Control" type="Control" parent="GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 556.0
+offset_top = 304.0
+offset_right = 556.0
+offset_bottom = 304.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GUI/Control"]
+
+[node name="How_to_play" type="Button" parent="GUI/Control/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = 22.0
+offset_right = 74.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("12_bh4e2")
+theme_override_font_sizes/font_size = 32
+text = "HOW TO PLAY ?"
+script = ExtResource("2_bre17")
+
+[node name="BoxContainer" type="BoxContainer" parent="GUI/Control/CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -582.0
+offset_top = -171.0
+offset_right = 579.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+script = ExtResource("2_bre17")
+
+[node name="Play" type="Button" parent="GUI/Control/CanvasLayer/BoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_bh4e2")
+theme_override_font_sizes/font_size = 32
+text = "PLAY"
+
+[node name="Options" type="Button" parent="GUI/Control/CanvasLayer/BoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12_bh4e2")
+theme_override_font_sizes/font_size = 32
+text = "OPTIONS"
+
+[node name="Quit" type="Button" parent="GUI/Control/CanvasLayer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("12_bh4e2")
+theme_override_font_sizes/font_size = 32
+text = "QUIT"
+
+[node name="How_to_Play" parent="GUI" instance=ExtResource("3_88kup")]
+visible = true
+layout_mode = 1
+
+[connection signal="pressed" from="GUI/Control/CanvasLayer/How_to_play" to="GUI/Control/CanvasLayer/BoxContainer" method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="GUI/Control/CanvasLayer/BoxContainer/Play" to="GUI/Control/CanvasLayer/BoxContainer" method="_on_play_pressed"]
+[connection signal="pressed" from="GUI/Control/CanvasLayer/BoxContainer/Options" to="GUI/Control/CanvasLayer/BoxContainer" method="_on_options_pressed"]
+[connection signal="pressed" from="GUI/Control/CanvasLayer/BoxContainer/Quit" to="GUI/Control/CanvasLayer/BoxContainer" method="_on_quit_pressed"]

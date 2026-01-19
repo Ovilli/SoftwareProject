@@ -4,6 +4,7 @@ extends Control
 @onready var canvas_layer: CanvasLayer = $"../Control/CanvasLayer"
 
 
+
 func _ready() -> void:
 	_sync_canvas_visibility()
 
