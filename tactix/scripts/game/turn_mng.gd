@@ -4,6 +4,10 @@ extends Node
 enum player {p_black, p_white}
 var current_turn : player =player.p_white
 var game_over : bool=false
+var input_on_board: Callable
+
+var camera = "camera_3d"
+
 
 func _ready() -> void:
 	start_turn()
@@ -22,8 +26,17 @@ func start_turn():
 			#controlls
 		player.p_black:
 			print("b")
-func move_piece(piece_id, index):
-	print(piece_id, "|", index)
-	#var move_dir := Input.get_vector("ui_right", "ui_left", "ui_down", "ui_up")
-	#print(move_dir)
-	#var movement = 
+func move_piece(piece_id, x, y):
+	print("piece_id: ",piece_id, " | ","x: " , x, " | ", "y: ", y)
+
+	input_on_board=func(event):
+		if event is InputEventMouseButton and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event.pressed:
+			camera.shoot_ray()
+			print("piece_id: ",piece_id, " | ","x: " , x, " | ", "y: ", y)
+			legal_move(piece_id, x, y)
+		elif event is InputEventKey and Input.is_action_just_pressed("esc"):
+			return
+		
+func legal_move(piece_id, x, y):
+	#add moving rules
+	pass

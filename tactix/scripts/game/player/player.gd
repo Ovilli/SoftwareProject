@@ -10,6 +10,7 @@ var camera_sens = Globals.SENS
 
 #Paths
 const walking = preload("uid://bdpbbr32ie2mo")
+const player_cam = preload("res://scripts/game/camera/camera_3d.gd")
 @onready var sfx: AudioStreamPlayer = $Sfx
 @onready var speedlines: CanvasLayer = $"../Control/Speedlines"
 @onready var camera = $Camera3D
@@ -84,7 +85,8 @@ func _input(event: InputEvent):
 		return
 		
 	if event is InputEventMouseMotion:
-		look_dir = event.relative * 0.01
+		if camera.current == true:
+			look_dir = event.relative * 0.01
 
 
 @rpc("any_peer", "reliable")
