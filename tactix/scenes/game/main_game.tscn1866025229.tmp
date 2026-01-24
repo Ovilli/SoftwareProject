@@ -68,13 +68,13 @@ autoplay = true
 transform = Transform3D(0.99765456, -0.019564716, -0.065594964, 0.06845063, 0.2851519, 0.95603526, 2.4334446e-09, -0.9582829, 0.28582227, 0, -7.401053, -2.1744833)
 
 [node name="Board" parent="." instance=ExtResource("1_p2514")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7306299, 6.484985e-05, 1.7331934)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1647048, 0, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_d2op2")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 3.2043748, 7.988303, -3.9808931)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 5, 7.3138533, -5)
 light_color = Color(0.954374, 0.95869964, 0.96239454, 1)
 light_energy = 170.0
 light_indirect_energy = 0.0
@@ -141,17 +141,16 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Room2" parent="." instance=ExtResource("7_ef7fl")]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, -2.2429714, 0)
 
 [node name="Camera-Top" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 3.1184592, 12.362, -3.2824547)
-keep_aspect = 0
-fov = 76.0
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 4.8095465, 8.433849, -4.9821086)
+fov = 66.7
 
 [node name="Tabel" type="Node3D" parent="."]
 
 [node name="Tabel" type="MeshInstance3D" parent="Tabel"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.1056402, -13.018314, -3.8002245)
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 5, -13.116686, -6)
 material_overlay = SubResource("ShaderMaterial_11nld")
 mesh = ExtResource("2_rpywg")
 skeleton = NodePath("../..")
