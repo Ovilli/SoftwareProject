@@ -7,7 +7,8 @@ var current_turn: player = player.p_white
 
 var board = "board_manager"
 var camera = "camera_3d"
-
+var pos_moves:Array = []
+var no_pos_moves:Array = []
 var game_over: bool = false
 var last_changed: String = ""
 var x_moving_direction: String = ""
@@ -91,16 +92,21 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 		else:
 			if abs(from_y - to_y) <= abs(from_id):
 				var expected_id = (abs(from_id) - abs(from_y-to_y))
-				move_possible(from_x, first_y, to_x, to_y, expected_id)
+				var check_id = expected_id
+				if expected_id == 0 and abs(original_id) != 10:
+					check_id = 1
+				move_possible(from_x, first_y, to_x, to_y, check_id)
 				if can_move:
 					var temp_id: int
 					temp_id = (abs(from_id) - abs(from_y-to_y))
+					if temp_id == 0 and abs(original_id) != 10:
+						temp_id = 1
 					if current_turn == player.p_black:
 						temp_id = - temp_id
 					y_place_piece(from_x, from_y, to_x, to_y)
 					#Globals.board[to_x][to_y] = calc_id
 					#change turns if piece moved everything---------------------
-					if temp_id == 0:
+					if temp_id == -1 or temp_id == 1 or temp_id == 0:
 						switch_turn()
 					#New setup--------------------------------------------------
 					from_id = temp_id
@@ -121,16 +127,21 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 		else:
 			if abs(from_x - to_x) <= abs(from_id):
 				var expected_id = (abs(from_id) - abs(from_x-to_x))
-				move_possible(from_x, from_y, to_x, to_y, expected_id)
+				var check_id = expected_id
+				if expected_id == 0 and abs(original_id) != 10:
+					check_id = 1
+				move_possible(from_x, from_y, to_x, to_y, check_id)
 				if can_move:
 					var temp_id: int
 					temp_id = (abs(from_id) - abs(from_x-to_x))
+					if temp_id == 0 and abs(original_id) != 10:
+						temp_id = 1
 					if current_turn == player.p_black:
 						temp_id = - temp_id
 					x_place_piece(from_x, from_y, to_x, to_y)
 					#Globals.board[to_x][to_y] = calc_id
 					#change turns if piece moved everything---------------------
-					if temp_id == 0:
+					if temp_id == -1 or temp_id == 1 or temp_id == 0:
 						switch_turn()
 					#New setup--------------------------------------------------
 					from_id = temp_id
@@ -191,7 +202,7 @@ func check_for_piece(tile_x, tile_y, expected_id):
 	var checked_tile = Globals.board[tile_x][tile_y]
 
 	if checked_tile != 0:
-		if is_piece_zero and expected_id == 0:
+		if is_piece_zero and (expected_id == 0 or expected_id == 1):
 			if current_turn == player.p_black and checked_tile > 0:
 				capture_piece(tile_x, tile_y)
 				can_move = true
@@ -255,6 +266,64 @@ func capture_piece(tile_x, tile_y):
 		game_over = true 
 		
 	Globals.board[tile_x][tile_y] = 0
+
+
+func light_pieces_up(piece_id, tile_x, tile_y):
+	print("light up")
+	pos_moves.clear()
+	no_pos_moves.clear()
+	var num = 0
+	if abs(piece_id) == 10:
+		num = 1
+		check_light_up(num, tile_x, tile_y, piece_id)
+	else:
+		num = piece_id
+		check_light_up(num, tile_x, tile_y, piece_id)
+
+func check_possible_move(check_x, check_y, is_final_position):
+	var checked_tile = Globals.board[check_x][check_y]
+	
+	if checked_tile == 0:
+		pos_moves.append([check_x, check_y])
+	elif is_final_position:
+		# Can only capture on the final position of movement
+		if (current_turn == player.p_black and checked_tile > 0) or \
+		   (current_turn == player.p_white and checked_tile < 0):
+			pos_moves.append([check_x, check_y])
+		else:
+			no_pos_moves.append([check_x, check_y])
+	else:
+		# Blocked by a piece
+		no_pos_moves.append([check_x, check_y])
+
+func check_light_up(num, tile_x, tile_y, piece_id):
+	for i in range(1, num + 1):
+		var new_x = tile_x + i
+		if new_x >= 0 and new_x < Globals.BOARD_SIZE:
+			check_possible_move(new_x, tile_y, i == piece_id)
+		else:
+			break
+
+	for i in range(1, num + 1):
+		var new_x = tile_x - i
+		if new_x >= 0 and new_x < Globals.BOARD_SIZE:
+			check_possible_move(new_x, tile_y, i == piece_id)
+		else:
+			break
+
+	for i in range(1, num + 1):
+		var new_y = tile_y + i
+		if new_y >= 0 and new_y < Globals.BOARD_SIZE:
+			check_possible_move(tile_x, new_y, i == piece_id)
+		else:
+			break
+
+	for i in range(1, num + 1):
+		var new_y = tile_y - i
+		if new_y >= 0 and new_y < Globals.BOARD_SIZE:
+			check_possible_move(tile_x, new_y, i == piece_id)
+		else:
+			break
 
 #lighting up possable tiles would be nice
 #adding code so the new piece_id is the side facing top

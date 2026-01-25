@@ -21,7 +21,6 @@ config/icon="res://icon.svg"
 
 TurnMng="*res://scripts/game/turn_mng.gd"
 Globals="*res://scripts/globals.gd"
-NetworkHandler="*res://scripts/Network/Network_Handler.gd"
 
 [display]
 

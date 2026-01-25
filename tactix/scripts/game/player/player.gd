@@ -16,17 +16,6 @@ const player_cam = preload("res://scripts/game/camera/camera_3d.gd")
 @onready var camera = $Camera3D
 @onready var id: Label3D = $Id
 
-func _ready() -> void:
-	if not multiplayer.is_server():
-		register_player_name(Globals.player_name)
-	_update_name_label()
-	# Only enable camera for the player we control
-	if camera:
-		if is_multiplayer_authority():
-			camera.current = true
-		else:
-			camera.current = false
-
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -87,25 +76,3 @@ func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		if camera.current == true:
 			look_dir = event.relative * 0.01
-
-
-@rpc("any_peer", "reliable")
-func register_player_name(name_from_peer: String):
-	var sender_id = multiplayer.get_remote_sender_id()
-	NetworkHandler.player_names[sender_id] = name_from_peer
-
-	if is_multiplayer_authority():
-		Globals.player_name = name_from_peer
-		_update_name_label()
-
-	print("Registered player name:", name_from_peer, "from peer", sender_id)
-
-
-	
-func _update_name_label() -> void:
-	var peer_id := get_multiplayer_authority()
-
-	if Globals.player_name == "":
-		id.text = "Player %d" % peer_id
-	else:
-		id.text = "%s (ID: %d)" % [Globals.player_name, peer_id]

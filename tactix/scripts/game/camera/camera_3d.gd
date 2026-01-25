@@ -16,8 +16,6 @@ const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
 @onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
 @onready var sfx = get_node("../Sfx")
 @onready var texture_rect: TextureRect = get_node("/root/Main-Game/Control/CanvasLayer/TextureRect")
-	
-
 
 var first_x: int
 var first_y: int
@@ -56,6 +54,10 @@ func _input(event):
 		shoot_ray(true)  # Pass click flag
 	if event is InputEvent and Input.is_action_just_pressed("r") and Globals.options_open == false:
 		TurnMng.reset_turn()
+		play_sound_sfx()
+		Globals.clear_move_markers()
+		marker_click()
+		
 # https://www.youtube.com/watch?v=mJRDyXsxT9g
 # shader #https://godotshaders.com/shader/clean-pixel-perfect-outline-via-material-3/
 func shoot_ray(is_click=false):
@@ -77,8 +79,6 @@ func shoot_ray(is_click=false):
 	var hit_object = raycast_result.collider
 	if hit_object == null:
 		return
-	
-		
 	
 	check_for_piece_data(hit_object, is_click)
 
@@ -102,6 +102,8 @@ func check_for_piece_data(node: Node, is_click=false):
 
 					if first_id != 0:
 						Globals.waiting_for_first = false
+						Globals.clear_move_markers()
+						marker_click()
 				else:
 					if not (first_x == x and first_y == y):
 						second_x = x
@@ -121,42 +123,51 @@ func check_for_piece_data(node: Node, is_click=false):
 							Globals.waiting_for_first = false
 					else:
 						print("no same pos")
+						Globals.clear_move_markers()
+						marker_click()
+						
 				if TurnMng.current_turn == TurnMng.player.p_white:  
 					if first_id <= -1:
 						print("ynot your piece")
-						sfx.stream = WRONG_SELECT
-						sfx.play()
+						play_sound_sfx()
+						Globals.clear_move_markers()
+						marker_click()
 					else:
 						switch_to_top_camera()
-						sfx.stream = SELECT
-						sfx.play()
+						play_sound_sfx()
 						TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
+						marker_click()
+						
 				elif TurnMng.current_turn == TurnMng.player.p_black:
 					if first_id >= 1:
 						print("xnot your piece")
-						sfx.stream = WRONG_SELECT
-						sfx.play()
+						play_sound_sfx()
+						Globals.clear_move_markers()
 					
 					else:
 						switch_to_top_camera()
-						sfx.stream = SELECT
-						sfx.play()
-						TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)	
+						
+						Globals.clear_move_markers()
+						TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
+						marker_click()
 			
 		
 		# Special check for board/table click
 		if current_node.name == "Tabel" and current_node is Node3D:
 			if is_click and player_camera.current == true and Globals.options_open == false:
-				sfx.stream = OPEN
-				sfx.play()
-				
+				play_sound_sfx()
 				switch_to_top_camera()
 				Globals.tisch_open = true
 			return
 		
-		# Move up the hierarchy
 		current_node = current_node.get_parent()
 		
+		
+func play_sound_sfx():
+	sfx.stream = SELECT
+	sfx.play()
+	
+	
 func switch_to_top_camera():
 	"""if TurnMng.current_turn == TurnMng.player.p_white:
 		top_camera.rotate_y(deg_to_rad(180.0))"""
@@ -164,6 +175,12 @@ func switch_to_top_camera():
 	top_camera.current = true
 	texture_rect.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+
+
+func marker_click():
+	Globals.clear_move_markers()
+	TurnMng.light_pieces_up(abs(first_id), first_x, first_y)
+	Globals.highlight_possible_moves()
 
 
 func switch_to_player_camera():

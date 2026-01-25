@@ -7,14 +7,9 @@ var SENS :int= 20
 var main_menu :bool = false
 var how_to_open :bool = false
 var tisch_open :bool = false
-var muliplayer_open :bool = false
-var server_open :bool = false
-var multiplayer_open: bool = false
-var player_custom_open: bool = false
-var player_name: String = "Player"
-var waiting_for_first = true
-var DEBUG = true
-
+var waiting_for_first: bool = true
+var DEBUG : bool = true
+var GAME_OVER : bool = false
 var board : Array = []
 
 
@@ -28,6 +23,10 @@ const HIDDEN = preload("uid://dtr152fgi0j5n")
 const DICE_BLACK_KING = preload("uid://cetr5sbfhrby0")
 const DICE = preload("uid://c7afdlm1rpk1o")
 const DICE_KING = preload("uid://cgbm78yds67ov")
+const MARKER = preload("uid://uloumind7w3b")
+const GREEN = preload("uid://b4npdqee326a2")
+const RED = preload("uid://c24i4tcdvluvv")
+
 var _0_0: Marker3D:
 	get:
 		return get_tree().root.get_node("Main-Game/Board/0|0")
@@ -63,27 +62,35 @@ func display_board():
 			# print("Spawning piece at:", x, y, mesh)
 			
 func find_rotation_of_piece(piece_id):
-				# https://docs.godotengine.org/en/stable/tutorials/3d/using_transforms.html
-				if piece_id == 1 or piece_id == -1: # ist das pice eine 1 ?
-					# -90 0 0
-					return Vector3(deg_to_rad(-90), 0, 0) # ist das pice eine 2 ?
-				elif piece_id == 2 or piece_id == -2:
-					# 0 0 0
-					return Vector3(0, 0, 0)
-				elif piece_id == 3 or piece_id == -3:# ist das pice eine 3 ?
-					# 0 0 90
-					return Vector3(0, 0, deg_to_rad(90)) # ist das pice eine 4 ?
-				elif piece_id == 4 or piece_id == -4:
-					# 0 0 -90
-					return Vector3(0, 0, deg_to_rad(-90)) # ist das pice eine 5 ?
-				elif piece_id == 5 or piece_id == -5:
-					# 0 0 180
-					return Vector3(0, 0, deg_to_rad(180)) # ist das pice eine 6 ?
-				elif piece_id == 6 or piece_id == -6:
-					# 90 0 0
-					return Vector3(deg_to_rad(90), 0, 0) # ist das pice eine 6 ?
-				return Vector3.ZERO
-								
+	# Verwende den absoluten Wert, um die Rotation zu bestimmen
+	var display_value = abs(piece_id)
+	
+	# Für Könige (10) zeige die "1" Seite
+	if display_value == 10:
+		display_value = 1
+	
+	# Rotationen für jede Würfelseite
+	if display_value == 1:
+		# -90 0 0
+		return Vector3(deg_to_rad(-90), 0, 0)
+	elif display_value == 2:
+		# 0 0 0
+		return Vector3(0, 0, 0)
+	elif display_value == 3:
+		# 0 0 90
+		return Vector3(0, 0, deg_to_rad(90))
+	elif display_value == 4:
+		# 0 0 -90
+		return Vector3(0, 0, deg_to_rad(-90))
+	elif display_value == 5:
+		# 0 0 180
+		return Vector3(0, 0, deg_to_rad(180))
+	elif display_value == 6:
+		# 90 0 0
+		return Vector3(deg_to_rad(90), 0, 0)
+	
+	return Vector3.ZERO
+
 func spawn_piece(scene: PackedScene, x, y, piece_id):
 	var piece_instance = scene.instantiate() as Node3D
 	
@@ -119,3 +126,39 @@ func board_clear():
 	var old_pieces = get_tree().get_nodes_in_group("visual_pieces")
 	for piece in old_pieces:
 		piece.queue_free() # This safely deletes the object
+
+func highlight_possible_moves():
+	clear_move_markers()
+
+	# Grün für mögliche Züge
+	for move in TurnMng.pos_moves:
+		spawn_marker(move[0], move[1], GREEN)
+
+	# Rot für unmögliche Züge
+	for move in TurnMng.no_pos_moves:
+		spawn_marker(move[0], move[1], RED)
+
+
+func spawn_marker(x, y, material: Material):
+	# Instanziiere den Marker als Szene
+	var marker_instance = MARKER.instantiate() as Node3D
+	add_child(marker_instance)
+	marker_instance.add_to_group("move_markers")
+
+	# Position auf dem Board
+	marker_instance.global_position = _0_0.global_position + Vector3(
+		x * CELL_WIDTH + CELL_WIDTH * 0.5,
+		0.05,
+		y * CELL_WIDTH + CELL_WIDTH * 0.5
+	)
+
+	# Material anwenden
+	var mesh_instance = marker_instance.get_node_or_null("MeshInstance3D")
+	if mesh_instance and mesh_instance is MeshInstance3D:
+		mesh_instance.set_surface_override_material(0, material)
+
+
+func clear_move_markers():
+	var markers_to_clear = get_tree().get_nodes_in_group("move_markers")
+	for marker in markers_to_clear:
+		marker.queue_free()

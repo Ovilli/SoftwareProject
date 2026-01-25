@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://uloumind7w3b"]
+
+[ext_resource type="ArrayMesh" uid="uid://kin1civoox8r" path="res://assets/models/box/box.vox" id="1_lqqw0"]
+
+[node name="Marker" type="Node3D"]
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+mesh = ExtResource("1_lqqw0")
