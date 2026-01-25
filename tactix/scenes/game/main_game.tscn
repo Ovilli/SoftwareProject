@@ -42,10 +42,12 @@ size = Vector3(3.8615723, 5.709839, 3.9824219)
 transform = Transform3D(-0.9994203, 0, -0.03404475, 0, 1, 0, 0.03404475, 0, -0.9994203, 0, -12.764812, 27.25145)
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPlaylist_25xmc")
 autoplay = true
+bus = &"Music"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.99765456, -0.019564716, -0.065594964, 0.06845063, 0.2851519, 0.95603526, 2.4334446e-09, -0.9582829, 0.28582227, 0, -7.401053, -2.1744833)

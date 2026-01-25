@@ -6,7 +6,7 @@ extends Control
 func _ready() -> void:
 	_sync_canvas_visibility()
 	if Globals.DEBUG == true:
-		AudioServer.set_bus_volume_db(0, -100)
+		AudioServer.set_bus_volume_db(2, -40)
 
 func _process(_delta: float) -> void:
 	_sync_canvas_visibility()
@@ -29,7 +29,7 @@ func _on_exit_pressed() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_music_slider_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(0, value)
+	AudioServer.set_bus_volume_db(2, value)
 
 func _on_sfx_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(1, value)

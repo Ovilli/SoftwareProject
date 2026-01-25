@@ -21,5 +21,3 @@ func load_board():
 func _ready():
 	Globals.times = 0
 	load_board()
-	if !multiplayer.is_server():
-		return

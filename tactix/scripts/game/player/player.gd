@@ -8,9 +8,9 @@ var speed := BASE_SPEED
 var look_dir: Vector2
 var camera_sens = Globals.SENS
 
-#Paths
 const walking = preload("uid://bdpbbr32ie2mo")
 const player_cam = preload("res://scripts/game/camera/camera_3d.gd")
+
 @onready var sfx: AudioStreamPlayer = $Sfx
 @onready var speedlines: CanvasLayer = $"../Control/Speedlines"
 @onready var camera = $Camera3D
