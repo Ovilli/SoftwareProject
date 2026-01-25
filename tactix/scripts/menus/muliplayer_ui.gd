@@ -19,6 +19,11 @@ func _process(_delta: float) -> void:
 		show()
 		canvas_layer.show()
 		_update_button_states()
+		
+		if Globals.DEBUG == true:
+			NetworkHandler.start_server()
+			if NetworkHandler.peer != null:
+				get_tree().change_scene_to_file("res://scenes/game/main_game.tscn")
 
 func _update_button_states() -> void:
 	# Disable buttons if already connected

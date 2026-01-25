@@ -3,10 +3,10 @@ extends Control
 #Paths
 @onready var canvas_layer: CanvasLayer = $"../Control/CanvasLayer"
 
-
-
 func _ready() -> void:
 	_sync_canvas_visibility()
+	if Globals.DEBUG == true:
+		AudioServer.set_bus_volume_db(0, -100)
 
 func _process(_delta: float) -> void:
 	_sync_canvas_visibility()

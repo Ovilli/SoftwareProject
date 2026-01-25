@@ -13,6 +13,7 @@ var multiplayer_open: bool = false
 var player_custom_open: bool = false
 var player_name: String = "Player"
 var waiting_for_first = true
+var DEBUG = true
 
 var board : Array = []
 
@@ -112,6 +113,7 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	piece_data.set_meta("x", x)
 	piece_data.set_meta("y", y)
 	piece_instance.add_child(piece_data)
+
 func board_clear():
 
 	var old_pieces = get_tree().get_nodes_in_group("visual_pieces")

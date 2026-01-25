@@ -1,13 +1,6 @@
 extends Node3D
 
-# Variabels
-
-var times: int = 0
-
 #Path
-
-
-# num with an + are white / num with an - are black 
 
 func load_board():
 	print("Cleard the Board")
@@ -26,7 +19,7 @@ func load_board():
 	Globals.display_board()
 
 func _ready():
-	times = 0
+	Globals.times = 0
 	load_board()
 	if !multiplayer.is_server():
 		return

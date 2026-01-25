@@ -5,12 +5,23 @@ extends Control
 @export var pause_time: float = 1.5
 @export var out_time: float = 0.5
 
+
+	
 @onready var texture_rect: TextureRect = $CenterContainer/TextureRect
 @onready var texture_progress_bar: TextureProgressBar = $TextureProgressBar
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	fade()
+	
+	if Globals.DEBUG == true:
+		in_time = 0
+		fade_time = 0
+		pause_time = 0
+		out_time = 0
+		fade()
+	else:
+		fade()
+
 	
 
 func fade():
