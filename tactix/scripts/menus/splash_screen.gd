@@ -6,6 +6,8 @@ extends Control
 @export var out_time: float = 0.5
 
 
+
+@onready var texture_rect_2: TextureRect = $CenterContainer/TextureRect2
 	
 @onready var texture_rect: TextureRect = $CenterContainer/TextureRect
 @onready var texture_progress_bar: TextureProgressBar = $TextureProgressBar

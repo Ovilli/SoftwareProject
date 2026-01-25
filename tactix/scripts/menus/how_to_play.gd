@@ -22,8 +22,6 @@ func _ready() -> void:
 	var board := $Play_Canvas.get_node_or_null("Board")
 	if board and board is Control:
 		PAGES.append(board)
-	else:
-		print("Board node missing or not Control")
 
 	# Ruels page
 	var ruels := $Play_Canvas.get_node_or_null("Ruels")

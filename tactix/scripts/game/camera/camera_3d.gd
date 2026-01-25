@@ -122,13 +122,13 @@ func check_for_piece_data(node: Node, is_click=false):
 						else:
 							Globals.waiting_for_first = false
 					else:
-						print("no same pos")
+						Debug.log("no same pos")
 						Globals.clear_move_markers()
 						marker_click()
 						
 				if TurnMng.current_turn == TurnMng.player.p_white:  
 					if first_id <= -1:
-						print("ynot your piece")
+						Debug.log("not your piece (X)")
 						play_sound_sfx()
 						Globals.clear_move_markers()
 						marker_click()
@@ -140,7 +140,7 @@ func check_for_piece_data(node: Node, is_click=false):
 						
 				elif TurnMng.current_turn == TurnMng.player.p_black:
 					if first_id >= 1:
-						print("xnot your piece")
+						Debug.log("not your piece (Y)")
 						play_sound_sfx()
 						Globals.clear_move_markers()
 					

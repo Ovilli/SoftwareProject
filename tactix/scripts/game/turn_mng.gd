@@ -36,11 +36,11 @@ func switch_turn():
 		return
 	reset_turn_vars()
 	if current_turn ==player.p_white:
-		print("b")
+		Debug.log("B")
 		current_turn =player.p_black
 	else:
 		current_turn = player.p_white
-		print("w")
+		Debug.log("W")
 	
 func start_turn():
 	match current_turn:
@@ -64,7 +64,7 @@ func reset_turn_vars():
 
 func reset_turn():
 	if ((current_turn == player.p_black and original_id <=0) or (current_turn == player.p_white and original_id >= 0)) and moved_sth:
-		print("reset last turn")
+		Debug.log("reset last turn")
 		var piece = Globals.board[from_x][from_y]
 		Globals.board[from_x][from_y] = 0 
 		Globals.board[original_x][original_y] = piece
@@ -157,9 +157,9 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 				print("no")
 				return
 	elif to_x == -1:
-		print("...choice pending...")
+		Debug.log("...choice pending...")
 	else:
-		print("you can´t move there")
+		Debug.log("you can´t move there")
 		
 func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 	can_move = true
@@ -216,16 +216,13 @@ func check_for_piece(tile_x, tile_y, expected_id):
 			return
 	else:
 		can_move = true
-#-------------------------------------------------------------------------------
+		
 func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 	var piece = Globals.board[x_from_x][x_from_y]
 	Globals.board[x_from_x][x_from_y] = 0 
 	Globals.board[x_to_x][x_to_y] = piece 
 	Globals.display_board()
 	
-	
-	
-	#setting flags----------------------
 	xmoved = true
 	last_changed = "x"
 	Globals.waiting_for_first = false
@@ -234,7 +231,6 @@ func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 		x_moving_direction = "+"
 	elif x_from_x > x_to_x:
 		x_moving_direction = "-"
-	#-----------------------------------
 
 func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 	var piece = Globals.board[y_from_x][y_from_y]
@@ -243,8 +239,6 @@ func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 	
 	Globals.display_board()
 	
-	
-	#setting flags----------------------
 	ymoved = true
 	last_changed = "y"
 	Globals.waiting_for_first = false
@@ -253,23 +247,22 @@ func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 		y_moving_direction = "+"
 	elif y_from_y > y_to_y:
 		y_moving_direction = "-"
-	#-----------------------------------
 
 func capture_piece(tile_x, tile_y):
-	print("capture piece")
+	Debug.log("capture piece")
 	var piece = Globals.board[tile_x][tile_y]
 	if abs(piece) == 10:
 		if piece == 10:
 			print("b wins")
 		elif piece == -10:
-			print("w wins")
+			Debug.log("w wins")
 		game_over = true 
 		
 	Globals.board[tile_x][tile_y] = 0
 
 
 func light_pieces_up(piece_id, tile_x, tile_y):
-	print("light up")
+	Debug.log("light up")
 	pos_moves.clear()
 	no_pos_moves.clear()
 	var num = 0

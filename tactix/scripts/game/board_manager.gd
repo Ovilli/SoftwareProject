@@ -3,7 +3,7 @@ extends Node3D
 #Path
 
 func load_board():
-	print("Cleard the Board")
+	Debug.log("Cleard the Board")
 	Globals.board.clear()
 	Globals.board.append([5,0,0,0,0,0,0,0,-5])
 	Globals.board.append([1,0,0,0,0,0,0,0,-1])
