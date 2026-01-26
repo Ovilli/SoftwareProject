@@ -23,9 +23,10 @@ const HIDDEN = preload("uid://dtr152fgi0j5n")
 const DICE_BLACK_KING = preload("uid://cetr5sbfhrby0")
 const DICE = preload("uid://c7afdlm1rpk1o")
 const DICE_KING = preload("uid://cgbm78yds67ov")
-const MARKER = preload("uid://uloumind7w3b")
 const GREEN = preload("uid://b4npdqee326a2")
 const RED = preload("uid://c24i4tcdvluvv")
+const MARKER_GREEN = preload("uid://coqj1mfu810hm")
+const MARKER_RED = preload("uid://uloumind7w3b")
 
 var _0_0: Marker3D:
 	get:
@@ -132,14 +133,14 @@ func highlight_possible_moves():
 
 	# Grün für mögliche Züge
 	for move in TurnMng.pos_moves:
-		spawn_marker(move[0], move[1], GREEN)
+		spawn_marker(move[0], move[1], MARKER_GREEN)
 
 	# Rot für unmögliche Züge
 	for move in TurnMng.no_pos_moves:
-		spawn_marker(move[0], move[1], RED)
+		spawn_marker(move[0], move[1], MARKER_RED)
 
 
-func spawn_marker(x, y, material: Material):
+func spawn_marker(x, y, MARKER):
 	# Instanziiere den Marker als Szene
 	var marker_instance = MARKER.instantiate() as Node3D
 	add_child(marker_instance)
@@ -151,11 +152,6 @@ func spawn_marker(x, y, material: Material):
 		0.05,
 		y * CELL_WIDTH + CELL_WIDTH * 0.5
 	)
-
-	# Material anwenden
-	var mesh_instance = marker_instance.get_node_or_null("MeshInstance3D")
-	if mesh_instance and mesh_instance is MeshInstance3D:
-		mesh_instance.set_surface_override_material(0, material)
 
 
 func clear_move_markers():

@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://uloumind7w3b"]
+[gd_scene load_steps=3 format=3 uid="uid://uloumind7w3b"]
 
 [ext_resource type="ArrayMesh" uid="uid://kin1civoox8r" path="res://assets/models/box/box.vox" id="1_lqqw0"]
+[ext_resource type="Material" uid="uid://c24i4tcdvluvv" path="res://assets/materials/red.tres" id="1_xg375"]
 
 [node name="Marker" type="Node3D"]
 
 [node name="Box" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+material_override = ExtResource("1_xg375")
 mesh = ExtResource("1_lqqw0")

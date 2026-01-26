@@ -69,10 +69,6 @@ func _rotate_camera(delta: float, sens_mod: float = 1.0):
 	look_dir = Vector2.ZERO
 
 func _input(event: InputEvent):
-	# Only process input for our own character
-	if not is_multiplayer_authority():
-		return
-		
 	if event is InputEventMouseMotion:
 		if camera.current == true:
 			look_dir = event.relative * 0.01

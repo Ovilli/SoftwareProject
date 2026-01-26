@@ -118,6 +118,7 @@ func check_for_piece_data(node: Node, is_click=false):
 							first_id = second_id
 							second_x = -1 #killing the variable
 							second_y = -1
+							Globals.clear_move_markers()
 							marker_click()
 						else:
 							Globals.waiting_for_first = false
@@ -133,7 +134,11 @@ func check_for_piece_data(node: Node, is_click=false):
 						switch_to_top_camera()
 						play_sound_sfx()
 						TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
-						marker_click()
+						if second_x != -1 and second_y != -1:
+							Globals.clear_move_markers()
+						else:
+							first_id = Globals.board[first_x][first_y]
+							marker_click()
 						
 				elif TurnMng.current_turn == TurnMng.player.p_black:
 					if first_id >= 1:
@@ -146,7 +151,11 @@ func check_for_piece_data(node: Node, is_click=false):
 						
 						Globals.clear_move_markers()
 						TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
-						marker_click()
+						if second_x != -1 and second_y != -1:
+							Globals.clear_move_markers()
+						else:
+							first_id = Globals.board[first_x][first_y]
+							marker_click()
 			
 		
 		# Special check for board/table click

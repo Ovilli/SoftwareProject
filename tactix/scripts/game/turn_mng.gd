@@ -286,43 +286,48 @@ func check_possible_move(check_x, check_y, is_final_position):
 	
 	if checked_tile == 0:
 		pos_moves.append([check_x, check_y])
+		return true
 	elif is_final_position:
-		# Can only capture on the final position of movement
 		if (current_turn == player.p_black and checked_tile > 0) or \
 		   (current_turn == player.p_white and checked_tile < 0):
 			pos_moves.append([check_x, check_y])
 		else:
 			no_pos_moves.append([check_x, check_y])
+		return false
 	else:
-		# Blocked by a piece
 		no_pos_moves.append([check_x, check_y])
+		return false
 
 func check_light_up(num, tile_x, tile_y, piece_id):
 	for i in range(1, num + 1):
 		var new_x = tile_x + i
 		if new_x >= 0 and new_x < Globals.BOARD_SIZE:
-			check_possible_move(new_x, tile_y, i == piece_id)
+			if not check_possible_move(new_x, tile_y, i == piece_id):
+				break
 		else:
 			break
 
 	for i in range(1, num + 1):
 		var new_x = tile_x - i
 		if new_x >= 0 and new_x < Globals.BOARD_SIZE:
-			check_possible_move(new_x, tile_y, i == piece_id)
+			if not check_possible_move(new_x, tile_y, i == piece_id):
+				break
 		else:
 			break
 
 	for i in range(1, num + 1):
 		var new_y = tile_y + i
 		if new_y >= 0 and new_y < Globals.BOARD_SIZE:
-			check_possible_move(tile_x, new_y, i == piece_id)
+			if not check_possible_move(tile_x, new_y, i == piece_id):
+				break
 		else:
 			break
 
 	for i in range(1, num + 1):
 		var new_y = tile_y - i
 		if new_y >= 0 and new_y < Globals.BOARD_SIZE:
-			check_possible_move(tile_x, new_y, i == piece_id)
+			if not check_possible_move(tile_x, new_y, i == piece_id):
+				break
 		else:
 			break
 
