@@ -162,3 +162,4 @@ func clear_move_markers():
 	var markers_to_clear = get_tree().get_nodes_in_group("move_markers")
 	for marker in markers_to_clear:
 		marker.queue_free()
+		

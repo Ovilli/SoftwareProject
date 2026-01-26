@@ -35,6 +35,7 @@ func switch_turn():
 	if game_over:
 		return
 	reset_turn_vars()
+	Globals.clear_move_markers()
 	if current_turn ==player.p_white:
 		Debug.log("B")
 		current_turn =player.p_black
@@ -188,6 +189,8 @@ func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 				is_piece_zero = true
 			tile_y = tile_y + dir
 			check_for_piece(tile_x, tile_y, expected_id)
+			if not can_move:
+				return
 	else:
 		var dir = 1
 		if mp_from_x > mp_to_x:
@@ -197,6 +200,8 @@ func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 				is_piece_zero = true
 			tile_x = tile_x + dir
 			check_for_piece(tile_x, tile_y, expected_id)
+			if not can_move:
+				return
 			
 func check_for_piece(tile_x, tile_y, expected_id):
 	var checked_tile = Globals.board[tile_x][tile_y]
@@ -211,6 +216,7 @@ func check_for_piece(tile_x, tile_y, expected_id):
 				can_move = true
 			else:
 				can_move = false
+				return
 		else:
 			can_move = false
 			return
@@ -222,6 +228,7 @@ func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 	Globals.board[x_from_x][x_from_y] = 0 
 	Globals.board[x_to_x][x_to_y] = piece 
 	Globals.display_board()
+	
 	
 	xmoved = true
 	last_changed = "x"
@@ -238,6 +245,7 @@ func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 	Globals.board[y_to_x][y_to_y] = piece
 	
 	Globals.display_board()
+	
 	
 	ymoved = true
 	last_changed = "y"

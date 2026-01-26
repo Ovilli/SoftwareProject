@@ -54,9 +54,8 @@ func _input(event):
 		shoot_ray(true)  # Pass click flag
 	if event is InputEvent and Input.is_action_just_pressed("r") and Globals.options_open == false:
 		TurnMng.reset_turn()
-		play_sound_sfx()
 		Globals.clear_move_markers()
-		marker_click()
+		play_sound_sfx()
 		
 # https://www.youtube.com/watch?v=mJRDyXsxT9g
 # shader #https://godotshaders.com/shader/clean-pixel-perfect-outline-via-material-3/
@@ -119,19 +118,17 @@ func check_for_piece_data(node: Node, is_click=false):
 							first_id = second_id
 							second_x = -1 #killing the variable
 							second_y = -1
+							marker_click()
 						else:
 							Globals.waiting_for_first = false
 					else:
 						Debug.log("no same pos")
-						Globals.clear_move_markers()
-						marker_click()
 						
 				if TurnMng.current_turn == TurnMng.player.p_white:  
 					if first_id <= -1:
 						Debug.log("not your piece (X)")
 						play_sound_sfx()
 						Globals.clear_move_markers()
-						marker_click()
 					else:
 						switch_to_top_camera()
 						play_sound_sfx()
