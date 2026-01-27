@@ -8,11 +8,19 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Tactix"
+config/description="An Game made by 
+Minko and Maxim Studio formaly known as Hesse Studios
+All Rights Reserved 
+Copyright is now aktive"
 run/main_scene="uid://ckwcrept5sbqg"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"

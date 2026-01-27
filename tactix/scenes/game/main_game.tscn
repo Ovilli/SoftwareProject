@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://did22sx424q51"]
+[gd_scene format=3 uid="uid://did22sx424q51"]
 
 [ext_resource type="PackedScene" uid="uid://cdb7s7mv8kosa" path="res://scenes/game_items/board.tscn" id="1_p2514"]
 [ext_resource type="AudioStream" uid="uid://w1amtigquqd7" path="res://assets/sounds/lounge-jazz-elevator-music-372734.mp3" id="2_11nld"]
@@ -36,26 +36,26 @@ shader_parameter/animation_speed = 5.3850002082875
 [sub_resource type="BoxShape3D" id="BoxShape3D_p2514"]
 size = Vector3(3.8615723, 5.709839, 3.9824219)
 
-[node name="Main-Game" type="Node3D"]
+[node name="Main-Game" type="Node3D" unique_id=619824366]
 
-[node name="Player" parent="." instance=ExtResource("6_rpywg")]
+[node name="Player" parent="." unique_id=720996690 instance=ExtResource("6_rpywg")]
 transform = Transform3D(-0.9994203, 0, -0.03404475, 0, 1, 0, 0.03404475, 0, -0.9994203, 0, -12.764812, 27.25145)
 
-[node name="SFX" type="AudioStreamPlayer" parent="."]
+[node name="SFX" type="AudioStreamPlayer" parent="." unique_id=375843063]
 bus = &"SFX"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=421442419]
 stream = SubResource("AudioStreamPlaylist_25xmc")
 autoplay = true
 bus = &"Music"
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1164980618]
 transform = Transform3D(0.99765456, -0.019564716, -0.065594964, 0.06845063, 0.2851519, 0.95603526, 2.4334446e-09, -0.9582829, 0.28582227, 0, -7.401053, -2.1744833)
 
-[node name="Board" parent="." instance=ExtResource("1_p2514")]
+[node name="Board" parent="." unique_id=1817829140 instance=ExtResource("1_p2514")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7306299, 6.484985e-05, 1.7331934)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1777851351]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 3.2043748, 7.988303, -3.9808931)
 light_color = Color(0.954374, 0.95869964, 0.96239454, 1)
 light_energy = 170.0
@@ -71,12 +71,12 @@ spot_attenuation = 1.91
 spot_angle = 44.28
 spot_angle_attenuation = 0.21022487
 
-[node name="Camera-Pivot" type="Marker3D" parent="."]
+[node name="Camera-Pivot" type="Marker3D" parent="." unique_id=217044035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
 
-[node name="Options" parent="." instance=ExtResource("9_qsdf0")]
+[node name="Options" parent="." unique_id=53060940 instance=ExtResource("9_qsdf0")]
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=1191017771]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -89,9 +89,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 metadata/_edit_use_anchors_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Control" unique_id=871763769]
 
-[node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer" unique_id=314862995]
 anchors_preset = -1
 anchor_left = 0.4778646
 anchor_top = 0.46064815
@@ -107,10 +107,10 @@ texture = ExtResource("4_11nld")
 stretch_mode = 4
 metadata/_edit_use_anchors_ = true
 
-[node name="Speedlines" type="CanvasLayer" parent="Control"]
+[node name="Speedlines" type="CanvasLayer" parent="Control" unique_id=162656329]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="Control/Speedlines"]
+[node name="ColorRect" type="ColorRect" parent="Control/Speedlines" unique_id=1574566808]
 material = SubResource("ShaderMaterial_5cwfu")
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,24 +122,24 @@ offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Room2" parent="." instance=ExtResource("7_ef7fl")]
+[node name="Room2" parent="." unique_id=545514577 instance=ExtResource("7_ef7fl")]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0)
 
-[node name="Camera-Top" type="Camera3D" parent="."]
+[node name="Camera-Top" type="Camera3D" parent="." unique_id=1556224283]
 transform = Transform3D(0.99999994, 0, 0, 0, -4.3711385e-08, 1, 0, -0.99999994, -4.371139e-08, 3.1184592, 12.362, -3.2824547)
 keep_aspect = 0
 fov = 76.0
 
-[node name="Tabel" type="Node3D" parent="."]
+[node name="Tabel" type="Node3D" parent="." unique_id=1722820585]
 
-[node name="Tabel" type="MeshInstance3D" parent="Tabel"]
+[node name="Tabel" type="MeshInstance3D" parent="Tabel" unique_id=1290490369]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.1056402, -13.018314, -3.8002245)
 material_overlay = SubResource("ShaderMaterial_11nld")
 mesh = ExtResource("2_rpywg")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Tabel/Tabel"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Tabel/Tabel" unique_id=351170870]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/Tabel/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/Tabel/StaticBody3D" unique_id=698093001]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09222412)
 shape = SubResource("BoxShape3D_p2514")

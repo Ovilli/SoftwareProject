@@ -4,6 +4,14 @@ extends Node
 enum player {p_black, p_white}
 var current_turn: player = player.p_white
 
+var dice_faces := {
+	"top": 1,
+	"bottom": 6,
+	"north": 2,
+	"south": 5,
+	"east": 3,
+	"west": 4
+}
 
 var board = "board_manager"
 var camera = "camera_3d"
@@ -25,8 +33,8 @@ var from_y: int
 var from_id: int
 var original_x: int
 var original_y: int
-var original_id:int
-	
+var original_id: int = 0
+
 func _ready() -> void:
 	start_turn()
 
@@ -98,8 +106,16 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 					temp_id = (abs(from_id) - abs(from_y-to_y))
 					if current_turn == player.p_black:
 						temp_id = - temp_id
+					
+					# SAVE POSITION BEFORE MOVING
+					var prev_x = from_x
+					var prev_y = from_y
+					
 					y_place_piece(from_x, from_y, to_x, to_y)
-					#Globals.board[to_x][to_y] = calc_id
+					
+					# UPDATE DICE ORIENTATION
+					update_piece_id_with_positions(prev_x, prev_y, to_x, to_y)
+					
 					#change turns if piece moved everything---------------------
 					if temp_id == 0:
 						switch_turn()
@@ -128,8 +144,16 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 					temp_id = (abs(from_id) - abs(from_x-to_x))
 					if current_turn == player.p_black:
 						temp_id = - temp_id
+					
+					# SAVE POSITION BEFORE MOVING
+					var prev_x = from_x
+					var prev_y = from_y
+					
 					x_place_piece(from_x, from_y, to_x, to_y)
-					#Globals.board[to_x][to_y] = calc_id
+					
+					# UPDATE DICE ORIENTATION
+					update_piece_id_with_positions(prev_x, prev_y, to_x, to_y)
+					
 					#change turns if piece moved everything---------------------
 					if temp_id == 0:
 						switch_turn()
@@ -149,8 +173,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 	elif to_x == -1:
 		print("...choice pending...")
 	else:
-		print("you can´t move there")
-		
+		print("you can´t move there")		
 func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 	can_move = true
 	var tile_x = mp_from_x
@@ -257,7 +280,6 @@ func capture_piece(tile_x, tile_y):
 		
 	Globals.board[tile_x][tile_y] = 0
 
-
 func light_pieces_up(piece_id, tile_x, tile_y):
 	Debug.log("light up")
 	pos_moves.clear()
@@ -265,10 +287,10 @@ func light_pieces_up(piece_id, tile_x, tile_y):
 	var num = 0
 	if abs(piece_id) == 10:
 		num = 1
-		check_light_up(num, tile_x, tile_y, piece_id)
 	else:
-		num = piece_id
-		check_light_up(num, tile_x, tile_y, piece_id)
+		num = abs(piece_id)
+	
+	check_light_up(num, tile_x, tile_y, num)
 
 func check_possible_move(check_x, check_y, is_final_position):
 	var checked_tile = Globals.board[check_x][check_y]
@@ -277,8 +299,7 @@ func check_possible_move(check_x, check_y, is_final_position):
 		pos_moves.append([check_x, check_y])
 		return true
 	elif is_final_position:
-		if (current_turn == player.p_black and checked_tile > 0) or \
-		   (current_turn == player.p_white and checked_tile < 0):
+		if (current_turn == player.p_black and checked_tile > 0) or (current_turn == player.p_white and checked_tile < 0):
 			pos_moves.append([check_x, check_y])
 		else:
 			no_pos_moves.append([check_x, check_y])
@@ -287,38 +308,113 @@ func check_possible_move(check_x, check_y, is_final_position):
 		no_pos_moves.append([check_x, check_y])
 		return false
 
-func check_light_up(num, tile_x, tile_y, piece_id):
-	for i in range(1, num + 1):
+func check_light_up(num, tile_x, tile_y, remaining_moves):
+	# Check right
+	for i in range(1, remaining_moves + 1):
 		var new_x = tile_x + i
 		if new_x >= 0 and new_x < Globals.BOARD_SIZE:
-			if not check_possible_move(new_x, tile_y, i == piece_id):
+			if not check_possible_move(new_x, tile_y, i == remaining_moves):
 				break
 		else:
 			break
 
-	for i in range(1, num + 1):
+	# Check left
+	for i in range(1, remaining_moves + 1):
 		var new_x = tile_x - i
 		if new_x >= 0 and new_x < Globals.BOARD_SIZE:
-			if not check_possible_move(new_x, tile_y, i == piece_id):
+			if not check_possible_move(new_x, tile_y, i == remaining_moves):
 				break
 		else:
 			break
 
-	for i in range(1, num + 1):
+	# Check forward
+	for i in range(1, remaining_moves + 1):
 		var new_y = tile_y + i
 		if new_y >= 0 and new_y < Globals.BOARD_SIZE:
-			if not check_possible_move(tile_x, new_y, i == piece_id):
+			if not check_possible_move(tile_x, new_y, i == remaining_moves):
 				break
 		else:
 			break
 
-	for i in range(1, num + 1):
+	# Check backward
+	for i in range(1, remaining_moves + 1):
 		var new_y = tile_y - i
 		if new_y >= 0 and new_y < Globals.BOARD_SIZE:
-			if not check_possible_move(tile_x, new_y, i == piece_id):
+			if not check_possible_move(tile_x, new_y, i == remaining_moves):
 				break
 		else:
 			break
+	
+func roll_forward():
+	var old_top = dice_faces.top
+	dice_faces.top = dice_faces.south
+	dice_faces.south = dice_faces.bottom
+	dice_faces.bottom = dice_faces.north
+	dice_faces.north = old_top
+
+func roll_backward():
+	var old_top = dice_faces.top
+	dice_faces.top = dice_faces.north
+	dice_faces.north = dice_faces.bottom
+	dice_faces.bottom = dice_faces.south
+	dice_faces.south = old_top
+
+func roll_right():
+	var old_top = dice_faces.top
+	dice_faces.top = dice_faces.west
+	dice_faces.west = dice_faces.bottom
+	dice_faces.bottom = dice_faces.east
+	dice_faces.east = old_top
+	
+func roll_left():
+	var old_top = dice_faces.top
+	dice_faces.top = dice_faces.east
+	dice_faces.east = dice_faces.bottom
+	dice_faces.bottom = dice_faces.west
+	dice_faces.west = old_top
+
+
+
+func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
+	# Calculate movement direction and distance
+	var delta_x = new_x - prev_x
+	var delta_y = new_y - prev_y
+	
+	# Roll the dice for each step
+	if delta_y != 0:
+		# Y-axis movement
+		if delta_y > 0:
+			# Moved forward (positive y)
+			for i in range(abs(delta_y)):
+				roll_forward()
+		else:
+			# Moved backward (negative y)
+			for i in range(abs(delta_y)):
+				roll_backward()
+	elif delta_x != 0:
+		# X-axis movement
+		if delta_x > 0:
+			# Moved right (positive x)
+			for i in range(abs(delta_x)):
+				roll_right()
+		else:
+			# Moved left (negative x)
+			for i in range(abs(delta_x)):
+				roll_left()
+	
+	# Update the piece ID to match the top face
+	var updated_id = dice_faces.top
+	
+	# Preserve the player color (positive for white, negative for black)
+	if current_turn == player.p_black:
+		updated_id = -updated_id
+	
+	# Update the board with the new ID at the NEW position
+	Globals.board[new_x][new_y] = updated_id
+	from_id = updated_id
+	
+	# Refresh the visual display
+	Globals.display_board()
 #lighting up possable tiles would be nice
 #adding code so the new piece_id is the side facing top
 #set boolean if King is captured -> winning screen
