@@ -91,23 +91,47 @@ func check_for_piece_data(node: Node, is_click=false):
 			var x = int(piece_data.get_meta("x"))
 			var y = int(piece_data.get_meta("y"))
 			
+			# IMPORTANT: If a move is in progress, read the CURRENT value from the board
+			# not the original value from metadata
+			if TurnMng.moved_sth:
+				piece_id = Globals.board[x][y]
+			
 			if is_click:
 				if Globals.waiting_for_first:
 					first_x = x
 					first_y = y
-					first_id = piece_id
-					second_x = -1 #killing the variable
+					first_id = piece_id  # Now uses the correct current value
+					second_x = -1
 					second_y = -1
 
+					# VALIDATE PIECE OWNERSHIP FIRST
 					if first_id != 0:
-						Globals.waiting_for_first = false
-						Globals.clear_move_markers()
-						marker_click()
+						var is_valid_piece = false
+						
+						# Check if piece belongs to current player
+						if TurnMng.current_turn == TurnMng.player.p_white and first_id > 0:
+							is_valid_piece = true
+						elif TurnMng.current_turn == TurnMng.player.p_black and first_id < 0:
+							is_valid_piece = true
+						
+						if is_valid_piece:
+							# Valid piece - accept selection
+							Globals.waiting_for_first = false
+							Globals.clear_move_markers()
+							marker_click()
+							switch_to_top_camera()
+							play_sound_sfx()
+						else:
+							# Invalid piece - reject and show message
+							Debug.log("not your piece")
+							play_sound_sfx()
+							Globals.clear_move_markers()
+							# waiting_for_first stays true
 				else:
 					if not (first_x == x and first_y == y):
 						second_x = x
 						second_y = y
-						second_id = piece_id
+						second_id = piece_id  # Uses current value
 						var diffrent_color: bool = false
 						if (TurnMng.current_turn == TurnMng.player.p_white and second_id < 0) or (TurnMng.current_turn == TurnMng.player.p_black and second_id > 0):
 							diffrent_color = true
@@ -116,46 +140,22 @@ func check_for_piece_data(node: Node, is_click=false):
 							first_x = second_x
 							first_y = second_y
 							first_id = second_id
-							second_x = -1 #killing the variable
+							second_x = -1
 							second_y = -1
 							Globals.clear_move_markers()
 							marker_click()
 						else:
 							Globals.waiting_for_first = false
+							switch_to_top_camera()
+							play_sound_sfx()
+							TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
+							if second_x != -1 and second_y != -1:
+								Globals.clear_move_markers()
+							else:
+								first_id = Globals.board[first_x][first_y]
+								marker_click()
 					else:
 						Debug.log("no same pos")
-						
-				if TurnMng.current_turn == TurnMng.player.p_white:  
-					if first_id <= -1:
-						Debug.log("not your piece (X)")
-						play_sound_sfx()
-						Globals.clear_move_markers()
-					else:
-						switch_to_top_camera()
-						play_sound_sfx()
-						TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
-						if second_x != -1 and second_y != -1:
-							Globals.clear_move_markers()
-						else:
-							first_id = Globals.board[first_x][first_y]
-							marker_click()
-						
-				elif TurnMng.current_turn == TurnMng.player.p_black:
-					if first_id >= 1:
-						Debug.log("not your piece (Y)")
-						play_sound_sfx()
-						Globals.clear_move_markers()
-					
-					else:
-						switch_to_top_camera()
-						
-						Globals.clear_move_markers()
-						TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
-						if second_x != -1 and second_y != -1:
-							Globals.clear_move_markers()
-						else:
-							first_id = Globals.board[first_x][first_y]
-							marker_click()
 			
 		
 		# Special check for board/table click
@@ -166,8 +166,7 @@ func check_for_piece_data(node: Node, is_click=false):
 				Globals.tisch_open = true
 			return
 		
-		current_node = current_node.get_parent()
-		
+		current_node = current_node.get_parent()	
 		
 func play_sound_sfx():
 	sfx.stream = SELECT
@@ -188,6 +187,18 @@ func marker_click():
 	TurnMng.light_pieces_up(abs(first_id), first_x, first_y)
 	Globals.highlight_possible_moves()
 
+
+func _process(_delta: float) -> void:
+	rotate_camera_nice()
+
+func rotate_camera_nice():
+	if TurnMng.current_turn == TurnMng.player.p_white and top_camera.current == true:
+		Debug.log("W")
+		top_camera.rotation = Vector3(deg_to_rad(-90), deg_to_rad(180), 0)
+	else: 
+		if TurnMng.current_turn == TurnMng.player.p_black and top_camera.current == true:
+			Debug.log("B")
+			top_camera.rotation = Vector3(deg_to_rad(-90), 0, 0)
 
 func switch_to_player_camera():
 	

@@ -14,7 +14,6 @@ const player_cam = preload("res://scripts/game/camera/camera_3d.gd")
 @onready var sfx: AudioStreamPlayer = $Sfx
 @onready var speedlines: CanvasLayer = $"../Control/Speedlines"
 @onready var camera = $Camera3D
-@onready var id: Label3D = $Id
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():

@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnnq35t23urw5"]
+[gd_scene load_steps=6 format=3 uid="uid://bnnq35t23urw5"]
 
 [ext_resource type="Script" uid="uid://4r4ib3eoofm8" path="res://scripts/game/player/player.gd" id="1_8ga58"]
 [ext_resource type="ArrayMesh" uid="uid://w1sxwhtt737n" path="res://assets/models/player/player.vox" id="1_m66te"]
 [ext_resource type="Script" uid="uid://k43jh2dljvr1" path="res://scripts/game/camera/camera_3d.gd" id="2_kinl7"]
-[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="4_j40e6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kinl7"]
 radius = 4.913086
@@ -33,10 +32,3 @@ shape = SubResource("CapsuleShape3D_kinl7")
 [node name="Sfx" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStream_kinl7")
 volume_db = -15.0
-
-[node name="Id" type="Label3D" parent="."]
-transform = Transform3D(2.1365178, 0, -1.4901161e-08, 0, 1.8762558, 0, 0, 0, 1.0387149, -0.024459274, 29.921404, 0.7180283)
-text = "PLAYER"
-font = ExtResource("4_j40e6")
-font_size = 300
-outline_size = 127

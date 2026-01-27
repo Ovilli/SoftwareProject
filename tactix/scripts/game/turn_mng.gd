@@ -7,8 +7,7 @@ var current_turn: player = player.p_white
 
 var board = "board_manager"
 var camera = "camera_3d"
-var pos_moves:Array = []
-var no_pos_moves:Array = []
+
 var game_over: bool = false
 var last_changed: String = ""
 var x_moving_direction: String = ""
@@ -19,7 +18,8 @@ var xmoved: bool = false
 var moved_sth: bool
 var is_piece_zero: bool = false
 var can_move: bool 
-
+var pos_moves:Array = []
+var no_pos_moves:Array = []
 var from_x: int
 var from_y: int
 var from_id: int
@@ -35,13 +35,12 @@ func switch_turn():
 	if game_over:
 		return
 	reset_turn_vars()
-	Globals.clear_move_markers()
 	if current_turn ==player.p_white:
-		Debug.log("B")
+		print("b")
 		current_turn =player.p_black
 	else:
 		current_turn = player.p_white
-		Debug.log("W")
+		print("w")
 	
 func start_turn():
 	match current_turn:
@@ -65,7 +64,7 @@ func reset_turn_vars():
 
 func reset_turn():
 	if ((current_turn == player.p_black and original_id <=0) or (current_turn == player.p_white and original_id >= 0)) and moved_sth:
-		Debug.log("reset last turn")
+		print("reset last turn")
 		var piece = Globals.board[from_x][from_y]
 		Globals.board[from_x][from_y] = 0 
 		Globals.board[original_x][original_y] = piece
@@ -93,21 +92,16 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 		else:
 			if abs(from_y - to_y) <= abs(from_id):
 				var expected_id = (abs(from_id) - abs(from_y-to_y))
-				var check_id = expected_id
-				if expected_id == 0 and abs(original_id) != 10:
-					check_id = 1
-				move_possible(from_x, first_y, to_x, to_y, check_id)
+				move_possible(from_x, first_y, to_x, to_y, expected_id)
 				if can_move:
 					var temp_id: int
 					temp_id = (abs(from_id) - abs(from_y-to_y))
-					if temp_id == 0 and abs(original_id) != 10:
-						temp_id = 1
 					if current_turn == player.p_black:
 						temp_id = - temp_id
 					y_place_piece(from_x, from_y, to_x, to_y)
 					#Globals.board[to_x][to_y] = calc_id
 					#change turns if piece moved everything---------------------
-					if temp_id == -1 or temp_id == 1 or temp_id == 0:
+					if temp_id == 0:
 						switch_turn()
 					#New setup--------------------------------------------------
 					from_id = temp_id
@@ -128,21 +122,16 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 		else:
 			if abs(from_x - to_x) <= abs(from_id):
 				var expected_id = (abs(from_id) - abs(from_x-to_x))
-				var check_id = expected_id
-				if expected_id == 0 and abs(original_id) != 10:
-					check_id = 1
-				move_possible(from_x, from_y, to_x, to_y, check_id)
+				move_possible(from_x, from_y, to_x, to_y, expected_id)
 				if can_move:
 					var temp_id: int
 					temp_id = (abs(from_id) - abs(from_x-to_x))
-					if temp_id == 0 and abs(original_id) != 10:
-						temp_id = 1
 					if current_turn == player.p_black:
 						temp_id = - temp_id
 					x_place_piece(from_x, from_y, to_x, to_y)
 					#Globals.board[to_x][to_y] = calc_id
 					#change turns if piece moved everything---------------------
-					if temp_id == -1 or temp_id == 1 or temp_id == 0:
+					if temp_id == 0:
 						switch_turn()
 					#New setup--------------------------------------------------
 					from_id = temp_id
@@ -158,9 +147,9 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 				print("no")
 				return
 	elif to_x == -1:
-		Debug.log("...choice pending...")
+		print("...choice pending...")
 	else:
-		Debug.log("you can´t move there")
+		print("you can´t move there")
 		
 func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 	can_move = true
@@ -189,8 +178,6 @@ func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 				is_piece_zero = true
 			tile_y = tile_y + dir
 			check_for_piece(tile_x, tile_y, expected_id)
-			if not can_move:
-				return
 	else:
 		var dir = 1
 		if mp_from_x > mp_to_x:
@@ -200,14 +187,12 @@ func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 				is_piece_zero = true
 			tile_x = tile_x + dir
 			check_for_piece(tile_x, tile_y, expected_id)
-			if not can_move:
-				return
 			
 func check_for_piece(tile_x, tile_y, expected_id):
 	var checked_tile = Globals.board[tile_x][tile_y]
 
 	if checked_tile != 0:
-		if is_piece_zero and (expected_id == 0 or expected_id == 1):
+		if is_piece_zero and expected_id == 0:
 			if current_turn == player.p_black and checked_tile > 0:
 				capture_piece(tile_x, tile_y)
 				can_move = true
@@ -216,13 +201,12 @@ func check_for_piece(tile_x, tile_y, expected_id):
 				can_move = true
 			else:
 				can_move = false
-				return
 		else:
 			can_move = false
 			return
 	else:
 		can_move = true
-		
+#-------------------------------------------------------------------------------
 func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 	var piece = Globals.board[x_from_x][x_from_y]
 	Globals.board[x_from_x][x_from_y] = 0 
@@ -230,6 +214,8 @@ func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 	Globals.display_board()
 	
 	
+	
+	#setting flags----------------------
 	xmoved = true
 	last_changed = "x"
 	Globals.waiting_for_first = false
@@ -238,6 +224,7 @@ func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 		x_moving_direction = "+"
 	elif x_from_x > x_to_x:
 		x_moving_direction = "-"
+	#-----------------------------------
 
 func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 	var piece = Globals.board[y_from_x][y_from_y]
@@ -247,6 +234,7 @@ func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 	Globals.display_board()
 	
 	
+	#setting flags----------------------
 	ymoved = true
 	last_changed = "y"
 	Globals.waiting_for_first = false
@@ -255,15 +243,16 @@ func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 		y_moving_direction = "+"
 	elif y_from_y > y_to_y:
 		y_moving_direction = "-"
+	#-----------------------------------
 
 func capture_piece(tile_x, tile_y):
-	Debug.log("capture piece")
+	print("capture piece")
 	var piece = Globals.board[tile_x][tile_y]
 	if abs(piece) == 10:
 		if piece == 10:
 			print("b wins")
 		elif piece == -10:
-			Debug.log("w wins")
+			print("w wins")
 		game_over = true 
 		
 	Globals.board[tile_x][tile_y] = 0
@@ -330,7 +319,6 @@ func check_light_up(num, tile_x, tile_y, piece_id):
 				break
 		else:
 			break
-
 #lighting up possable tiles would be nice
 #adding code so the new piece_id is the side facing top
 #set boolean if King is captured -> winning screen
