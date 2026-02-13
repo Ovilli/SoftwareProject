@@ -172,4 +172,17 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 <img width="233" height="220" alt="image" src="https://github.com/user-attachments/assets/2bb45470-e38e-431f-8ee8-d79aada2f077" />
 
 
+### Danke fürs Durchlesen
+
+-----
+[![Godot](https://img.shields.io/badge/Godot-Blue-667eea?style=for-the-badge&logo=godot-engine&logoColor=white)](https://godotengine.org/)
+
+
+[![GitHub](https://img.shields.io/badge/GitHub-Ovilli-181717?style=for-the-badge&logo=github)](https://github.com/Ovilli)
+
+[![GitHub](https://img.shields.io/badge/GitHub-Hell0Tears-181717?style=for-the-badge&logo=github)](https://github.com/Hell0Tears)
+
+[![License](https://img.shields.io/badge/License-MIT-667eea?style=for-the-badge)](LICENSE)
+
+
 
