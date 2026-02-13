@@ -10,6 +10,7 @@
 * Godot Engine
 * MagicaVoxel
 * GitHub
+* GitHub Desktop
 
 ---
 
@@ -70,6 +71,7 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 * Rechte erfragen
 * Besseres Intro
 * Coole Music
+* Eine möglichkeit sein Feedback an die DEV's zu senden
 
 ---
 
@@ -77,7 +79,7 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 
 * `Debug.log("Ein einfaches Tool um zu debuggen")`
 * `Globals.DEBUG : Bool = FALSE` (um den Debug Mode zu starten)
-* Default Debug Menu within Godot
+* Default Debug Menu von Godot
 
 ---
 
