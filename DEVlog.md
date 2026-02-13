@@ -53,6 +53,11 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 
 ## Ausbaufähigkeit
 
+**Verschiedene Hintergründe (Scenen)**
+  * Strand Scene
+  * Park
+  * Andere Orte die eine Umgebung Interessant machen (etc.) 
+
 **Neue Modi**
 * **Blitz**
   * Begrenzte Zeit, schnelle Züge
@@ -156,3 +161,15 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 **26.–27.01.2026**
 * Kleine Bugfixes und Stabilitätsupdates
 * Finale Spiellogik balancen
+
+---
+# Scripts
+
+**Turn Mng.gd**
+
+**Globals.gd**
+ 
+<img width="233" height="220" alt="image" src="https://github.com/user-attachments/assets/2bb45470-e38e-431f-8ee8-d79aada2f077" />
+
+
+
