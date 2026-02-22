@@ -65,6 +65,7 @@ func display_board():
 func find_rotation_of_piece(piece_id):
 	# Verwende den absoluten Wert, um die Rotation zu bestimmen
 	var display_value = abs(piece_id)
+	print("arrrrrrrrr")
 	
 	# Für Könige (10) zeige die "1" Seite
 	if display_value == 10:

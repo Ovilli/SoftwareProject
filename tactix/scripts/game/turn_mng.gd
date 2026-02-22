@@ -12,8 +12,8 @@ var dice_faces := {
 	"bottom": 5,
 	"north": 6,
 	"south": 1,
-	"east": 3,
-	"west": 4
+	"east": 4,
+	"west": 3
 }
 
 var board = "board_manager"
@@ -169,14 +169,11 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 					if current_turn == Player.P_BLACK:
 						temp_id = -temp_id
 					
-					# SAVE POSITION BEFORE MOVING
-					var prev_x = from_x
-					var prev_y = from_y
 					
 					x_place_piece(from_x, from_y, to_x, to_y)
 					
 					# UPDATE DICE ORIENTATION
-					update_piece_id_with_positions(prev_x, prev_y, to_x, to_y)
+					update_piece_id_with_positions(from_x, from_y, to_x, to_y)
 					
 					# Change turns if piece moved everything
 					if temp_id == 0:
@@ -269,10 +266,10 @@ func check_for_piece(tile_x, tile_y, expected_id):
 
 
 func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
-	var piece = Globals.board[x_from_x][x_from_y]
+	#var piece = Globals.board[x_from_x][x_from_y]
 	Globals.board[x_from_x][x_from_y] = 0 
-	Globals.board[x_to_x][x_to_y] = piece 
-	Globals.display_board()
+	#Globals.board[x_to_x][x_to_y] = piece 
+	#Globals.display_board()
 	
 	# Set flags
 	xmoved = true
