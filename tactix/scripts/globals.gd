@@ -11,7 +11,8 @@ var waiting_for_first: bool = true
 var DEBUG : bool = true
 var GAME_OVER : bool = false
 var board : Array = []
-
+var board_pices_updated : Array = []
+var dice_states := {}
 
 const BOARD_SIZE =  9
 const CELL_WIDTH = 1.10000002384186
@@ -41,35 +42,24 @@ func display_board():
 		for y in range(BOARD_SIZE):
 			var piece_id = board[x][y]
 			
-				
 			var scene : PackedScene
 			if piece_id == 0:  # 0 = nichts 
 				scene = HIDDEN
-				
-			if piece_id > 0 and piece_id < 7: # gucken ob es weiß ist 
+			elif piece_id > 0 and piece_id < 7: # gucken ob es weiß ist 
 				scene = DICE # setzen variable mesh auf DICE => eine weiße figur  wird gepsawnt
-			else:
-				if piece_id == 10: # gucken ob es ein könig ist 
-					scene = DICE_KING # setzen variable mesh auf KING => ein könig wird gepsawnt
-				else:
-					if piece_id < 0 and piece_id > -7: # gucken ob es schwarz ist
-						scene = DICE_BLACK # setzen variable mesh auf DICE_BLACK => eine schwarze figur wird gepsawnt
-					else:
-						# gucken ob es ein schwarzer könig ist 
-						if piece_id == -10:
-							scene = DICE_BLACK_KING # setzen variable mesh auf KING_BLACK => ein schwarzer  könig wird gepsawnt
+			elif piece_id == 10: # gucken ob es ein könig ist 
+				scene = DICE_KING # setzen variable mesh auf KING => ein könig wird gepsawnt
+			elif piece_id < 0 and piece_id > -7: # gucken ob es schwarz ist
+				scene = DICE_BLACK # setzen variable mesh auf DICE_BLACK => eine schwarze figur wird gepsawnt
+			elif piece_id == -10: # gucken ob es ein schwarzer könig ist 
+				scene = DICE_BLACK_KING # setzen variable mesh auf KING_BLACK => ein schwarzer  könig wird gepsawnt
 						
 			spawn_piece(scene, x, y, piece_id)
-			# print("Spawning piece at:", x, y, mesh)
 			
 func find_rotation_of_piece(piece_id):
 	# Verwende den absoluten Wert, um die Rotation zu bestimmen
 	var display_value = abs(piece_id)
 	print("arrrrrrrrr")
-	
-	# Für Könige (10) zeige die "1" Seite
-	if display_value == 10:
-		display_value = 1
 	
 	# Rotationen für jede Würfelseite
 	if display_value == 1:
@@ -97,7 +87,6 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	var piece_instance = scene.instantiate() as Node3D
 	
 	piece_instance.add_to_group("visual_pieces")
-	
 	add_child(piece_instance)
 
 	# setze die globale position
@@ -108,11 +97,10 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	)
 	times += 1
 
-	
-
 	# rotitire am pivot
-	var pivot = piece_instance.get_node("Pivot") as Node3D
-	pivot.rotation = find_rotation_of_piece(piece_id)
+	var pivot = piece_instance.get_node_or_null("Pivot")
+	if pivot:
+		pivot.rotation = find_rotation_of_piece(piece_id)
 	
 	#Custom Pice ID ebscpeicher in der meta 
 	var piece_data := Node.new()
@@ -121,10 +109,15 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	piece_data.set_meta("index", times)
 	piece_data.set_meta("x", x)
 	piece_data.set_meta("y", y)
+	var key = str(x) + "|" + str(y)
+
+	if piece_id != 0 and not dice_states.has(key):
+		dice_states[key] = create_default_dice_faces(abs(piece_id))
+
+	piece_data.set_meta("dice_faces", dice_states.get(key, {}))
 	piece_instance.add_child(piece_data)
 
 func board_clear():
-
 	var old_pieces = get_tree().get_nodes_in_group("visual_pieces")
 	for piece in old_pieces:
 		piece.queue_free() # This safely deletes the object
@@ -140,23 +133,48 @@ func highlight_possible_moves():
 	for move in TurnMng.no_pos_moves:
 		spawn_marker(move[0], move[1], MARKER_RED)
 
-
 func spawn_marker(x, y, MARKER):
-	# Instanziiere den Marker als Szene
 	var marker_instance = MARKER.instantiate() as Node3D
 	add_child(marker_instance)
 	marker_instance.add_to_group("move_markers")
 
-	# Position auf dem Board
 	marker_instance.global_position = _0_0.global_position + Vector3(
 		x * CELL_WIDTH + CELL_WIDTH * 0.5,
 		0.05,
 		y * CELL_WIDTH + CELL_WIDTH * 0.5
 	)
 
-
 func clear_move_markers():
 	var markers_to_clear = get_tree().get_nodes_in_group("move_markers")
 	for marker in markers_to_clear:
 		marker.queue_free()
 		
+func create_default_dice_faces(top_value:int):
+	var faces = {
+		"top": 2,
+		"bottom": 5,
+		"north": 6,
+		"south": 1,
+		"east": 4,
+		"west": 3
+	}
+
+	# rotate until correct top is reached
+	var safety_counter = 0
+	while faces.top != top_value and safety_counter < 10:
+		var old_top = faces.top
+		faces.top = faces.south	
+		faces.south = faces.bottom
+		faces.bottom = faces.north
+		faces.north = old_top
+		safety_counter += 1
+
+	return faces
+	
+func move_dice_state(from_x, from_y, to_x, to_y):
+	var from_key = str(from_x) + "|" + str(from_y)
+	var to_key = str(to_x) + "|" + str(to_y)
+
+	if dice_states.has(from_key):
+		dice_states[to_key] = dice_states[from_key]
+		dice_states.erase(from_key)
