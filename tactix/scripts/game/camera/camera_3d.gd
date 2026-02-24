@@ -10,7 +10,7 @@ const SELECT = preload("uid://d4nncgwclo7yu")
 const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
 
 # Paths
-@onready var top_camera = get_node("/root/Main-Game//Camera-Top")
+@onready var top_camera = get_node("/root/Main-Game/Camera-Top")
 @onready var top_camera_2 = get_node("/root/Main-Game//Camera-Top2")
 @onready var options = get_node("/root/Main-Game/Options")
 @onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
@@ -27,6 +27,8 @@ var second_id: int = 0
 
 var yaw: float = 0.0
 var pitch: float = 0.0
+
+var is_transitioning: bool = false
 
 
 func _ready():
@@ -126,7 +128,6 @@ func check_for_piece_data(node: Node, is_click: bool = false):
 							Globals.waiting_for_first = false
 							Globals.clear_move_markers()
 							marker_click()
-							switch_to_top_camera()
 							play_sound_sfx()
 						else:
 							# Invalid piece - reject and show message
@@ -155,7 +156,6 @@ func check_for_piece_data(node: Node, is_click: bool = false):
 							marker_click()
 						else:
 							Globals.waiting_for_first = false
-							switch_to_top_camera()
 							play_sound_sfx()
 							TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
 							if second_x != -1 and second_y != -1:
@@ -190,14 +190,23 @@ func switch_to_top_camera():
 	texture_rect.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	
-	# Set the appropriate camera based on current turn
-	# FIXED: Use TurnMng.Player instead of TurnMng.player
+	var target: Camera3D
 	if TurnMng.current_turn == TurnMng.Player.P_WHITE:
-		top_camera_2.current = true
+		target = top_camera_2
 		top_camera.current = false
 	else:
-		top_camera.current = true
+		target = top_camera
 		top_camera_2.current = false
+	
+	var destination = target.global_transform
+	target.global_transform = player_camera.global_transform
+	target.current = true
+	is_transitioning = true
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(target, "global_transform", destination, 0.6)
+	tween.tween_callback(func(): is_transitioning = false)
 
 
 func marker_click():
@@ -211,21 +220,46 @@ func _process(_delta: float) -> void:
 
 
 func rotate_camera_nice():
-	if top_camera_enabled:
-		# FIXED: Use TurnMng.Player instead of TurnMng.player
+	if top_camera_enabled and not is_transitioning:
 		if TurnMng.current_turn == TurnMng.Player.P_WHITE:
 			if not top_camera_2.current:
+				is_transitioning = true
+				var destination = top_camera_2.global_transform
+				top_camera_2.global_transform = top_camera.global_transform
 				top_camera_2.current = true
 				top_camera.current = false
+				var tween = create_tween()
+				tween.set_ease(Tween.EASE_IN_OUT)
+				tween.set_trans(Tween.TRANS_CUBIC)
+				tween.tween_property(top_camera_2, "global_transform", destination, 0.6)
+				tween.tween_callback(func(): is_transitioning = false)
 		else:
 			if not top_camera.current:
+				is_transitioning = true
+				var destination = top_camera.global_transform
+				top_camera.global_transform = top_camera_2.global_transform
 				top_camera.current = true
 				top_camera_2.current = false
+				var tween = create_tween()
+				tween.set_ease(Tween.EASE_IN_OUT)
+				tween.set_trans(Tween.TRANS_CUBIC)
+				tween.tween_property(top_camera, "global_transform", destination, 0.6)
+				tween.tween_callback(func(): is_transitioning = false)
 
 
 func switch_to_player_camera():
-	player_camera.current = true
 	top_camera_enabled = false
 	top_camera.current = false
 	top_camera_2.current = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	var prev_transform = get_viewport().get_camera_3d().global_transform
+	player_camera.current = true
+	var destination = player_camera.global_transform
+	player_camera.global_transform = prev_transform
+	is_transitioning = true
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(player_camera, "global_transform", destination, 0.6)
+	tween.tween_callback(func(): is_transitioning = false)
