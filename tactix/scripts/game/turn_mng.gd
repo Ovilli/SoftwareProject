@@ -44,6 +44,7 @@ func switch_turn():
 		current_turn = Player.P_BLACK
 	else:
 		current_turn = Player.P_WHITE
+		
 		print("w")
 	start_turn()
 

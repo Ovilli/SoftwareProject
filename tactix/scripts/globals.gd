@@ -59,7 +59,7 @@ func display_board():
 func find_rotation_of_piece(piece_id):
 	# Verwende den absoluten Wert, um die Rotation zu bestimmen
 	var display_value = abs(piece_id)
-	print("arrrrrrrrr")
+	#print("arrrrrrrrr")
 	
 	# Rotationen für jede Würfelseite
 	if display_value == 1:
@@ -105,14 +105,14 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	#Custom Pice ID ebscpeicher in der meta 
 	var piece_data := Node.new()
 	piece_data.name = "PieceData"
-	piece_data.set_meta("piece_id", piece_id)
+	piece_data.set_meta("piece_id", piece_id) 
 	piece_data.set_meta("index", times)
 	piece_data.set_meta("x", x)
 	piece_data.set_meta("y", y)
 	var key = str(x) + "|" + str(y)
 
-	if piece_id != 0 and not dice_states.has(key):
-		dice_states[key] = create_default_dice_faces(abs(piece_id))
+	if piece_id != 0 and not dice_states.has(key): #falsch, weil has.key immer true
+		dice_states[key] = create_default_dice_faces(piece_id)
 
 	piece_data.set_meta("dice_faces", dice_states.get(key, {}))
 	piece_instance.add_child(piece_data)
@@ -149,27 +149,37 @@ func clear_move_markers():
 	for marker in markers_to_clear:
 		marker.queue_free()
 		
-func create_default_dice_faces(top_value:int):
+func create_default_dice_faces(id:int):
 	var faces = {
 		"top": 2,
 		"bottom": 5,
-		"north": 6,
-		"south": 1,
-		"east": 4,
-		"west": 3
+		"north": 6, #1
+		"south": 1, #6
+		"east": 4, #3
+		"west": 3 #4
 	}
-
+	var cur_id = abs(id)
 	# rotate until correct top is reached
 	var safety_counter = 0
-	while faces.top != top_value and safety_counter < 10:
+	while faces.top != cur_id and safety_counter < 10:
 		var old_top = faces.top
-		faces.top = faces.south	
+		faces.top = faces.south
 		faces.south = faces.bottom
 		faces.bottom = faces.north
 		faces.north = old_top
 		safety_counter += 1
-
-	return faces
+	if id > 0:
+		return faces
+	else:
+		var old_south = faces.south
+		faces.south = faces.north
+		faces.north = old_south
+		
+		var old_west = faces.west
+		faces.west = faces.east
+		faces.east = old_west
+		return faces
+		
 	
 func move_dice_state(from_x, from_y, to_x, to_y):
 	var from_key = str(from_x) + "|" + str(from_y)
