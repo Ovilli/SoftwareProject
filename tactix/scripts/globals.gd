@@ -2,6 +2,7 @@ extends Node
 
 #Variabels
 var options_open:bool = false
+var option_alr_open: bool = false 
 var FOV :int = 90
 var SENS :int= 20
 var main_menu :bool = false
@@ -13,6 +14,7 @@ var GAME_OVER : bool = false
 var board : Array = []
 var board_pices_updated : Array = []
 var dice_states := {}
+var counter:int = 0
 
 const BOARD_SIZE =  9
 const CELL_WIDTH = 1.10000002384186
@@ -109,12 +111,10 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	piece_data.set_meta("index", times)
 	piece_data.set_meta("x", x)
 	piece_data.set_meta("y", y)
-	var key = str(x) + "|" + str(y)
 
-	if piece_id != 0 and not dice_states.has(key): #falsch, weil has.key immer true
-		dice_states[key] = create_default_dice_faces(piece_id)
+	if piece_id != 0 and counter == 0: #falsch, weil has.key immer true
+		create_default_dice_faces(piece_id)
 
-	piece_data.set_meta("dice_faces", dice_states.get(key, {}))
 	piece_instance.add_child(piece_data)
 
 func board_clear():
@@ -179,12 +179,3 @@ func create_default_dice_faces(id:int):
 		faces.west = faces.east
 		faces.east = old_west
 		return faces
-		
-	
-func move_dice_state(from_x, from_y, to_x, to_y):
-	var from_key = str(from_x) + "|" + str(from_y)
-	var to_key = str(to_x) + "|" + str(to_y)
-
-	if dice_states.has(from_key):
-		dice_states[to_key] = dice_states[from_key]
-		dice_states.erase(from_key)

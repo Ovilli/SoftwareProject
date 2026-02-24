@@ -3,6 +3,17 @@ extends Control
 #Paths
 @onready var canvas_layer: CanvasLayer = $"../Control/CanvasLayer"
 
+func _input(event: InputEvent) -> void:
+	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false and Globals.option_alr_open == false:
+		hide()
+		Debug.log("TEst")
+		Globals.options_open = false
+		Globals.option_alr_open = false
+		if Globals.main_menu == true and Globals.options_open == false:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			
 func _ready() -> void:
 	_sync_canvas_visibility()
 	if Globals.DEBUG == true:
@@ -23,6 +34,7 @@ func _sync_canvas_visibility() -> void:
 func _on_exit_pressed() -> void:
 	hide()
 	Globals.options_open = false
+	Globals.option_alr_open = false
 	if Globals.main_menu == true and Globals.options_open == false:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:

@@ -35,10 +35,11 @@ func _ready():
 
 
 func _input(event):
-	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false:
-		if Globals.options_open == false and player_camera.current == true:
+	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false and Globals.option_alr_open == false:
+		if Globals.options_open == false and player_camera.current == true and Globals.option_alr_open == false:
 			options.show()
 			Globals.options_open = true
+			Globals.option_alr_open = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			
 		if player_camera.current == false:

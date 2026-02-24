@@ -50,6 +50,7 @@ func switch_turn():
 
 	
 func start_turn():
+	Globals.counter = Globals.counter + 1
 	match current_turn:
 		Player.P_WHITE:
 			print("w")
@@ -75,6 +76,7 @@ func reset_turn_vars():
 func reset_turn():
 	if ((current_turn == Player.P_BLACK and original_id <= 0) or (current_turn == Player.P_WHITE and original_id >= 0)) and moved_sth:
 		print("reset last turn")
+		Globals.counter = Globals.counter - 1
 		var piece = Globals.board[from_x][from_y]
 		Globals.board[from_x][from_y] = 0 
 		Globals.board[original_x][original_y] = piece

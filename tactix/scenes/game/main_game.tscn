@@ -34,7 +34,7 @@ shader_parameter/animation_speed = 5.3850002082875
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_11nld"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p2514"]
-size = Vector3(3.8615723, 5.709839, 3.9824219)
+size = Vector3(4.1, 5.7, 4)
 
 [node name="Main-Game" type="Node3D" unique_id=619824366]
 
@@ -136,7 +136,7 @@ skeleton = NodePath("../..")
 [node name="StaticBody3D" type="StaticBody3D" parent="Tabel/Tabel" unique_id=351170870]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/Tabel/StaticBody3D" unique_id=698093001]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11291504, 0.35491943, 0.09222412)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.043701172, 0.35491943, 0.08343506)
 shape = SubResource("BoxShape3D_p2514")
 
 [node name="Camera-Top" type="Camera3D" parent="." unique_id=1556224283]
