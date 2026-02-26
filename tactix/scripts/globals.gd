@@ -112,7 +112,7 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	piece_data.set_meta("x", x)
 	piece_data.set_meta("y", y)
 
-	if piece_id != 0 and counter == 0: #falsch, weil has.key immer true
+	if piece_id != 0 and counter == 0:
 		create_default_dice_faces(piece_id)
 
 	piece_instance.add_child(piece_data)
