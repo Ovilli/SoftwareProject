@@ -1,23 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://ca35rikf3jygt"]
+[gd_scene format=3 uid="uid://ca35rikf3jygt"]
 
 [ext_resource type="ArrayMesh" uid="uid://qybkw75qflsr" path="res://assets/models/dice/dice_black.vox" id="1_uf7bm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s4717"]
 size = Vector3(0.90966797, 0.90185547, 0.9025879)
 
-[node name="Dice" type="Node3D"]
+[node name="Dice" type="Node3D" unique_id=59391264]
 
-[node name="Dice_Black" type="StaticBody3D" parent="."]
+[node name="Dice_Black" type="StaticBody3D" parent="." unique_id=992797834]
 transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Dice_Black"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dice_Black" unique_id=243715170]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.045166016, 0.44907227, 0.04870606)
 shape = SubResource("BoxShape3D_s4717")
 
-[node name="Pivot" type="Node3D" parent="."]
+[node name="Pivot" type="Node3D" parent="." unique_id=272582048]
 transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.046486497, 0.45895898, 0.027957082)
 
-[node name="Dice" type="MeshInstance3D" parent="Pivot"]
+[node name="Dice" type="MeshInstance3D" parent="Pivot" unique_id=1810195986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0.027957086)
 mesh = ExtResource("1_uf7bm")
 skeleton = NodePath("../..")

@@ -111,12 +111,12 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	piece_data.set_meta("index", times)
 	piece_data.set_meta("x", x)
 	piece_data.set_meta("y", y)
-
-	if piece_id != 0 and counter == 0:
-		create_default_dice_faces(piece_id)
-
+	var key = str(x) + "|" + str(y)
+	if piece_id != 0 and not dice_states.has(key): #counter == 0 and
+		dice_states[key] = create_default_dice_faces(piece_id)
+	piece_data.set_meta("dice_faces", dice_states.get({}))
 	piece_instance.add_child(piece_data)
-
+	
 func board_clear():
 	var old_pieces = get_tree().get_nodes_in_group("visual_pieces")
 	for piece in old_pieces:

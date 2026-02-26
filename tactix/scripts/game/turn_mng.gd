@@ -82,6 +82,7 @@ func reset_turn():
 		Globals.board[original_x][original_y] = piece
 		Globals.display_board()
 		reset_turn_vars()
+		#reset dice faces
 
 
 func legal_move(first_x, first_y, first_id, second_x, second_y):
@@ -119,12 +120,10 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 					if current_turn == Player.P_BLACK:
 						temp_id = -temp_id
 					
-					var prev_x = from_x
-					var prev_y = from_y
 					
 					y_place_piece(from_x, from_y, to_x, to_y)
 					
-					update_piece_id_with_positions(prev_x, prev_y, to_x, to_y)
+					update_piece_id_with_positions(from_x, from_y, to_x, to_y)
 					
 					if temp_id == 0:
 						switch_turn()
@@ -154,12 +153,9 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 					if current_turn == Player.P_BLACK:
 						temp_id = -temp_id
 					
-					var prev_x = from_x
-					var prev_y = from_y
-					
 					x_place_piece(from_x, from_y, to_x, to_y)
 					
-					update_piece_id_with_positions(prev_x, prev_y, to_x, to_y)
+					update_piece_id_with_positions(from_x, from_y, to_x, to_y)
 					
 					if temp_id == 0:
 						switch_turn()
@@ -246,7 +242,6 @@ func check_for_piece(tile_x, tile_y, expected_id):
 func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 	var piece = Globals.board[x_from_x][x_from_y]
 	Globals.board[x_from_x][x_from_y] = 0 
-	Globals.board[x_to_x][x_to_y] = piece 
 	
 	xmoved = true
 	last_changed = "x"
@@ -261,8 +256,6 @@ func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 	var piece = Globals.board[y_from_x][y_from_y]
 	Globals.board[y_from_x][y_from_y] = 0 
-	Globals.board[y_to_x][y_to_y] = piece
-	Globals.display_board()
 	
 	ymoved = true
 	last_changed = "y"
@@ -354,7 +347,7 @@ func roll_forward(faces):
 	faces.south = faces.bottom
 	faces.bottom = faces.north
 	faces.north = old_top
-
+	return faces
 
 func roll_backward(faces):
 	var old_top = faces.top
@@ -362,7 +355,7 @@ func roll_backward(faces):
 	faces.north = faces.bottom
 	faces.bottom = faces.south
 	faces.south = old_top
-
+	return faces
 
 func roll_right(faces):
 	var old_top = faces.top
@@ -370,7 +363,7 @@ func roll_right(faces):
 	faces.west = faces.bottom
 	faces.bottom = faces.east
 	faces.east = old_top
-
+	return faces
 
 func roll_left(faces):
 	var old_top = faces.top
@@ -378,11 +371,11 @@ func roll_left(faces):
 	faces.east = faces.bottom
 	faces.bottom = faces.west
 	faces.west = old_top
-
+	return faces
 
 func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 	var key = str(prev_x) + "|" + str(prev_y)
-
+	var new_key = str(new_x) + "|" + str(new_y)
 	if not Globals.dice_states.has(key):
 		return
 
@@ -406,9 +399,12 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 			else:
 				for i in range(abs(delta_x)):
 					roll_left(faces)
-		
 		var updated_id = faces.top
+		print(faces)
+		print(new_key)
 		
+		Globals.dice_states.erase(key)
+		Globals.dice_states[new_key] = faces
 		if current_turn == Player.P_BLACK:
 			updated_id = -updated_id
 		
@@ -420,6 +416,5 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 			king_id = -10
 		Globals.board[new_x][new_y] = king_id
 		from_id = 1
-	
-	Globals.move_dice_state(prev_x, prev_y, new_x, new_y)
+
 	Globals.display_board()
