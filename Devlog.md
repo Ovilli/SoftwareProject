@@ -171,8 +171,6 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 
 **Globals.gd**
  
-<img width="233" height="220" alt="image" src="https://github.com/user-attachments/assets/2bb45470-e38e-431f-8ee8-d79aada2f077" />
-
 
 ### Danke fürs Durchlesen
 
