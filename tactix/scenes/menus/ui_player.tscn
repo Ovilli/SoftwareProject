@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cyl8mbnf5cwl5"]
+
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="1_1kixg"]
+[ext_resource type="Script" uid="uid://c3g4jon0pibp7" path="res://scenes/menus/ui_player.gd" id="1_mn0wj"]
+
+[node name="Ui_Player" type="Control" unique_id=332836720]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mn0wj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=401653071]
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1235621858]
+offset_left = 13.0
+offset_top = 1002.0
+offset_right = 407.0
+offset_bottom = 1074.0
+theme_override_fonts/font = ExtResource("1_1kixg")
+theme_override_font_sizes/font_size = 40
+text = "TURNS LEFT :  "

@@ -56,11 +56,13 @@ func _input(event):
 		shoot_ray()
 	# Left mouse button pressed: shoot ray for click
 	elif event is InputEventMouseButton and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event.pressed:
-		shoot_ray(true)  # Pass click flag
+		shoot_ray(true)
 		
 	if event is InputEvent and Input.is_action_just_pressed("r") and Globals.options_open == false:
 		TurnMng.reset_turn()
 		Globals.clear_move_markers()
+		if first_x != -1 and first_y != -1:
+			first_id = Globals.board[first_x][first_y]
 		play_sound_sfx()
 
 
@@ -92,15 +94,13 @@ func shoot_ray(is_click: bool = false):
 func check_for_piece_data(node: Node, is_click: bool = false):
 	var current_node = node
 	while current_node != null:
-		# Check current node first before moving up
 		if current_node.has_node("PieceData"):
 			var piece_data = current_node.get_node("PieceData")
 			var piece_id = int(piece_data.get_meta("piece_id"))
 			var x = int(piece_data.get_meta("x"))
 			var y = int(piece_data.get_meta("y"))
 			
-			# IMPORTANT: If a move is in progress, read the CURRENT value from the board
-			# not the original value from metadata
+			# If a move is in progress, read the CURRENT value from the board
 			if TurnMng.moved_sth:
 				piece_id = Globals.board[x][y]
 			
@@ -108,27 +108,23 @@ func check_for_piece_data(node: Node, is_click: bool = false):
 				if Globals.waiting_for_first:
 					first_x = x
 					first_y = y
-					first_id = piece_id  # Now uses the correct current value
+					first_id = piece_id
 					second_x = -1
 					second_y = -1
 
-					# VALIDATE PIECE OWNERSHIP FIRST
 					if first_id != 0:
 						var is_valid_piece = false
-						# Check if piece belongs to current player
 						if TurnMng.current_turn == TurnMng.Player.P_WHITE and first_id > 0:
 							is_valid_piece = true
 						elif TurnMng.current_turn == TurnMng.Player.P_BLACK and first_id < 0:
 							is_valid_piece = true
 						
 						if is_valid_piece:
-							# Valid piece - accept selection
 							Globals.waiting_for_first = false
 							Globals.clear_move_markers()
 							marker_click()
 							play_sound_sfx()
 						else:
-							# Invalid piece - reject and show message
 							Debug.log("not your piece")
 							play_sound_sfx()
 							Globals.clear_move_markers()
@@ -137,14 +133,14 @@ func check_for_piece_data(node: Node, is_click: bool = false):
 					if not (first_x == x and first_y == y):
 						second_x = x
 						second_y = y
-						second_id = piece_id  # Uses current value
+						second_id = piece_id
 						var different_color: bool = false
 						
-						# FIXED: Use TurnMng.Player instead of TurnMng.player
 						if (TurnMng.current_turn == TurnMng.Player.P_WHITE and second_id < 0) or (TurnMng.current_turn == TurnMng.Player.P_BLACK and second_id > 0):
 							different_color = true
 						
 						if second_id != 0 and different_color == false:
+							# Clicked own piece — switch selection
 							first_x = second_x
 							first_y = second_y
 							first_id = second_id
@@ -153,17 +149,31 @@ func check_for_piece_data(node: Node, is_click: bool = false):
 							Globals.clear_move_markers()
 							marker_click()
 						else:
-							Globals.waiting_for_first = false
-							play_sound_sfx()
+							# Attempting a move
 							TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
-							if second_x != -1 and second_y != -1:
-								Globals.clear_move_markers()
+							
+							if TurnMng.moved_sth:
+								# Move succeeded
+								play_sound_sfx()
+								if not Globals.waiting_for_first:
+									# Piece still has moves remaining — re-highlight from new position
+									first_x = TurnMng.from_x
+									first_y = TurnMng.from_y
+									first_id = Globals.board[first_x][first_y]
+									Globals.clear_move_markers()
+									marker_click()
+								else:
+									# Turn ended (piece reached 0) — clear everything
+									Globals.clear_move_markers()
 							else:
+								# Move failed — keep highlights so player can retry
 								first_id = Globals.board[first_x][first_y]
+								Globals.waiting_for_first = false
+								Globals.clear_move_markers()
 								marker_click()
 					else:
 						Debug.log("Cannot select same position")
-						return  # Exit early to prevent calling legal_move
+						return
 			return
 		
 		# Special check for board/table click

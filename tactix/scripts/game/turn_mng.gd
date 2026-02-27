@@ -72,6 +72,7 @@ func reset_turn_vars():
 	Globals.waiting_for_first = true
 	from_x = -1
 	from_y = -1
+	from_id = 0
 
 
 func reset_turn():
@@ -313,43 +314,102 @@ func light_pieces_up(piece_id, tile_x, tile_y):
 	Debug.log("Highlighting possible moves")
 	pos_moves.clear()
 	no_pos_moves.clear()
-	#TODO: fix the bugs with light_pieces_up
-	var num = 1 if abs(piece_id) == 10 else abs(piece_id)#TODO: change piece_id to moves remaining
-	check_light_up(num, tile_x, tile_y, num)
-	
-func check_light_up(_num, tile_x, tile_y, remaining_moves):
-	for i in range(1, remaining_moves + 1):
-		var new_x = tile_x + i
-		if new_x >= 0 and new_x < Globals.BOARD_SIZE:
-			if not check_possible_move(new_x, tile_y, i == remaining_moves):
-				break
-		else:
-			break
+	# Use from_id if mid-turn (already moved), otherwise use the clicked piece_id
+	var num: int
+	if moved_sth:
+		num = 1 if is_king_piece else abs(from_id)
+	else:
+		num = 1 if abs(piece_id) == 10 else abs(piece_id)
+	check_light_up(tile_x, tile_y, num)
 
-	for i in range(1, remaining_moves + 1):
-		var new_x = tile_x - i
-		if new_x >= 0 and new_x < Globals.BOARD_SIZE:
-			if not check_possible_move(new_x, tile_y, i == remaining_moves):
-				break
-		else:
-			break
+func check_light_up(tile_x, tile_y, remaining_moves):
+	# After moving in X, can only move in Y now (and vice versa)
+	var can_move_x = not xmoved  # once xmoved, no more X
+	var can_move_y = not ymoved  # once ymoved, no more Y
 
-	for i in range(1, remaining_moves + 1):
-		var new_y = tile_y + i
-		if new_y >= 0 and new_y < Globals.BOARD_SIZE:
-			if not check_possible_move(tile_x, new_y, i == remaining_moves):
+	# X+ direction
+	if can_move_x and x_moving_direction != "-":
+		for i in range(1, remaining_moves + 1):
+			var new_x = tile_x + i
+			if new_x < 0 or new_x >= Globals.BOARD_SIZE:
 				break
-		else:
-			break
-
-	for i in range(1, remaining_moves + 1):
-		var new_y = tile_y - i
-		if new_y >= 0 and new_y < Globals.BOARD_SIZE:
-			if not check_possible_move(tile_x, new_y, i == remaining_moves):
+			var is_final = (i == remaining_moves)
+			var tile_val = Globals.board[new_x][tile_y]
+			if tile_val == 0:
+				pos_moves.append([new_x, tile_y])
+			elif is_final:
+				if (current_turn == Player.P_WHITE and tile_val < 0) or \
+				   (current_turn == Player.P_BLACK and tile_val > 0):
+					pos_moves.append([new_x, tile_y])
+				else:
+					no_pos_moves.append([new_x, tile_y])
 				break
-		else:
-			break
+			else:
+				no_pos_moves.append([new_x, tile_y])
+				break
 
+	# X- direction
+	if can_move_x and x_moving_direction != "+":
+		for i in range(1, remaining_moves + 1):
+			var new_x = tile_x - i
+			if new_x < 0 or new_x >= Globals.BOARD_SIZE:
+				break
+			var is_final = (i == remaining_moves)
+			var tile_val = Globals.board[new_x][tile_y]
+			if tile_val == 0:
+				pos_moves.append([new_x, tile_y])
+			elif is_final:
+				if (current_turn == Player.P_WHITE and tile_val < 0) or \
+				   (current_turn == Player.P_BLACK and tile_val > 0):
+					pos_moves.append([new_x, tile_y])
+				else:
+					no_pos_moves.append([new_x, tile_y])
+				break
+			else:
+				no_pos_moves.append([new_x, tile_y])
+				break
+
+	# Y+ direction
+	if can_move_y and y_moving_direction != "-":
+		for i in range(1, remaining_moves + 1):
+			var new_y = tile_y + i
+			if new_y < 0 or new_y >= Globals.BOARD_SIZE:
+				break
+			var is_final = (i == remaining_moves)
+			var tile_val = Globals.board[tile_x][new_y]
+			if tile_val == 0:
+				pos_moves.append([tile_x, new_y])
+			elif is_final:
+				if (current_turn == Player.P_WHITE and tile_val < 0) or \
+				   (current_turn == Player.P_BLACK and tile_val > 0):
+					pos_moves.append([tile_x, new_y])
+				else:
+					no_pos_moves.append([tile_x, new_y])
+				break
+			else:
+				no_pos_moves.append([tile_x, new_y])
+				break
+
+	# Y- direction
+	if can_move_y and y_moving_direction != "+":
+		for i in range(1, remaining_moves + 1):
+			var new_y = tile_y - i
+			if new_y < 0 or new_y >= Globals.BOARD_SIZE:
+				break
+			var is_final = (i == remaining_moves)
+			var tile_val = Globals.board[tile_x][new_y]
+			if tile_val == 0:
+				pos_moves.append([tile_x, new_y])
+			elif is_final:
+				if (current_turn == Player.P_WHITE and tile_val < 0) or \
+				   (current_turn == Player.P_BLACK and tile_val > 0):
+					pos_moves.append([tile_x, new_y])
+				else:
+					no_pos_moves.append([tile_x, new_y])
+				break
+			else:
+				no_pos_moves.append([tile_x, new_y])
+				break
 
 func roll_forward(faces):
 	var old_top = faces.top

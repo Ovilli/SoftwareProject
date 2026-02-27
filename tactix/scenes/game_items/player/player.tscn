@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://4r4ib3eoofm8" path="res://scripts/game/player/player.gd" id="1_8ga58"]
 [ext_resource type="ArrayMesh" uid="uid://w1sxwhtt737n" path="res://assets/models/player/player.vox" id="1_m66te"]
 [ext_resource type="Script" uid="uid://k43jh2dljvr1" path="res://scripts/game/camera/camera_3d.gd" id="2_kinl7"]
+[ext_resource type="PackedScene" uid="uid://cyl8mbnf5cwl5" path="res://scenes/menus/ui_player.tscn" id="4_j40e6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kinl7"]
 radius = 4.913086
@@ -32,3 +33,5 @@ shape = SubResource("CapsuleShape3D_kinl7")
 [node name="Sfx" type="AudioStreamPlayer" parent="." unique_id=219028919]
 stream = SubResource("AudioStream_kinl7")
 volume_db = -15.0
+
+[node name="Ui_Player" parent="." unique_id=332836720 instance=ExtResource("4_j40e6")]

@@ -15,6 +15,7 @@ var board : Array = []
 var board_pices_updated : Array = []
 var dice_states := {}
 var counter:int = 0
+var turns_left :int = 0
 
 const BOARD_SIZE =  9
 const CELL_WIDTH = 1.10000002384186
