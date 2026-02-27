@@ -283,15 +283,6 @@ func capture_piece(tile_x, tile_y):
 	Globals.board[tile_x][tile_y] = 0
 
 
-func light_pieces_up(piece_id, tile_x, tile_y):
-	Debug.log("Highlighting possible moves")
-	pos_moves.clear()
-	no_pos_moves.clear()
-	
-	var num = 1 if abs(piece_id) == 10 else abs(piece_id)
-	check_light_up(num, tile_x, tile_y, num)
-
-
 func check_possible_move(check_x, check_y, is_final_position):
 	var checked_tile = Globals.board[check_x][check_y]
 	
@@ -308,7 +299,14 @@ func check_possible_move(check_x, check_y, is_final_position):
 		no_pos_moves.append([check_x, check_y])
 		return false
 
-
+func light_pieces_up(piece_id, tile_x, tile_y):
+	Debug.log("Highlighting possible moves")
+	pos_moves.clear()
+	no_pos_moves.clear()
+	#TODO: fix the bugs with light_pieces_up
+	var num = 1 if abs(piece_id) == 10 else abs(piece_id)#TODO: change piece_id to moves remaining
+	check_light_up(num, tile_x, tile_y, num)
+	
 func check_light_up(_num, tile_x, tile_y, remaining_moves):
 	for i in range(1, remaining_moves + 1):
 		var new_x = tile_x + i

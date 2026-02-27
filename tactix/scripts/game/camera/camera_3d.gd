@@ -115,9 +115,7 @@ func check_for_piece_data(node: Node, is_click: bool = false):
 					# VALIDATE PIECE OWNERSHIP FIRST
 					if first_id != 0:
 						var is_valid_piece = false
-						
 						# Check if piece belongs to current player
-						# FIXED: Use TurnMng.Player instead of TurnMng.player
 						if TurnMng.current_turn == TurnMng.Player.P_WHITE and first_id > 0:
 							is_valid_piece = true
 						elif TurnMng.current_turn == TurnMng.Player.P_BLACK and first_id < 0:
@@ -263,3 +261,4 @@ func switch_to_player_camera():
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(player_camera, "global_transform", destination, 0.6)
 	tween.tween_callback(func(): is_transitioning = false)
+	#TODO: fix the cracked states of the player_camera
