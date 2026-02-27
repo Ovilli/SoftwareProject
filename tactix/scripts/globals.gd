@@ -111,7 +111,7 @@ func find_top_of_piece(top, north):
 		elif north == 5:
 			y = 90
 		elif north == 6:
-			y = 180
+			y = 180	
 	elif top == 5:
 		z = 180
 		if north == 1:
