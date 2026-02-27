@@ -75,13 +75,13 @@ func find_top_of_piece(top, north):
 	if top == 1:
 		x = -90
 		if north == 2:
-			y = 0
+			y = 180#0
 		elif north == 3:
-			y = -90#90
+			y = -90
 		elif north == 4:
-			y = 90#-90
+			y = 90
 		elif north == 5:
-			y = 180
+			y = 0#180
 	elif top == 2:
 		x = 0
 		if north == 1:
@@ -105,13 +105,13 @@ func find_top_of_piece(top, north):
 	elif top == 4:
 		z = -90
 		if north == 1:
-			y = 180
+			y = 0 
 		elif north == 2:
 			y = -90
 		elif north == 5:
 			y = 90
 		elif north == 6:
-			y = 0
+			y = 180
 	elif top == 5:
 		z = 180
 		if north == 1:
@@ -119,19 +119,19 @@ func find_top_of_piece(top, north):
 		elif north == 3:
 			y = 90
 		elif north == 4:
-			y = -90#
+			y = -90
 		elif north == 6:
 			y = 180
 	elif top == 6:
 		x = 90
 		if north == 2:
-			y = 180
+			y = 0
 		elif north == 3:
 			y = -90
 		elif north == 4:
 			y = 90
 		elif north == 5:
-			y = 0
+			y = 180
 
 	return [x, y, z]
 	
