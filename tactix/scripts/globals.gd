@@ -77,9 +77,9 @@ func find_top_of_piece(top, north):
 		if north == 2:
 			y = 0
 		elif north == 3:
-			y = 90
+			y = -90#90
 		elif north == 4:
-			y = -90
+			y = 90#-90
 		elif north == 5:
 			y = 180
 	elif top == 2:
@@ -95,13 +95,13 @@ func find_top_of_piece(top, north):
 	elif top == 3:
 		z = 90
 		if north == 1:
-			y = 180
+			y = 0
 		elif north == 2:
 			y = 90
 		elif north == 5:
 			y = -90
 		elif north == 6:
-			y = 0
+			y = 180
 	elif top == 4:
 		z = -90
 		if north == 1:
@@ -117,9 +117,9 @@ func find_top_of_piece(top, north):
 		if north == 1:
 			y = 0
 		elif north == 3:
-			y = -90
-		elif north == 4:
 			y = 90
+		elif north == 4:
+			y = -90#
 		elif north == 6:
 			y = 180
 	elif top == 6:
@@ -208,20 +208,20 @@ func create_default_dice_faces(id:int):
 	var faces = {
 		"top": 2,
 		"bottom": 5,
-		"north": 6, #1
-		"south": 1, #6
-		"east": 3, #3
-		"west": 4 #4
+		"north": 4, 
+		"south": 3, 
+		"east": 1, 
+		"west": 6 
 	}
 	var cur_id = abs(id)
 	# rotate until correct top is reached
 	var safety_counter = 0
 	while faces.top != cur_id and safety_counter < 10:
 		var old_top = faces.top
-		faces.top = faces.south
-		faces.south = faces.bottom
-		faces.bottom = faces.north
-		faces.north = old_top
+		faces.top = faces.east
+		faces.east = faces.bottom
+		faces.bottom = faces.west
+		faces.west = old_top
 		safety_counter += 1
 	if id > 0:
 		return faces
