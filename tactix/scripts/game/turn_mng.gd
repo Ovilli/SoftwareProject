@@ -82,7 +82,8 @@ func reset_turn():
 		Globals.board[original_x][original_y] = piece
 		Globals.display_board()
 		reset_turn_vars()
-		#reset dice faces
+		#TODO: reset dice faces
+		
 
 
 func legal_move(first_x, first_y, first_id, second_x, second_y):
@@ -92,6 +93,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 	var to_x = second_x
 	var to_y = second_y
 	if not moved_sth:
+		
 		from_x = first_x
 		from_y = first_y
 		from_id = first_id
@@ -400,8 +402,6 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 				for i in range(abs(delta_x)):
 					roll_left(faces)
 		var updated_id = faces.top
-		print(faces)
-		print(new_key)
 		
 		Globals.dice_states.erase(key)
 		Globals.dice_states[new_key] = faces

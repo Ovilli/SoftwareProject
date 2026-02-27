@@ -57,34 +57,85 @@ func display_board():
 				scene = DICE_BLACK_KING # setzen variable mesh auf KING_BLACK => ein schwarzer  könig wird gepsawnt
 						
 			spawn_piece(scene, x, y, piece_id)
-			
-func find_rotation_of_piece(piece_id):
-	# Verwende den absoluten Wert, um die Rotation zu bestimmen
-	var display_value = abs(piece_id)
-	#print("arrrrrrrrr")
+func find_rotation_of_piece(key):
+	var faces = dice_states[key]
+	var top = faces.top
+	var north = faces.north
 	
-	# Rotationen für jede Würfelseite
-	if display_value == 1:
-		# -90 0 0
-		return Vector3(deg_to_rad(-90), 0, 0)
-	elif display_value == 2:
-		# 0 0 0
-		return Vector3(0, 0, 0)
-	elif display_value == 3:
-		# 0 0 90
-		return Vector3(0, 0, deg_to_rad(90))
-	elif display_value == 4:
-		# 0 0 -90
-		return Vector3(0, 0, deg_to_rad(-90))
-	elif display_value == 5:
-		# 0 0 180
-		return Vector3(0, 0, deg_to_rad(180))
-	elif display_value == 6:
-		# 90 0 0
-		return Vector3(deg_to_rad(90), 0, 0)
+	var rot_values = find_top_of_piece(top, north)
 	
-	return Vector3.ZERO
+	return Vector3(deg_to_rad(rot_values[0]), deg_to_rad(rot_values[1]), deg_to_rad(rot_values[2]))
+	
+func find_top_of_piece(top, north):
+	
+	var x : int = 0
+	var y : int = 0
+	var z : int = 0
+	if top == 1:
+		x = -90
+		if north == 2:
+			y = 0
+		elif north == 3:
+			y = 90
+		elif north == 4:
+			y = -90
+		elif north == 5:
+			y = 180
+	elif top == 2:
+		x = 0
+		if north == 1:
+			y = 180
+		elif north == 3:
+			y = -90
+		elif north == 4:
+			y = 90
+		elif north == 6:
+			y = 0
+	elif top == 3:
+		z = 90
+		if north == 1:
+			y = 180
+		elif north == 2:
+			y = 90
+		elif north == 5:
+			y = -90
+		elif north == 6:
+			y = 0
+	elif top == 4:
+		z = -90
+		if north == 1:
+			y = 180
+		elif north == 2:
+			y = -90
+		elif north == 5:
+			y = 90
+		elif north == 6:
+			y = 0
+	elif top == 5:
+		z = 180
+		if north == 1:
+			y = 0
+		elif north == 3:
+			y = -90
+		elif north == 4:
+			y = 90
+		elif north == 6:
+			y = 180
+	elif top == 6:
+		x = 90
+		if north == 2:
+			y = 180
+		elif north == 3:
+			y = -90
+		elif north == 4:
+			y = 90
+		elif north == 5:
+			y = 0
 
+	return [x, y, z]
+	
+	#return Vector3.ZERO
+	
 func spawn_piece(scene: PackedScene, x, y, piece_id):
 	var piece_instance = scene.instantiate() as Node3D
 	
@@ -99,12 +150,7 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	)
 	times += 1
 
-	# rotitire am pivot
-	var pivot = piece_instance.get_node_or_null("Pivot")
-	if pivot:
-		pivot.rotation = find_rotation_of_piece(piece_id)
-	
-	#Custom Pice ID ebscpeicher in der meta 
+	#Custom Pice ID ebscpecher in der meta 
 	var piece_data := Node.new()
 	piece_data.name = "PieceData"
 	piece_data.set_meta("piece_id", piece_id) 
@@ -112,9 +158,17 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 	piece_data.set_meta("x", x)
 	piece_data.set_meta("y", y)
 	var key = str(x) + "|" + str(y)
-	if piece_id != 0 and not dice_states.has(key): #counter == 0 and
+	
+	
+		
+		
+	if piece_id != 0 and not dice_states.has(key):
 		dice_states[key] = create_default_dice_faces(piece_id)
-	piece_data.set_meta("dice_faces", dice_states.get({}))
+	var pivot = piece_instance.get_node_or_null("Pivot")
+	if pivot and dice_states.has(key):
+		pivot.rotation = find_rotation_of_piece(key)
+		
+	piece_data.set_meta("dice_faces", dice_states.get(key, {}))
 	piece_instance.add_child(piece_data)
 	
 func board_clear():
@@ -155,8 +209,8 @@ func create_default_dice_faces(id:int):
 		"bottom": 5,
 		"north": 6, #1
 		"south": 1, #6
-		"east": 4, #3
-		"west": 3 #4
+		"east": 3, #3
+		"west": 4 #4
 	}
 	var cur_id = abs(id)
 	# rotate until correct top is reached
