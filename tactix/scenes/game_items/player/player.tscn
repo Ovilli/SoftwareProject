@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnnq35t23urw5"]
+[gd_scene format=3 uid="uid://bnnq35t23urw5"]
 
 [ext_resource type="Script" uid="uid://4r4ib3eoofm8" path="res://scripts/game/player/player.gd" id="1_8ga58"]
 [ext_resource type="ArrayMesh" uid="uid://w1sxwhtt737n" path="res://assets/models/player/player.vox" id="1_m66te"]
@@ -10,25 +10,25 @@ height = 29.062378
 
 [sub_resource type="AudioStream" id="AudioStream_kinl7"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" unique_id=1575637732]
 transform = Transform3D(-0.9994203, 0, -0.03404475, 0, 1, 0, 0.03404475, 0, -0.9994203, 0, 0, 0)
 script = ExtResource("1_8ga58")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=713109013]
 transform = Transform3D(-0.9998657, 0, -0.016387833, 0, 1, 0, 0.016387833, 0, -0.9998657, 0, 19, 6)
 keep_aspect = 0
 v_offset = -1.0
 fov = 90.0
 script = ExtResource("2_kinl7")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1995761163]
 transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 2.222806, 0)
 mesh = ExtResource("1_m66te")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2022834768]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42951918, 13.539988, 1.7320738)
 shape = SubResource("CapsuleShape3D_kinl7")
 
-[node name="Sfx" type="AudioStreamPlayer" parent="."]
+[node name="Sfx" type="AudioStreamPlayer" parent="." unique_id=219028919]
 stream = SubResource("AudioStream_kinl7")
 volume_db = -15.0

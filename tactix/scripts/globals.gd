@@ -57,6 +57,7 @@ func display_board():
 				scene = DICE_BLACK_KING # setzen variable mesh auf KING_BLACK => ein schwarzer  könig wird gepsawnt
 						
 			spawn_piece(scene, x, y, piece_id)
+			
 func find_rotation_of_piece(key):
 	var faces = dice_states[key]
 	var top = faces.top

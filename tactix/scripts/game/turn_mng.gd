@@ -29,7 +29,7 @@ var original_x: int = 0
 var original_y: int = 0
 var original_id: int = 0
 var is_king_piece: bool = false
-
+var dice_states_backup := {}
 
 func _ready() -> void:
 	start_turn()
@@ -51,6 +51,7 @@ func switch_turn():
 	
 func start_turn():
 	Globals.counter = Globals.counter + 1
+	backup_dice_states()
 	match current_turn:
 		Player.P_WHITE:
 			print("w")
@@ -74,16 +75,25 @@ func reset_turn_vars():
 
 
 func reset_turn():
-	if ((current_turn == Player.P_BLACK and original_id <= 0) or (current_turn == Player.P_WHITE and original_id >= 0)) and moved_sth:
+	if ((current_turn == Player.P_BLACK and original_id <= 0) or \
+		(current_turn == Player.P_WHITE and original_id >= 0)) and moved_sth:
+		
 		print("reset last turn")
 		Globals.counter = Globals.counter - 1
-		var piece = Globals.board[from_x][from_y]
-		Globals.board[from_x][from_y] = 0 
-		Globals.board[original_x][original_y] = piece
+		
+		if from_x != -1 and from_y != -1:
+			Globals.board[from_x][from_y] = 0
+			var current_key = str(from_x) + "|" + str(from_y)
+			if Globals.dice_states.has(current_key):
+				Globals.dice_states.erase(current_key)
+		
+		Globals.board[original_x][original_y] = original_id
+		
+		
+		restore_dice_states()
+		
 		Globals.display_board()
 		reset_turn_vars()
-		#TODO: reset dice faces
-		
 
 
 func legal_move(first_x, first_y, first_id, second_x, second_y):
@@ -416,3 +426,34 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 		from_id = 1
 
 	Globals.display_board()
+	
+	
+func backup_dice_states():
+	dice_states_backup.clear()
+	
+	for key in Globals.dice_states.keys():
+		var faces = Globals.dice_states[key]
+		
+		dice_states_backup[key] = {
+			"top": faces.top,
+			"bottom": faces.bottom,
+			"north": faces.north,
+			"south": faces.south,
+			"east": faces.east,
+			"west": faces.west
+		}
+		
+func restore_dice_states():
+	Globals.dice_states.clear()
+	
+	for key in dice_states_backup.keys():
+		var f = dice_states_backup[key]
+		
+		Globals.dice_states[key] = {
+			"top": f.top,
+			"bottom": f.bottom,
+			"north": f.north,
+			"south": f.south,
+			"east": f.east,
+			"west": f.west
+		}
