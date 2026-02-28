@@ -76,8 +76,8 @@ func reset_turn_vars():
 
 
 func reset_turn():
-	if ((current_turn == Player.P_BLACK and original_id <= 0) or \
-		(current_turn == Player.P_WHITE and original_id >= 0)) and moved_sth:
+	if ((current_turn == Player.P_BLACK and original_id < 0) or \
+		(current_turn == Player.P_WHITE and original_id > 0)) and moved_sth:
 		
 		print("reset last turn")
 		Globals.counter = Globals.counter - 1
@@ -121,7 +121,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 		movedxy = true
 		
 	if from_x == to_x:
-		if movedxy and last_changed == "x":
+		if (xmoved and ymoved) and last_changed == "y":
 			print("Cannot move in Y direction again after moving in both directions")
 			return
 		else:
@@ -154,7 +154,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 				return
 	
 	elif from_y == to_y:
-		if movedxy and last_changed == "y":
+		if (xmoved and ymoved) and last_changed == "x":
 			print("Cannot move in X direction again after moving in both directions")
 			return
 		else:
@@ -254,7 +254,9 @@ func check_for_piece(tile_x, tile_y, expected_id):
 
 func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 	var piece = Globals.board[x_from_x][x_from_y]
-	Globals.board[x_from_x][x_from_y] = 0 
+	Globals.board[x_from_x][x_from_y] = 0
+	# Write piece to destination so it isn't lost if dice_states key is missing
+	Globals.board[x_to_x][x_to_y] = piece
 	
 	xmoved = true
 	last_changed = "x"
@@ -268,7 +270,9 @@ func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 
 func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 	var piece = Globals.board[y_from_x][y_from_y]
-	Globals.board[y_from_x][y_from_y] = 0 
+	Globals.board[y_from_x][y_from_y] = 0
+	# Write piece to destination so it isn't lost if dice_states key is missing
+	Globals.board[y_to_x][y_to_y] = piece
 	
 	ymoved = true
 	last_changed = "y"
@@ -322,14 +326,13 @@ func light_pieces_up(piece_id, tile_x, tile_y):
 	check_light_up(tile_x, tile_y, num)
 
 func check_light_up(tile_x, tile_y, remaining_moves):
-	# After moving both and last moved X, can only move on X now (and vice versa)
 	var can_move_x = true
 	var can_move_y = true
-	if movedxy:
-		if last_changed == "y": #only show y
-			can_move_x = false
-		elif last_changed == "x": #only show x
+	if xmoved and ymoved:
+		if last_changed == "y": #only show x
 			can_move_y = false
+		elif last_changed == "x": #only show y
+			can_move_x = false
 
 	# X+ direction
 	if can_move_x and x_moving_direction != "-":
@@ -487,6 +490,8 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 		if current_turn == Player.P_BLACK:
 			king_id = -10
 		Globals.board[new_x][new_y] = king_id
+		Globals.dice_states.erase(key)
+		Globals.dice_states[new_key] = faces
 		from_id = 1
 
 	Globals.display_board()

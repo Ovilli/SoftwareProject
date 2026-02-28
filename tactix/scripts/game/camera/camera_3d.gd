@@ -146,6 +146,7 @@ func check_for_piece_data(node: Node, is_click: bool = false):
 							first_id = second_id
 							second_x = -1
 							second_y = -1
+							Globals.waiting_for_first = false
 							Globals.clear_move_markers()
 							marker_click()
 						else:
