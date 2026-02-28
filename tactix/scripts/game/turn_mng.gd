@@ -121,7 +121,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 		movedxy = true
 		
 	if from_x == to_x:
-		if (xmoved and ymoved) and last_changed == "y":
+		if (xmoved and ymoved) and last_changed == "x":
 			print("Cannot move in Y direction again after moving in both directions")
 			return
 		else:
@@ -154,7 +154,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 				return
 	
 	elif from_y == to_y:
-		if (xmoved and ymoved) and last_changed == "x":
+		if (xmoved and ymoved) and last_changed == "y":
 			print("Cannot move in X direction again after moving in both directions")
 			return
 		else:
@@ -329,9 +329,9 @@ func check_light_up(tile_x, tile_y, remaining_moves):
 	var can_move_x = true
 	var can_move_y = true
 	if xmoved and ymoved:
-		if last_changed == "y": #only show x
+		if last_changed == "x": #only show x
 			can_move_y = false
-		elif last_changed == "x": #only show y
+		elif last_changed == "y": #only show y
 			can_move_x = false
 
 	# X+ direction
