@@ -119,7 +119,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 	
 	if xmoved and ymoved:
 		movedxy = true
-	
+		
 	if from_x == to_x:
 		if movedxy and last_changed == "x":
 			print("Cannot move in Y direction again after moving in both directions")
@@ -279,7 +279,6 @@ func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 	elif y_from_y > y_to_y:
 		y_moving_direction = "-"
 
-
 func capture_piece(tile_x, tile_y):
 	print("Capturing piece at (%d, %d)" % [tile_x, tile_y])
 	var piece = Globals.board[tile_x][tile_y]
@@ -323,9 +322,14 @@ func light_pieces_up(piece_id, tile_x, tile_y):
 	check_light_up(tile_x, tile_y, num)
 
 func check_light_up(tile_x, tile_y, remaining_moves):
-	# After moving in X, can only move in Y now (and vice versa)
-	var can_move_x = not xmoved  # once xmoved, no more X
-	var can_move_y = not ymoved  # once ymoved, no more Y
+	# After moving both and last moved X, can only move on X now (and vice versa)
+	var can_move_x = true
+	var can_move_y = true
+	if movedxy:
+		if last_changed == "y": #only show y
+			can_move_x = false
+		elif last_changed == "x": #only show x
+			can_move_y = false
 
 	# X+ direction
 	if can_move_x and x_moving_direction != "-":
