@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="1_1kixg"]
 [ext_resource type="Script" uid="uid://c3g4jon0pibp7" path="res://scenes/menus/ui_player.gd" id="1_mn0wj"]
+[ext_resource type="Texture2D" uid="uid://jxm0eyxpne68" path="res://assets/texture/kenney_prototype-textures/PNG/Orange/texture_08.png" id="3_dmlin"]
 
 [node name="Ui_Player" type="Control" unique_id=332836720]
 layout_mode = 3
@@ -21,4 +22,89 @@ offset_right = 407.0
 offset_bottom = 1074.0
 theme_override_fonts/font = ExtResource("1_1kixg")
 theme_override_font_sizes/font_size = 40
-text = "TURNS LEFT :  "
+text = "MOVES LEFT :  "
+
+[node name="Layer2" type="CanvasLayer" parent="CanvasLayer" unique_id=320510976]
+
+[node name="TopTexture" type="TextureRect" parent="CanvasLayer/Layer2" unique_id=1809409797]
+layout_direction = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.00006
+offset_top = -162.0
+offset_right = -60.0
+offset_bottom = -62.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.71999997, 0.7199982)
+texture = ExtResource("3_dmlin")
+expand_mode = 1
+
+[node name="EastTexture" type="TextureRect" parent="CanvasLayer/Layer2/TopTexture" unique_id=695454841]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -209.99994
+offset_top = -100.0
+offset_right = -110.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_dmlin")
+expand_mode = 1
+
+[node name="WestTexture" type="TextureRect" parent="CanvasLayer/Layer2/TopTexture" unique_id=1964651015]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.000061
+offset_top = -100.0
+offset_right = 110.00006
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_dmlin")
+expand_mode = 1
+
+[node name="NorthTexture" type="TextureRect" parent="CanvasLayer/Layer2/TopTexture" unique_id=572091076]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -99.99994
+offset_top = -210.0
+offset_right = 6.1035156e-05
+offset_bottom = -110.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_dmlin")
+expand_mode = 1
+
+[node name="SouthTexture" type="TextureRect" parent="CanvasLayer/Layer2/TopTexture" unique_id=1551401867]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -99.99994
+offset_top = 10.000061
+offset_right = 6.1035156e-05
+offset_bottom = 110.00006
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_dmlin")
+expand_mode = 1

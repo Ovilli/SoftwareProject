@@ -165,7 +165,17 @@ func spawn_piece(scene: PackedScene, x, y, piece_id):
 		
 		
 	if piece_id != 0 and not dice_states.has(key):
-		dice_states[key] = create_default_dice_faces(piece_id)
+		if abs(piece_id) != 10 :
+			dice_states[key] = create_default_dice_faces(piece_id)
+		else:
+			dice_states[key] ={
+				"top": 10,
+				"bottom": 10,
+				"north": 10, 
+				"south": 10, 
+				"east": 10, 
+				"west": 10 
+			}
 	var pivot = piece_instance.get_node_or_null("Pivot")
 	if pivot and dice_states.has(key):
 		pivot.rotation = find_rotation_of_piece(key)

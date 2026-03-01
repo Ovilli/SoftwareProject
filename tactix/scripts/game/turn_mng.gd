@@ -526,3 +526,4 @@ func restore_dice_states():
 			"east": f.east,
 			"west": f.west
 		}
+#BUG: small bug when winning the game: infinite moves unlocked (fixed trough extra screen and game_over-flag)
