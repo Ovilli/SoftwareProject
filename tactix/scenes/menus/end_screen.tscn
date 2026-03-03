@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://c2oy44novm04t"]
+
+[ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="1_3bi35"]
+[ext_resource type="Script" uid="uid://cfbwnmbor2quj" path="res://scenes/menus/end_screen.gd" id="1_mi55a"]
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="2_mi55a"]
+[ext_resource type="FontFile" uid="uid://bve4csamnomfg" path="res://assets/font/jmh_beda/JMH Beda.ttf" id="3_j3ecp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ty7q8"]
+shader = ExtResource("1_3bi35")
+shader_parameter/amount = 1.48400007049
+
+[node name="endScreen" type="Control" unique_id=1692871385]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mi55a")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=87594612]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=854456783]
+material = SubResource("ShaderMaterial_ty7q8")
+offset_left = -1825.0
+offset_top = -579.0
+offset_right = 4118.0
+offset_bottom = 1528.0
+
+[node name="gameOver" type="Label" parent="CanvasLayer" unique_id=1015193452]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -197.0
+offset_top = 50.0
+offset_right = 197.0
+offset_bottom = 122.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_mi55a")
+theme_override_font_sizes/font_size = 40
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="winner" type="Label" parent="CanvasLayer" unique_id=1459883174]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.0
+offset_top = -36.0
+offset_right = 197.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_mi55a")
+theme_override_font_sizes/font_size = 40
+text = "qwertz"
+horizontal_alignment = 1
+
+[node name="quit" type="Button" parent="CanvasLayer" unique_id=351067430]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.5
+offset_top = -118.0
+offset_right = 45.5
+offset_bottom = -87.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_j3ecp")
+theme_override_font_sizes/font_size = 28
+text = "QUIT
+"
+
+[node name="continue" type="Button" parent="CanvasLayer" unique_id=1584721862]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.5
+offset_top = -168.0
+offset_right = 45.5
+offset_bottom = -137.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_j3ecp")
+theme_override_font_sizes/font_size = 32
+text = "CONTINUE"
+
+[connection signal="pressed" from="CanvasLayer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/continue" to="." method="_on_continue_pressed"]

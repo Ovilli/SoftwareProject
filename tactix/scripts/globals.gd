@@ -10,12 +10,12 @@ var how_to_open :bool = false
 var tisch_open :bool = false
 var waiting_for_first: bool = true
 var DEBUG : bool = true
-var GAME_OVER : bool = false
 var board : Array = []
 var board_pices_updated : Array = []
 var dice_states := {}
 var counter:int = 0
 var turns_left :int = 0
+
 
 const BOARD_SIZE =  9
 const CELL_WIDTH = 1.10000002384186
@@ -76,13 +76,13 @@ func find_top_of_piece(top, north):
 	if top == 1:
 		x = -90
 		if north == 2:
-			y = 180#0
+			y = 180
 		elif north == 3:
 			y = -90
 		elif north == 4:
 			y = 90
 		elif north == 5:
-			y = 0#180
+			y = 0
 	elif top == 2:
 		x = 0
 		if north == 1:

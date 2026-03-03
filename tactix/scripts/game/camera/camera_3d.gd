@@ -220,8 +220,8 @@ func switch_to_top_camera():
 
 func marker_click():
 	Globals.clear_move_markers()
-	TurnMng.from_x = first_x
-	TurnMng.from_y = first_y
+	TurnMng.overlay_x = first_x
+	TurnMng.overlay_y = first_y
 	TurnMng.light_pieces_up(abs(first_id), first_x, first_y)
 	Globals.highlight_possible_moves()
 

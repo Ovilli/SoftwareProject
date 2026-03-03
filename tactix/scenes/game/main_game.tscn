@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bnnq35t23urw5" path="res://scenes/game_items/player/player.tscn" id="6_rpywg"]
 [ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="7_ef7fl"]
 [ext_resource type="Shader" uid="uid://70wemi3joy7v" path="res://scripts/shader/speedlines.gdshader" id="7_i2osx"]
+[ext_resource type="PackedScene" uid="uid://c2oy44novm04t" path="res://scenes/menus/end_screen.tscn" id="7_vde2q"]
 [ext_resource type="Texture2D" uid="uid://dwmha44mfuw25" path="res://assets/texture/noisy-background.jpg" id="8_vde2q"]
 [ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/menus/options.tscn" id="9_qsdf0"]
 
@@ -56,7 +57,7 @@ transform = Transform3D(0.99765456, -0.019564716, -0.065594964, 0.06845063, 0.28
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7306299, 6.484985e-05, 1.7331934)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1777851351]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 3.2043748, 7.988303, -3.9808931)
+transform = Transform3D(1, 0, 0, 0, -0.48819485, 0.87273467, 0, -0.87273467, -0.48819485, 5.9610333, 7.988303, -7.698599)
 light_color = Color(0.954374, 0.95869964, 0.96239454, 1)
 light_energy = 170.0
 light_indirect_energy = 0.0
@@ -75,6 +76,8 @@ spot_angle_attenuation = 0.21022487
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
 
 [node name="Options" parent="." unique_id=53060940 instance=ExtResource("9_qsdf0")]
+
+[node name="endScreen" parent="." unique_id=1692871385 instance=ExtResource("7_vde2q")]
 
 [node name="Control" type="Control" parent="." unique_id=1191017771]
 layout_mode = 3

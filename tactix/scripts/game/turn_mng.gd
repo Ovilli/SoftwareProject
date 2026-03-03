@@ -25,6 +25,8 @@ var no_pos_moves: Array = []
 var from_x: int = -1
 var from_y: int = -1
 var from_id: int = 0
+var overlay_x: int = -1
+var overlay_y: int = -1
 var original_x: int = 0
 var original_y: int = 0
 var original_id: int = 0
@@ -73,6 +75,8 @@ func reset_turn_vars():
 	from_x = -1
 	from_y = -1
 	from_id = 0
+	overlay_x = -1
+	overlay_y = -1
 
 
 func reset_turn():

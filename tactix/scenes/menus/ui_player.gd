@@ -15,6 +15,13 @@ const side_4 = preload("res://assets/texture/overlay/4.png")
 const side_5 = preload("res://assets/texture/overlay/5.png")
 const side_6 = preload("res://assets/texture/overlay/6.png")
 const side_king = preload("res://assets/texture/overlay/king.png")
+const b_side_1 = preload("res://assets/texture/overlay/1b.png")
+const b_side_2 = preload("res://assets/texture/overlay/2b.png")
+const b_side_3 = preload("res://assets/texture/overlay/3b.png")
+const b_side_4 = preload("res://assets/texture/overlay/4b.png")
+const b_side_5 = preload("res://assets/texture/overlay/5b.png")
+const b_side_6 = preload("res://assets/texture/overlay/6b.png")
+const b_side_king = preload("res://assets/texture/overlay/kingb.png")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -35,30 +42,56 @@ func display_moves_left():
 			moves_left.text = "BLACK´s Turn!"
 			
 func display_dice():
-	var key = str(TurnMng.from_x) + "|" + str(TurnMng.from_y)
+	var key = str(TurnMng.overlay_x) + "|" + str(TurnMng.overlay_y)
 	if Globals.dice_states.has(key):
 		layer_dice.show()
 		var faces = Globals.dice_states[key]
-		top_overlay.texture = set_faces(faces.top)
-		east_overlay.texture = set_faces(faces.east)
-		west_overlay.texture = set_faces(faces.west)
-		north_overlay.texture = set_faces(faces.north)
-		south_overlay.texture = set_faces(faces.south)
+		if TurnMng.current_turn == TurnMng.Player.P_WHITE:
+			top_overlay.texture = set_faces(faces.top)
+			east_overlay.texture = set_faces(faces.east)
+			west_overlay.texture = set_faces(faces.west)
+			north_overlay.texture = set_faces(faces.north)
+			south_overlay.texture = set_faces(faces.south)
+		else:
+			top_overlay.texture = set_faces(faces.top)
+			east_overlay.texture = set_faces(faces.west)
+			west_overlay.texture = set_faces(faces.east)
+			north_overlay.texture = set_faces(faces.south)
+			south_overlay.texture = set_faces(faces.north)
+			
 	else:
 		layer_dice.hide()
 
 func set_faces(face):
-	if face == 1:
-		return side_1
-	elif face == 2:
-		return side_2
-	elif face == 3:
-		return side_3
-	elif face == 4:
-		return side_4
-	elif face == 5:
-		return side_5
-	elif face == 6:
-		return side_6
+	if TurnMng.current_turn == TurnMng.Player.P_WHITE:
+		if face == 1:
+			return side_1
+		elif face == 2:
+			return side_2
+		elif face == 3:
+			return side_3
+		elif face == 4:
+			return side_4
+		elif face == 5:
+			return side_5
+		elif face == 6:
+			return side_6
+		else:
+			return side_king
 	else:
-		return side_king
+		if face == 1:
+			return b_side_1
+		elif face == 2:
+			return b_side_2
+		elif face == 3:
+			return b_side_3
+		elif face == 4:
+			return b_side_4
+		elif face == 5:
+			return b_side_5
+		elif face == 6:
+			return b_side_6
+		else:
+			return b_side_king
+		
+	
