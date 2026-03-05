@@ -2,6 +2,7 @@ extends Control
 
 #Paths
 @onready var canvas_layer: CanvasLayer = $"../Control/CanvasLayer"
+@onready var layer: CanvasLayer = $CanvasLayer
 
 func _input(event: InputEvent) -> void:
 	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false and Globals.option_alr_open == false:
@@ -24,10 +25,10 @@ func _process(_delta: float) -> void:
 func _sync_canvas_visibility() -> void:
 	if Globals.options_open == true:
 		canvas_layer.hide()
-		show()
+		layer.show()
 		
 	else:
-		hide()
+		layer.hide()
 		canvas_layer.show()
 
 func _on_exit_pressed() -> void:
