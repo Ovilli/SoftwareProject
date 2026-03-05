@@ -32,6 +32,7 @@ var original_y: int = 0
 var original_id: int = 0
 var is_king_piece: bool = false
 var dice_states_backup := {}
+var black_wins: bool = false
 
 func _ready() -> void:
 	start_turn()
@@ -293,9 +294,9 @@ func capture_piece(tile_x, tile_y):
 	
 	if abs(piece) == 10:
 		if piece == 10:
-			print("Black wins!")
+			black_wins = true
 		elif piece == -10:
-			print("White wins!")
+			black_wins = false
 		game_over = true
 	
 	Globals.board[tile_x][tile_y] = 0
@@ -530,4 +531,3 @@ func restore_dice_states():
 			"east": f.east,
 			"west": f.west
 		}
-#BUG: small bug when winning the game: infinite moves unlocked (fixed trough extra screen and game_over-flag)

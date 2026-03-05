@@ -29,9 +29,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	display_moves_left()
-	display_dice()
-	
+	if !TurnMng.game_over:
+		display_moves_left()
+		display_dice()
+	else:
+		layer_dice.hide()
 func display_moves_left():
 	if abs(TurnMng.from_id) != 0:
 		moves_left.text = "MOVES LEFT : " + str(abs(TurnMng.from_id))

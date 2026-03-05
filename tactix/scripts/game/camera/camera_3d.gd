@@ -17,6 +17,7 @@ const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
 @onready var sfx = get_node("../Sfx")
 @onready var texture_rect: TextureRect = get_node("/root/Main-Game/Control/CanvasLayer/TextureRect")
 @onready var top_camera_enabled: bool = false
+@onready var options_layer = get_node("/root/Main-Game/Options/CanvasLayer")
 
 var first_x: int = -1
 var first_y: int = -1
@@ -33,7 +34,7 @@ var is_transitioning: bool = false
 
 func _ready():
 	switch_to_player_camera()
-	options.hide()
+	options_layer.hide()
 
 
 func _input(event):
@@ -45,6 +46,7 @@ func _input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			
 		if player_camera.current == false:
+			print("tested")
 			sfx.stream = OPEN
 			sfx.play()
 			Globals.tisch_open = false

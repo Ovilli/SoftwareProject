@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2perhnc4uvvi"]
+[gd_scene format=3 uid="uid://c2perhnc4uvvi"]
 
 [ext_resource type="Script" uid="uid://dnbunj4q68lhp" path="res://scripts/menus/options.gd" id="1_c2u1v"]
 [ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="2_yjkok"]
@@ -8,124 +8,75 @@
 shader = ExtResource("2_yjkok")
 shader_parameter/amount = 1.48400007049
 
-[node name="Options" type="Control"]
+[node name="Options" type="Control" unique_id=1650910259]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_c2u1v")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=450755055]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1803975564]
 material = SubResource("ShaderMaterial_yjkok")
-layout_mode = 0
-offset_left = -1825.0
-offset_top = -579.0
-offset_right = 4118.0
-offset_bottom = 1528.0
+offset_left = -2019.0
+offset_top = -647.0
+offset_right = 3924.0
+offset_bottom = 1460.0
 
-[node name="Exit" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 7
+[node name="Options" type="Label" parent="CanvasLayer" unique_id=849443583]
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 510.0
-offset_top = 572.0
-offset_right = 640.0
-offset_bottom = 633.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("3_slhc7")
-theme_override_font_sizes/font_size = 32
-text = "EXIT"
-
-[node name="Options" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 215.0
-offset_top = 10.0
-offset_right = 926.0
-offset_bottom = 38.0
+offset_left = -355.5
+offset_top = 31.0
+offset_right = 355.5
+offset_bottom = 67.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3_slhc7")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 40
 text = "OPTIONS"
 horizontal_alignment = 1
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(581, 317)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1053539485]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -2.0
-offset_right = 2.0
+offset_left = -578.0
+offset_top = -324.0
+offset_right = -574.0
+offset_bottom = -324.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Settings" type="Control" parent="HBoxContainer"]
+[node name="Settings" type="Control" parent="CanvasLayer/HBoxContainer" unique_id=939571027]
 layout_mode = 2
 
-[node name="Settings" type="Label" parent="HBoxContainer/Settings"]
+[node name="Settings" type="Label" parent="CanvasLayer/HBoxContainer/Settings" unique_id=439342361]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 530.0
-offset_top = 301.0
-offset_right = 604.0
-offset_bottom = 327.25
+offset_left = 510.0
+offset_top = 310.125
+offset_right = 636.0
+offset_bottom = 346.125
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_slhc7")
 theme_override_font_sizes/font_size = 32
 text = "SETTINGS"
 
-[node name="FOV" type="Control" parent="HBoxContainer/Settings"]
+[node name="FOV" type="Control" parent="CanvasLayer/HBoxContainer/Settings" unique_id=626032615]
 anchors_preset = 0
 offset_top = 1.0
 offset_right = 40.0
 offset_bottom = 41.0
 
-[node name="FOV" type="Label" parent="HBoxContainer/Settings/FOV"]
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 532.0
-offset_top = 342.0
-offset_right = 565.0
-offset_bottom = 368.25
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_slhc7")
-theme_override_font_sizes/font_size = 32
-text = "FOV"
-
-[node name="FOV-Slider" type="HSlider" parent="HBoxContainer/Settings/FOV"]
-layout_mode = 0
-offset_left = 382.0
-offset_top = 350.0
-offset_right = 770.0
-offset_bottom = 463.0
-min_value = 75.0
-max_value = 120.0
-value = 90.0
-
-[node name="SENS" type="Control" parent="HBoxContainer/Settings"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SENS" type="Label" parent="HBoxContainer/Settings/SENS"]
+[node name="FOV" type="Label" parent="CanvasLayer/HBoxContainer/Settings/FOV" unique_id=2047378292]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -133,30 +84,63 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 532.0
-offset_top = 417.0
-offset_right = 565.0
-offset_bottom = 443.25
+offset_top = 351.0
+offset_right = 580.0
+offset_bottom = 387.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_slhc7")
+theme_override_font_sizes/font_size = 32
+text = "FOV"
+
+[node name="FOV-Slider" type="HSlider" parent="CanvasLayer/HBoxContainer/Settings/FOV" unique_id=1648170497]
+layout_mode = 0
+offset_left = 382.0
+offset_top = 364.0
+offset_right = 770.0
+offset_bottom = 477.0
+min_value = 75.0
+max_value = 120.0
+value = 90.0
+
+[node name="SENS" type="Control" parent="CanvasLayer/HBoxContainer/Settings" unique_id=1674827106]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SENS" type="Label" parent="CanvasLayer/HBoxContainer/Settings/SENS" unique_id=47955615]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 515.5
+offset_top = 418.125
+offset_right = 581.5
+offset_bottom = 454.125
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_slhc7")
 theme_override_font_sizes/font_size = 32
 text = "SENS"
 
-[node name="SENS-Slider" type="HSlider" parent="HBoxContainer/Settings/SENS"]
+[node name="SENS-Slider" type="HSlider" parent="CanvasLayer/HBoxContainer/Settings/SENS" unique_id=1311464335]
 layout_mode = 0
-offset_left = 382.0
-offset_top = 442.0
-offset_right = 770.0
-offset_bottom = 555.0
+offset_left = 386.0
+offset_top = 445.0
+offset_right = 774.0
+offset_bottom = 558.0
 min_value = 20.0
 max_value = 40.0
 value = 25.0
 rounded = true
 
-[node name="Audio" type="Control" parent="HBoxContainer"]
+[node name="Audio" type="Control" parent="CanvasLayer/HBoxContainer" unique_id=1153463131]
 layout_mode = 2
 
-[node name="Audio" type="Label" parent="HBoxContainer/Audio"]
+[node name="Audio" type="Label" parent="CanvasLayer/HBoxContainer/Audio" unique_id=1286396425]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -173,12 +157,12 @@ theme_override_fonts/font = ExtResource("3_slhc7")
 theme_override_font_sizes/font_size = 32
 text = "AUDIO"
 
-[node name="Music" type="Control" parent="HBoxContainer/Audio"]
+[node name="Music" type="Control" parent="CanvasLayer/HBoxContainer/Audio" unique_id=2018137570]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Music" type="Label" parent="HBoxContainer/Audio/Music"]
+[node name="Music" type="Label" parent="CanvasLayer/HBoxContainer/Audio/Music" unique_id=2125108907]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -194,7 +178,7 @@ theme_override_fonts/font = ExtResource("3_slhc7")
 theme_override_font_sizes/font_size = 32
 text = "MUSIC"
 
-[node name="Music-Slider" type="HSlider" parent="HBoxContainer/Audio/Music"]
+[node name="Music-Slider" type="HSlider" parent="CanvasLayer/HBoxContainer/Audio/Music" unique_id=1065989407]
 layout_mode = 0
 offset_left = 381.0
 offset_top = 126.0
@@ -205,12 +189,12 @@ max_value = 10.0
 value = 10.0
 rounded = true
 
-[node name="Sfx" type="Control" parent="HBoxContainer/Audio"]
+[node name="Sfx" type="Control" parent="CanvasLayer/HBoxContainer/Audio" unique_id=470820240]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Sfx" type="Label" parent="HBoxContainer/Audio/Sfx"]
+[node name="Sfx" type="Label" parent="CanvasLayer/HBoxContainer/Audio/Sfx" unique_id=1694415547]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -226,7 +210,7 @@ theme_override_fonts/font = ExtResource("3_slhc7")
 theme_override_font_sizes/font_size = 32
 text = "SFX"
 
-[node name="SFX-Slider" type="HSlider" parent="HBoxContainer/Audio/Sfx"]
+[node name="SFX-Slider" type="HSlider" parent="CanvasLayer/HBoxContainer/Audio/Sfx" unique_id=59623925]
 layout_mode = 0
 offset_left = 382.0
 offset_top = 201.0
@@ -236,23 +220,44 @@ min_value = -30.0
 max_value = 10.0
 value = 10.0
 
-[node name="QUIT" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 514.0
-offset_top = 667.0
-offset_right = 640.0
-offset_bottom = 698.0
-grow_horizontal = 0
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer" unique_id=1661559350]
+position = Vector2(581, 317)
+
+[node name="QUIT" type="Button" parent="CanvasLayer" unique_id=899745978]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -63.0
+offset_top = -62.0
+offset_right = 63.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_slhc7")
 theme_override_font_sizes/font_size = 32
 text = "QUIT"
 
-[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
-[connection signal="value_changed" from="HBoxContainer/Settings/FOV/FOV-Slider" to="." method="_on_fov_slider_value_changed"]
-[connection signal="value_changed" from="HBoxContainer/Settings/SENS/SENS-Slider" to="." method="_on_sens_slider_value_changed"]
-[connection signal="value_changed" from="HBoxContainer/Audio/Music/Music-Slider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="HBoxContainer/Audio/Sfx/SFX-Slider" to="." method="_on_sfx_slider_value_changed"]
-[connection signal="pressed" from="QUIT" to="." method="_on_quit_pressed"]
+[node name="Exit" type="Button" parent="CanvasLayer" unique_id=757162948]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -65.0
+offset_top = -127.0
+offset_right = 65.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_slhc7")
+theme_override_font_sizes/font_size = 32
+text = "EXIT"
+
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/Settings/FOV/FOV-Slider" to="." method="_on_fov_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/Settings/SENS/SENS-Slider" to="." method="_on_sens_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/Audio/Music/Music-Slider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/Audio/Sfx/SFX-Slider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/QUIT" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Exit" to="." method="_on_exit_pressed"]

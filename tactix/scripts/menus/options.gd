@@ -6,7 +6,6 @@ extends Control
 func _input(event: InputEvent) -> void:
 	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false and Globals.option_alr_open == false:
 		hide()
-		Debug.log("TEst")
 		Globals.options_open = false
 		Globals.option_alr_open = false
 		if Globals.main_menu == true and Globals.options_open == false:

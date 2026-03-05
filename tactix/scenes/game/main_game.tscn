@@ -76,8 +76,7 @@ spot_angle_attenuation = 0.21022487
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
 
 [node name="Options" parent="." unique_id=53060940 instance=ExtResource("9_qsdf0")]
-
-[node name="endScreen" parent="." unique_id=1692871385 instance=ExtResource("7_vde2q")]
+top_level = false
 
 [node name="Control" type="Control" parent="." unique_id=1191017771]
 layout_mode = 3
@@ -124,6 +123,10 @@ offset_right = 2.0
 offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="endScreen" parent="." unique_id=1692871385 instance=ExtResource("7_vde2q")]
+light_mask = 64
+visibility_layer = 128
 
 [node name="Room2" parent="." unique_id=545514577 instance=ExtResource("7_ef7fl")]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0)

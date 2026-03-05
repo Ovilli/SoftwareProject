@@ -15,7 +15,7 @@ var board_pices_updated : Array = []
 var dice_states := {}
 var counter:int = 0
 var turns_left :int = 0
-
+var time : float = 0.0
 
 const BOARD_SIZE =  9
 const CELL_WIDTH = 1.10000002384186
@@ -35,7 +35,10 @@ const MARKER_RED = preload("uid://uloumind7w3b")
 var _0_0: Marker3D:
 	get:
 		return get_tree().root.get_node("Main-Game/Board/0|0")
-
+func _process(delta: float):
+	if !TurnMng.game_over:
+		time += delta
+	
 func display_board():
 	print("Displaying Board")
 	
