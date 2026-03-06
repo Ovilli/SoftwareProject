@@ -1,38 +1,22 @@
 extends Control
 
 #Paths
-@onready var canvas_layer: CanvasLayer = $"../Control/CanvasLayer"
-@onready var layer: CanvasLayer = $CanvasLayer
+@onready var canvas_layer: CanvasLayer = get_node("../Control/CanvasLayer")
+@onready var layer: CanvasLayer = get_node("CanvasLayer")
 
-func _input(event: InputEvent) -> void:
-	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false and Globals.option_alr_open == false:
-		hide()
-		Globals.options_open = false
-		Globals.option_alr_open = false
-		if Globals.main_menu == true and Globals.options_open == false:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			
+
 func _ready() -> void:
-	_sync_canvas_visibility()
+	layer.hide()
+	canvas_layer.show()
 	if Globals.DEBUG == true:
 		AudioServer.set_bus_volume_db(2, -40)
 
-func _process(_delta: float) -> void:
-	_sync_canvas_visibility()
-
-func _sync_canvas_visibility() -> void:
-	if Globals.options_open == true:
-		canvas_layer.hide()
+func _process(_delta) -> void:
+	if Globals.options_open:
 		layer.show()
-		
-	else:
-		layer.hide()
-		canvas_layer.show()
 
 func _on_exit_pressed() -> void:
-	hide()
+	layer.hide()
 	Globals.options_open = false
 	Globals.option_alr_open = false
 	if Globals.main_menu == true and Globals.options_open == false:

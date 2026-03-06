@@ -12,12 +12,12 @@ const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
 # Paths
 @onready var top_camera = get_node("/root/Main-Game/Camera-Top")
 @onready var top_camera_2 = get_node("/root/Main-Game//Camera-Top2")
-@onready var options = get_node("/root/Main-Game/Options")
 @onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
 @onready var sfx = get_node("../Sfx")
 @onready var texture_rect: TextureRect = get_node("/root/Main-Game/Control/CanvasLayer/TextureRect")
 @onready var top_camera_enabled: bool = false
 @onready var options_layer = get_node("/root/Main-Game/Options/CanvasLayer")
+@onready var layer: CanvasLayer = get_node("/root/Main-Game/Control/CanvasLayer")
 
 var first_x: int = -1
 var first_y: int = -1
@@ -38,29 +38,35 @@ func _ready():
 
 
 func _input(event):
-	if event is InputEvent and Input.is_action_just_pressed("esc") and Globals.options_open == false and Globals.option_alr_open == false:
-		if Globals.options_open == false and player_camera.current == true and Globals.option_alr_open == false:
-			options.show()
-			Globals.options_open = true
-			Globals.option_alr_open = true
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			
-		if player_camera.current == false:
-			print("tested")
-			sfx.stream = OPEN
-			sfx.play()
-			Globals.tisch_open = false
-			texture_rect.visible = true
-			switch_to_player_camera()
-			
+	if event is InputEvent and Input.is_action_just_pressed("esc"):
+		if Globals.options_open and Globals.option_alr_open:
+			options_layer.hide()
+			layer.show()
+			Globals.options_open = false
+			Globals.option_alr_open = false
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		elif !Globals.options_open and !Globals.option_alr_open:
+			if player_camera.current:
+				options_layer.show()
+				layer.hide()
+				Globals.options_open = true
+				Globals.option_alr_open = true
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				
+			elif player_camera.current == false:
+				sfx.stream = OPEN
+				sfx.play()
+				Globals.tisch_open = false
+				texture_rect.visible = true
+				switch_to_player_camera()
 	# Mouse motion: shoot ray for hover
 	if event is InputEventMouseMotion:
 		shoot_ray()
-	# Left mouse button pressed: shoot ray for click
+		# Left mouse button pressed: shoot ray for click
 	elif event is InputEventMouseButton and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event.pressed:
 		shoot_ray(true)
-		
-	if event is InputEvent and Input.is_action_just_pressed("r") and Globals.options_open == false:
+			
+	if event is InputEvent and Input.is_action_just_pressed("r") and !Globals.options_open:
 		TurnMng.reset_turn()
 		Globals.clear_move_markers()
 		if first_x != -1 and first_y != -1:
