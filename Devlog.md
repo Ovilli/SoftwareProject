@@ -164,6 +164,59 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 * Kleine Bugfixes und Stabilitätsupdates
 * Finale Spiellogik balancen
 
+
+**2.-13.02.2026**
+* Devlog Updates
+* Erweiterung des Devlogs
+
+
+**17.02.2026**
+* Bug Fixes (Camera Pice Rotation)
+
+**22.02.2026**
+* Bug Fixes (Faces Values Updated)
+
+**24.02.2026**
+* Kleine Bug Fixes 
+* Camera (Rotation) Verbessert
+*Cube (Rotation)
+
+**26.02.2026**
+* Code Cleanup
+* Kleine Fixes
+
+**27.02.2026**
+* Großes Update von Light Up Pieces 
+* Überarbeitung und Turn MNG 
+* Neu Todos hinzugefügt 
+* Bug Fixes
+
+**28.02.2026**
+* Kleine Fixes für Light Up Pieces 
+* Noch mehr Bug Fixes 
+* Bug Fixes
+
+**1.03.2026**
+* Overlay Improvement
+
+**5.03.2026**
+* End Screen 
+* Todos
+* Qualtiy of Life Updates
+
+**6.03.2026**
+* Ui Bug Fixes 
+
+
+
+
+
+
+
+
+
+
+
 ---
 # Scripts
 
@@ -183,6 +236,3 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 [![GitHub](https://img.shields.io/badge/GitHub-Hell0Tears-181717?style=for-the-badge&logo=github)](https://github.com/Hell0Tears)
 
 [![License](https://img.shields.io/badge/License-MIT-667eea?style=for-the-badge)](LICENSE)
-
-
-
