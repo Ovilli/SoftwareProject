@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://y8vvecb2wkd1" path="res://scripts/game/camera/camera_3d_lobby.gd" id="4_bh4e2"]
 [ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="5_3w8rc"]
 [ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="6_uxao6"]
+[ext_resource type="PackedScene" uid="uid://c6h2od1mcmbjb" path="res://scenes/menus/multiplayer.tscn" id="7_bre17"]
 [ext_resource type="AudioStream" uid="uid://dr74sh8vbo1cv" path="res://assets/sounds/jazz-lounge-elevator-music-332339.mp3" id="7_vr0hv"]
 [ext_resource type="ArrayMesh" uid="uid://w1sxwhtt737n" path="res://assets/models/player/player.vox" id="8_a3hrp"]
 [ext_resource type="ArrayMesh" uid="uid://bl1n22ir8vygx" path="res://assets/models/board/board.vox" id="9_25m6f"]
@@ -95,12 +96,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
 
 [node name="GUI" type="Control" parent="." unique_id=2132698256]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Options" parent="GUI" unique_id=2107987409 instance=ExtResource("1_euy4r")]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Control" type="Control" parent="GUI" unique_id=1988228543]
 layout_mode = 1
@@ -170,9 +186,21 @@ theme_override_fonts/font = ExtResource("12_bh4e2")
 theme_override_font_sizes/font_size = 32
 text = "QUIT"
 
+[node name="Multiplayer" parent="GUI" unique_id=1650910259 instance=ExtResource("7_bre17")]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 10.0
+offset_bottom = 6.0
+
 [node name="How_to_Play" parent="GUI" unique_id=412701116 instance=ExtResource("3_88kup")]
 visible = true
 layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 
 [connection signal="pressed" from="GUI/Control/CanvasLayer/How_to_play" to="GUI/Control/CanvasLayer/BoxContainer" method="_on_how_to_play_pressed"]
 [connection signal="pressed" from="GUI/Control/CanvasLayer/BoxContainer/Play" to="GUI/Control/CanvasLayer/BoxContainer" method="_on_play_pressed"]

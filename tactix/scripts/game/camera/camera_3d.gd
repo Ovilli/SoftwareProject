@@ -12,7 +12,6 @@ const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
 # Paths
 @onready var top_camera = get_node("/root/Main-Game/Camera-Top")
 @onready var top_camera_2 = get_node("/root/Main-Game//Camera-Top2")
-@onready var PERFECT_OUTLINE_SHADER = preload("uid://5xmiss1l4sy7")
 @onready var sfx = get_node("../Sfx")
 @onready var texture_rect: TextureRect = get_node("/root/Main-Game/Control/CanvasLayer/TextureRect")
 @onready var top_camera_enabled: bool = false

@@ -1,0 +1,249 @@
+[gd_scene format=3 uid="uid://c6h2od1mcmbjb"]
+
+[ext_resource type="Script" uid="uid://c5747hxqf8jri" path="res://scenes/menus/multiplayer.gd" id="1_d14nk"]
+[ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="2_7t8g1"]
+[ext_resource type="PackedScene" uid="uid://cg45efcd8aayw" path="res://scenes/multiplayer/data_sender.tscn" id="2_bwisl"]
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="3_bwisl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjkok"]
+shader = ExtResource("2_7t8g1")
+shader_parameter/amount = 1.48400007049
+
+[node name="Multiplayer" type="Control" unique_id=1650910259]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_d14nk")
+
+[node name="DataSender" parent="." unique_id=215325833 instance=ExtResource("2_bwisl")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=450755055]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1803975564]
+material = SubResource("ShaderMaterial_yjkok")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2971.5
+offset_top = -1053.5
+offset_right = 2971.5
+offset_bottom = 1053.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Game" type="Control" parent="CanvasLayer" unique_id=1314622420]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Messager" type="Label" parent="CanvasLayer/Game" unique_id=656872308]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -161.0
+offset_top = -254.0
+offset_right = 168.0
+offset_bottom = -218.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "WAITING FOR 2 PLAYERS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Data" type="ItemList" parent="CanvasLayer/Game" unique_id=892372312]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -218.0
+offset_top = -113.0
+offset_right = 230.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 50
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+select_mode = 1
+auto_width = true
+auto_height = true
+item_count = 4
+max_columns = 2
+same_column_width = true
+fixed_column_width = 200
+icon_mode = 0
+item_0/text = "ROOM PLAYER"
+item_2/text = "CODE"
+item_3/text = "6"
+
+[node name="Ui" type="Control" parent="CanvasLayer" unique_id=1000215608]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -564.0
+offset_top = -310.0
+offset_right = -524.0
+offset_bottom = -270.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="GameSelection" type="Label" parent="CanvasLayer/Ui" unique_id=849443583]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 200.5
+offset_top = 31.0
+offset_right = 911.5
+offset_bottom = 77.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 40
+text = "Game Selection"
+horizontal_alignment = 1
+
+[node name="QUIT" type="Button" parent="CanvasLayer/Ui" unique_id=899745978]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 493.0
+offset_top = 546.0
+offset_right = 619.0
+offset_bottom = 590.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "QUIT"
+
+[node name="Exit" type="Button" parent="CanvasLayer/Ui" unique_id=757162948]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 491.0
+offset_top = 481.0
+offset_right = 621.0
+offset_bottom = 542.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "EXIT"
+
+[node name="Singelplayer" type="Button" parent="CanvasLayer/Ui" unique_id=1974743321]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 666.0
+offset_top = 264.0
+offset_right = 866.0
+offset_bottom = 341.372
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "SINGELPLAYER"
+
+[node name="MultiplayerBtn" type="Button" parent="CanvasLayer/Ui" unique_id=2129917471]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 250.568
+offset_top = 264.0
+offset_right = 456.568
+offset_bottom = 341.372
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "MULTIPLAYER "
+
+[node name="UiMulti" type="Control" parent="CanvasLayer" unique_id=2054915234]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 349.0
+offset_top = 242.0
+offset_right = 446.0
+offset_bottom = 299.0
+
+[node name="CODE" type="Label" parent="CanvasLayer/UiMulti" unique_id=1415559400]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 154.0
+offset_right = 420.0
+offset_bottom = 225.0
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 62
+text = "JOIN"
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/UiMulti" unique_id=1483555584]
+layout_mode = 0
+offset_left = 263.0
+offset_top = 254.0
+offset_right = 485.0
+offset_bottom = 404.0
+alignment = 1
+max_length = 6
+
+[node name="Button" type="Button" parent="CanvasLayer/UiMulti" unique_id=2065512921]
+layout_mode = 0
+offset_left = 686.0
+offset_top = 263.0
+offset_right = 885.0
+offset_bottom = 415.0
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 64
+text = "CREATE"
+
+[connection signal="pressed" from="CanvasLayer/Ui/QUIT" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Ui/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Ui/Singelplayer" to="." method="_on_singelplayer_pressed"]
+[connection signal="pressed" from="CanvasLayer/Ui/MultiplayerBtn" to="." method="_on_multiplayer_btn_pressed"]
+[connection signal="text_changed" from="CanvasLayer/UiMulti/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="CanvasLayer/UiMulti/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="CanvasLayer/UiMulti/Button" to="." method="_on_button_pressed"]

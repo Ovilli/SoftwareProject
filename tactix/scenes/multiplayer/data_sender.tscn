@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cg45efcd8aayw"]
+
+[ext_resource type="Script" uid="uid://dv65vf2aqwwqb" path="res://scripts/multiplayer/Sender.gd" id="1_scib1"]
+
+[node name="DataSender" type="Node" unique_id=215325833]
+script = ExtResource("1_scib1")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=974508976]

@@ -22,7 +22,7 @@ func _on_options_pressed() -> void:
 func _on_play_pressed() -> void:
 	Debug.log("Start Game")
 	Globals.main_menu = false
-	get_tree().change_scene_to_file("res://scenes/game/main_game.tscn")
+	Globals.multiplayer_menu = true
 
 func _on_how_to_play_pressed() -> void:
 	Globals.how_to_open = true

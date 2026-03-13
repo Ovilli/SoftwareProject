@@ -8,10 +8,10 @@
 [ext_resource type="AudioStream" uid="uid://dr74sh8vbo1cv" path="res://assets/sounds/jazz-lounge-elevator-music-332339.mp3" id="6_ef7fl"]
 [ext_resource type="PackedScene" uid="uid://bnnq35t23urw5" path="res://scenes/game_items/player/player.tscn" id="6_rpywg"]
 [ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="7_ef7fl"]
-[ext_resource type="Shader" uid="uid://70wemi3joy7v" path="res://scripts/shader/speedlines.gdshader" id="7_i2osx"]
+[ext_resource type="Shader" uid="uid://camr32px8h06k" path="res://scripts/shader/speedlines.gdshader" id="7_i2osx"]
 [ext_resource type="PackedScene" uid="uid://c2oy44novm04t" path="res://scenes/menus/end_screen.tscn" id="7_vde2q"]
-[ext_resource type="Texture2D" uid="uid://dwmha44mfuw25" path="res://assets/texture/noisy-background.jpg" id="8_vde2q"]
 [ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/menus/options.tscn" id="9_qsdf0"]
+[ext_resource type="PackedScene" uid="uid://cg45efcd8aayw" path="res://scenes/multiplayer/data_sender.tscn" id="12_vde2q"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_25xmc"]
 shuffle = true
@@ -23,14 +23,7 @@ stream_3 = ExtResource("3_qsdf0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5cwfu"]
 shader = ExtResource("7_i2osx")
-shader_parameter/noise = ExtResource("8_vde2q")
-shader_parameter/line_color = Color(0.99116415, 0.99116427, 0.99116415, 1)
-shader_parameter/line_count = 1.20000001788144
-shader_parameter/line_density = 0.3750000178125
-shader_parameter/line_faloff = 0.25
-shader_parameter/mask_size = 0.386000018335
-shader_parameter/mask_edge = 1.0
-shader_parameter/animation_speed = 5.3850002082875
+shader_parameter/amount = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_11nld"]
 
@@ -76,7 +69,6 @@ spot_angle_attenuation = 0.21022487
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
 
 [node name="Options" parent="." unique_id=53060940 instance=ExtResource("9_qsdf0")]
-top_level = false
 
 [node name="Control" type="Control" parent="." unique_id=1191017771]
 layout_mode = 3
@@ -153,3 +145,7 @@ metadata/_edit_lock_ = true
 [node name="Camera-Top2" type="Camera3D" parent="." unique_id=1191773799]
 transform = Transform3D(-1, -8.742278e-08, -3.821371e-15, 0, -4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, 3.39, 12, -3.235)
 keep_aspect = 0
+
+[node name="DataSender" parent="." unique_id=215325833 instance=ExtResource("12_vde2q")]
+
+[node name="poll_timer" type="Timer" parent="." unique_id=553570815]

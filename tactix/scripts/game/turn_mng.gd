@@ -1,11 +1,13 @@
 extends Node
 
-# Variables (fixed typo from "Variabels")
 enum Player {P_BLACK, P_WHITE}
 var current_turn: Player = Player.P_WHITE
-
-# Make the enum accessible from other scripts
+var my_player: Player = Player.P_WHITE
+var poll_timer: Timer
 var player = Player
+var game_manager: Node = null
+
+var data_sender: Node = null
 
 var board = "board_manager"
 var camera = "camera_3d"
@@ -35,23 +37,111 @@ var dice_states_backup := {}
 var black_wins: bool = false
 
 func _ready() -> void:
+	call_deferred("_init_multiplayer")
+
+func _init_multiplayer() -> void:
+	data_sender = get_tree().root.get_node_or_null("Main-Game/DataSender")
+	if data_sender:
+		data_sender.game_manager = self
+		Debug.log("DataSender found and connected")
+	else:
+		Debug.log("DataSender not found - singleplayer mode")
+
+	if Globals.player_id == "player_1":
+		my_player = Player.P_WHITE
+		Debug.log("I am player_1 (WHITE) - my turn first")
+	elif Globals.player_id == "player_2":
+		my_player = Player.P_BLACK
+		Debug.log("I am player_2 (BLACK) - waiting for WHITE")
+	else:
+		Debug.log("Singleplayer mode - all moves allowed")
+
+	_setup_poll_timer()
 	start_turn()
 
+func _setup_poll_timer() -> void:
+	poll_timer = Timer.new()
+	add_child(poll_timer)
+	poll_timer.wait_time = 1.5
+	poll_timer.timeout.connect(_poll_server)
+	if Globals.multiplayer_enabeld:
+		poll_timer.start()
+
+func _poll_server() -> void:
+	if current_turn == my_player:
+		return
+	if data_sender:
+		data_sender.packetGetDataList()
+
+func _on_server_state_received(parsed: Dictionary) -> void:
+	if not parsed.has("board") or not parsed.has("dice_states"):
+		return
+	if current_turn == my_player:
+		return
+	var server_turn = parsed.get("current_turn", "white")
+	var server_turn_enum = Player.P_BLACK if server_turn == "black" else Player.P_WHITE
+	if server_turn_enum != my_player:
+		return
+	_apply_server_state(parsed)
+
+func _apply_server_state(parsed: Dictionary) -> void:
+	var server_board = parsed["board"]
+	for x in range(Globals.BOARD_SIZE):
+		for y in range(Globals.BOARD_SIZE):
+			Globals.board[x][y] = server_board[x][y]
+
+	Globals.dice_states.clear()
+	var server_dice = parsed["dice_states"]
+	for key in server_dice.keys():
+		Globals.dice_states[key] = server_dice[key]
+
+	var turn_str = parsed.get("current_turn", "white")
+	current_turn = Player.P_BLACK if turn_str == "black" else Player.P_WHITE
+
+	Globals.display_board()
+	Debug.log("State synced from server")
+
+func _send_state_to_server() -> void:
+	if not Globals.multiplayer_enabeld:
+		return
+	if not data_sender:
+		return
+	var turn_str = "black" if current_turn == Player.P_BLACK else "white"
+
+	var board_data = []
+	for x in range(Globals.BOARD_SIZE):
+		var row = []
+		for y in range(Globals.BOARD_SIZE):
+			row.append(Globals.board[x][y])
+		board_data.append(row)
+
+	var dice_data = {}
+	for key in Globals.dice_states.keys():
+		dice_data[key] = Globals.dice_states[key]
+
+	var payload = {
+		"board": board_data,
+		"dice_states": dice_data,
+		"current_turn": turn_str,
+		"winner": "black" if black_wins else ("white" if game_over else null)
+	}
+
+	data_sender.packetSendDataList(payload)
+	Debug.log("State sent to server")
 
 func switch_turn():
 	if game_over:
 		return
 	reset_turn_vars()
 	if current_turn == Player.P_WHITE:
-		print("b")
 		current_turn = Player.P_BLACK
+		print("b")
 	else:
 		current_turn = Player.P_WHITE
-		
 		print("w")
+	_send_state_to_server()
 	start_turn()
 
-	
 func start_turn():
 	Globals.counter = Globals.counter + 1
 	backup_dice_states()
@@ -60,7 +150,6 @@ func start_turn():
 			print("w")
 		Player.P_BLACK:
 			print("b")
-
 
 func reset_turn_vars():
 	x_moving_direction = ""
@@ -79,37 +168,35 @@ func reset_turn_vars():
 	overlay_x = -1
 	overlay_y = -1
 
-
 func reset_turn():
 	if ((current_turn == Player.P_BLACK and original_id < 0) or \
 		(current_turn == Player.P_WHITE and original_id > 0)) and moved_sth:
-		
 		print("reset last turn")
 		Globals.counter = Globals.counter - 1
-		
 		if from_x != -1 and from_y != -1:
 			Globals.board[from_x][from_y] = 0
 			var current_key = str(from_x) + "|" + str(from_y)
 			if Globals.dice_states.has(current_key):
 				Globals.dice_states.erase(current_key)
-		
 		Globals.board[original_x][original_y] = original_id
-		
-		
 		restore_dice_states()
-		
 		Globals.display_board()
 		reset_turn_vars()
 
-
 func legal_move(first_x, first_y, first_id, second_x, second_y):
+	if Globals.multiplayer_enabeld and Globals.player_id != "" and current_turn != my_player:
+		Debug.log("Not your turn! current: %s my: %s" % [
+			"BLACK" if current_turn == Player.P_BLACK else "WHITE",
+			"BLACK" if my_player == Player.P_BLACK else "WHITE"
+		])
+		return
+
 	if second_x == -1 or second_y == -1:
 		return
-	
+
 	var to_x = second_x
 	var to_y = second_y
 	if not moved_sth:
-		
 		from_x = first_x
 		from_y = first_y
 		from_id = first_id
@@ -121,10 +208,10 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 			from_id = 1
 		else:
 			is_king_piece = false
-	
+
 	if xmoved and ymoved:
 		movedxy = true
-		
+
 	if from_x == to_x:
 		if (xmoved and ymoved) and last_changed == "x":
 			print("Cannot move in Y direction again after moving in both directions")
@@ -137,16 +224,11 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 					var temp_id: int = (abs(from_id) - abs(from_y - to_y))
 					if current_turn == Player.P_BLACK:
 						temp_id = -temp_id
-					
-					
 					y_place_piece(from_x, from_y, to_x, to_y)
-					
 					update_piece_id_with_positions(from_x, from_y, to_x, to_y)
-					
 					if temp_id == 0:
 						switch_turn()
 						return
-					
 					from_id = temp_id
 					from_x = to_x
 					from_y = to_y
@@ -157,7 +239,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 			else:
 				print("Distance too far for current piece value")
 				return
-	
+
 	elif from_y == to_y:
 		if (xmoved and ymoved) and last_changed == "y":
 			print("Cannot move in X direction again after moving in both directions")
@@ -170,15 +252,11 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 					var temp_id: int = (abs(from_id) - abs(from_x - to_x))
 					if current_turn == Player.P_BLACK:
 						temp_id = -temp_id
-					
 					x_place_piece(from_x, from_y, to_x, to_y)
-					
 					update_piece_id_with_positions(from_x, from_y, to_x, to_y)
-					
 					if temp_id == 0:
 						switch_turn()
 						return
-					
 					from_id = temp_id
 					from_x = to_x
 					from_y = to_y
@@ -189,16 +267,14 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 			else:
 				print("Distance too far for current piece value")
 				return
-	
 	else:
 		print("You can't move diagonally")
-
 
 func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 	can_move = true
 	var tile_x = mp_from_x
 	var tile_y = mp_from_y
-	
+
 	if x_moving_direction == "+" and mp_from_x > mp_to_x:
 		can_move = false
 		print("Cannot reverse X direction")
@@ -211,13 +287,12 @@ func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 	if y_moving_direction == "-" and mp_from_y < mp_to_y:
 		can_move = false
 		print("Cannot reverse Y direction")
-	
+
 	if not can_move:
 		return
-	
+
 	if mp_from_x == mp_to_x:
 		var dir = 1 if mp_from_y < mp_to_y else -1
-		
 		for tiles in range(abs(mp_from_y - mp_to_y)):
 			if tiles == (abs(mp_from_y - mp_to_y) - 1):
 				is_piece_zero = true
@@ -227,7 +302,6 @@ func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 				break
 	else:
 		var dir = 1 if mp_from_x < mp_to_x else -1
-		
 		for tiles in range(abs(mp_from_x - mp_to_x)):
 			if tiles == (abs(mp_from_x - mp_to_x) - 1):
 				is_piece_zero = true
@@ -236,10 +310,8 @@ func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 			if not can_move:
 				break
 
-
 func check_for_piece(tile_x, tile_y, expected_id):
 	var checked_tile = Globals.board[tile_x][tile_y]
-
 	if checked_tile != 0:
 		if is_piece_zero and expected_id == 0:
 			if current_turn == Player.P_BLACK and checked_tile > 0:
@@ -256,13 +328,10 @@ func check_for_piece(tile_x, tile_y, expected_id):
 	else:
 		can_move = true
 
-
 func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 	var piece = Globals.board[x_from_x][x_from_y]
 	Globals.board[x_from_x][x_from_y] = 0
-	# Write piece to destination so it isn't lost if dice_states key is missing
 	Globals.board[x_to_x][x_to_y] = piece
-	
 	xmoved = true
 	last_changed = "x"
 	Globals.waiting_for_first = false
@@ -272,13 +341,10 @@ func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 	elif x_from_x > x_to_x:
 		x_moving_direction = "-"
 
-
 func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 	var piece = Globals.board[y_from_x][y_from_y]
 	Globals.board[y_from_x][y_from_y] = 0
-	# Write piece to destination so it isn't lost if dice_states key is missing
 	Globals.board[y_to_x][y_to_y] = piece
-	
 	ymoved = true
 	last_changed = "y"
 	Globals.waiting_for_first = false
@@ -291,20 +357,17 @@ func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 func capture_piece(tile_x, tile_y):
 	print("Capturing piece at (%d, %d)" % [tile_x, tile_y])
 	var piece = Globals.board[tile_x][tile_y]
-	
 	if abs(piece) == 10:
 		if piece == 10:
 			black_wins = true
 		elif piece == -10:
 			black_wins = false
 		game_over = true
-	
+		_send_state_to_server()
 	Globals.board[tile_x][tile_y] = 0
-
 
 func check_possible_move(check_x, check_y, is_final_position):
 	var checked_tile = Globals.board[check_x][check_y]
-	
 	if checked_tile == 0:
 		pos_moves.append([check_x, check_y])
 		return true
@@ -322,7 +385,6 @@ func light_pieces_up(piece_id, tile_x, tile_y):
 	Debug.log("Highlighting possible moves")
 	pos_moves.clear()
 	no_pos_moves.clear()
-	# Use from_id if mid-turn (already moved), otherwise use the clicked piece_id
 	var num: int
 	if moved_sth:
 		num = 1 if is_king_piece else abs(from_id)
@@ -334,12 +396,11 @@ func check_light_up(tile_x, tile_y, remaining_moves):
 	var can_move_x = true
 	var can_move_y = true
 	if xmoved and ymoved:
-		if last_changed == "x": #only show x
+		if last_changed == "x":
 			can_move_y = false
-		elif last_changed == "y": #only show y
+		elif last_changed == "y":
 			can_move_x = false
 
-	# X+ direction
 	if can_move_x and x_moving_direction != "-":
 		for i in range(1, remaining_moves + 1):
 			var new_x = tile_x + i
@@ -360,7 +421,6 @@ func check_light_up(tile_x, tile_y, remaining_moves):
 				no_pos_moves.append([new_x, tile_y])
 				break
 
-	# X- direction
 	if can_move_x and x_moving_direction != "+":
 		for i in range(1, remaining_moves + 1):
 			var new_x = tile_x - i
@@ -381,7 +441,6 @@ func check_light_up(tile_x, tile_y, remaining_moves):
 				no_pos_moves.append([new_x, tile_y])
 				break
 
-	# Y+ direction
 	if can_move_y and y_moving_direction != "-":
 		for i in range(1, remaining_moves + 1):
 			var new_y = tile_y + i
@@ -402,7 +461,6 @@ func check_light_up(tile_x, tile_y, remaining_moves):
 				no_pos_moves.append([tile_x, new_y])
 				break
 
-	# Y- direction
 	if can_move_y and y_moving_direction != "+":
 		for i in range(1, remaining_moves + 1):
 			var new_y = tile_y - i
@@ -460,12 +518,9 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 	var new_key = str(new_x) + "|" + str(new_y)
 	if not Globals.dice_states.has(key):
 		return
-
 	var faces = Globals.dice_states[key]
-
 	var delta_x = new_x - prev_x
 	var delta_y = new_y - prev_y
-	
 	if not is_king_piece:
 		if delta_y != 0:
 			if delta_y > 0:
@@ -482,12 +537,10 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 				for i in range(abs(delta_x)):
 					roll_left(faces)
 		var updated_id = faces.top
-		
 		Globals.dice_states.erase(key)
 		Globals.dice_states[new_key] = faces
 		if current_turn == Player.P_BLACK:
 			updated_id = -updated_id
-		
 		Globals.board[new_x][new_y] = updated_id
 		from_id = updated_id
 	else:
@@ -498,16 +551,12 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 		Globals.dice_states.erase(key)
 		Globals.dice_states[new_key] = faces
 		from_id = 1
-
 	Globals.display_board()
-	
-	
+
 func backup_dice_states():
 	dice_states_backup.clear()
-	
 	for key in Globals.dice_states.keys():
 		var faces = Globals.dice_states[key]
-		
 		dice_states_backup[key] = {
 			"top": faces.top,
 			"bottom": faces.bottom,
@@ -516,13 +565,11 @@ func backup_dice_states():
 			"east": faces.east,
 			"west": faces.west
 		}
-		
+
 func restore_dice_states():
 	Globals.dice_states.clear()
-	
 	for key in dice_states_backup.keys():
 		var f = dice_states_backup[key]
-		
 		Globals.dice_states[key] = {
 			"top": f.top,
 			"bottom": f.bottom,

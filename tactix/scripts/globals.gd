@@ -16,10 +16,14 @@ var dice_states := {}
 var counter:int = 0
 var turns_left :int = 0
 var time : float = 0.0
-
+var multiplayer_enabeld : bool = false
+var GAME_ID : String
+var multiplayer_lobby:bool = false
+var multiplayer_menu:bool = false
 const BOARD_SIZE =  9
 const CELL_WIDTH = 1.10000002384186
 var times: int = 0
+var player_id: String = ""
 
 #Paths
 const DICE_BLACK = preload("uid://ca35rikf3jygt")
