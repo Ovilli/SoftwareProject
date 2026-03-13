@@ -26,4 +26,5 @@ func _on_play_pressed() -> void:
 	Windowmng.open(Windowmng.Screen.MULTI)
 
 func _on_how_to_play_pressed() -> void:
-	Windowmng.open(Windowmng.Screen.HOW_TO_PLAY)
+	Globals.how_to_open = true
+	get_tree().change_scene_to_file("res://scenes/game/main_game.tscn")

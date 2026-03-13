@@ -15,7 +15,7 @@ var multiplayer_enabeld: bool = false
 var GAME_ID: String
 var player_id: String = ""
 var times: int = 0
-
+var how_to_open: bool = false
 const BOARD_SIZE = 9
 const CELL_WIDTH = 1.10000002384186
 
@@ -37,8 +37,8 @@ func _process(delta: float) -> void:
 	if !TurnMng.game_over:
 		time += delta
 
-func display_board() -> void:
-	print("Displaying Board")
+func display_board():
+	#print("Displaying Board")
 	board_clear()
 	for x in range(BOARD_SIZE):
 		for y in range(BOARD_SIZE):

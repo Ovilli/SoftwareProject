@@ -20,11 +20,12 @@ func _process(_delta) -> void:
 		var formatted_time = format_time()
 		item_list.set_item_text(1, str(Globals.counter))
 		item_list.set_item_text(3, formatted_time)
-	if TurnMng.black_wins:
-		winner.text = "BLACK WON!"
+		if TurnMng.black_wins:
+			winner.text = "BLACK WON!"
+		else:
+			winner.text = "WHITE WON!"
 	else:
-		winner.text = "WHITE WON!"
-		
+		canvas_layer.hide()
 func format_time():
 	var time = int(Globals.time)
 	@warning_ignore("integer_division")
