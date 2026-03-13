@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c2oy44novm04t"]
 
 [ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="1_3bi35"]
-[ext_resource type="Script" uid="uid://cfbwnmbor2quj" path="res://scenes/menus/end_screen.gd" id="1_mi55a"]
+[ext_resource type="Script" uid="uid://cfbwnmbor2quj" path="res://scripts/menus/end_screen.gd" id="1_mi55a"]
 [ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="2_mi55a"]
 [ext_resource type="FontFile" uid="uid://bve4csamnomfg" path="res://assets/font/jmh_beda/JMH Beda.ttf" id="3_j3ecp"]
 

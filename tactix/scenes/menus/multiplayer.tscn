@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c6h2od1mcmbjb"]
 
-[ext_resource type="Script" uid="uid://c5747hxqf8jri" path="res://scenes/menus/multiplayer.gd" id="1_d14nk"]
+[ext_resource type="Script" uid="uid://c5747hxqf8jri" path="res://scripts/menus/multiplayer.gd" id="1_d14nk"]
 [ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="2_7t8g1"]
 [ext_resource type="PackedScene" uid="uid://cg45efcd8aayw" path="res://scenes/multiplayer/data_sender.tscn" id="2_bwisl"]
 [ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="3_bwisl"]

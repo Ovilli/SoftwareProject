@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cyl8mbnf5cwl5"]
 
 [ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="1_1kixg"]
-[ext_resource type="Script" uid="uid://c3g4jon0pibp7" path="res://scenes/menus/ui_player.gd" id="1_mn0wj"]
+[ext_resource type="Script" uid="uid://c3g4jon0pibp7" path="res://scripts/menus/ui_player.gd" id="1_mn0wj"]
 [ext_resource type="Texture2D" uid="uid://jxm0eyxpne68" path="res://assets/texture/kenney_prototype-textures/PNG/Orange/texture_08.png" id="3_dmlin"]
 
 [node name="Ui_Player" type="Control" unique_id=332836720]
