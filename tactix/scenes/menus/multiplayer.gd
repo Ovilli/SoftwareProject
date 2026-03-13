@@ -7,6 +7,8 @@ extends Control
 @onready var game: Control = $CanvasLayer/Game
 @onready var messager: Label = $CanvasLayer/Game/Messager
 @onready var data: ItemList = $CanvasLayer/Game/Data
+@onready var button: Button = $CanvasLayer/UiMulti/Button
+@onready var line_edit: LineEdit = $CanvasLayer/UiMulti/LineEdit
 
 var lobby_timer: Timer
 var _pending_create: bool = false
@@ -88,12 +90,16 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 func _on_line_edit_text_submitted(new_text: String) -> void:
 	Globals.GAME_ID = new_text
 	Globals.multiplayer_enabeld = true
+	button.disabled = true
+	line_edit.editable = false
 	Globals.player_id = "player_2"
 	call_deferred("_send_join")
 
 func _on_button_pressed() -> void:
 	Globals.multiplayer_enabeld = true
 	Globals.multiplayer_menu = true
+	line_edit.editable = false
+	button.disabled = true
 	_pending_create = true
 	sender.packetGameCheck()
 
@@ -159,3 +165,15 @@ func _generate_unique_id(existing_ids: Dictionary) -> String:
 		attempts += 1
 	push_warning("Could not find unique ID in %d attempts, using last candidate" % MAX_ATTEMPTS)
 	return candidate
+
+
+func _on_exit_pressed() -> void:
+	Globals.multiplayer_enabeld = false
+	Globals.multiplayer_lobby = false
+	Globals.multiplayer_menu = false
+	Globals.main_menu = true
+	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

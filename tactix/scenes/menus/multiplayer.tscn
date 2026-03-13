@@ -240,6 +240,40 @@ theme_override_fonts/font = ExtResource("3_bwisl")
 theme_override_font_sizes/font_size = 64
 text = "CREATE"
 
+[node name="QUIT" type="Button" parent="CanvasLayer/UiMulti" unique_id=1913561043]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 493.0
+offset_top = 546.0
+offset_right = 619.0
+offset_bottom = 590.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "QUIT"
+
+[node name="Exit" type="Button" parent="CanvasLayer/UiMulti" unique_id=412930981]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 491.0
+offset_top = 481.0
+offset_right = 621.0
+offset_bottom = 542.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "EXIT"
+
 [connection signal="pressed" from="CanvasLayer/Ui/QUIT" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Ui/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Ui/Singelplayer" to="." method="_on_singelplayer_pressed"]
@@ -247,3 +281,5 @@ text = "CREATE"
 [connection signal="text_changed" from="CanvasLayer/UiMulti/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="CanvasLayer/UiMulti/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="CanvasLayer/UiMulti/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UiMulti/QUIT" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/UiMulti/Exit" to="." method="_on_exit_pressed"]
