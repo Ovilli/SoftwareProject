@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://u1pqii6p8qtv"]
+
+[ext_resource type="Script" uid="uid://bb3qit4s8uv8g" path="res://scripts/menus/credits.gd" id="1_b2mra"]
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="1_cu0al"]
+[ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="2_yrcfj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_44wmd"]
+shader = ExtResource("2_yrcfj")
+shader_parameter/amount = 1.48400007049
+
+[node name="Credits" type="Control" unique_id=1840850347]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b2mra")
+
+[node name="CreditsLayer" type="CanvasLayer" parent="." unique_id=2047786501]
+
+[node name="ColorRect" type="ColorRect" parent="CreditsLayer" unique_id=1937716098]
+material = SubResource("ShaderMaterial_44wmd")
+offset_left = -1769.0
+offset_top = -540.0
+offset_right = 4174.0
+offset_bottom = 1567.0
+
+[node name="Label" type="Label" parent="CreditsLayer" unique_id=332291689]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.5
+offset_right = 104.5
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_cu0al")
+theme_override_font_sizes/font_size = 64
+text = "CREDITS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="CreditsLayer" unique_id=1521933697]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_cu0al")
+theme_override_font_sizes/font_size = 64
+text = "EXIT"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsLayer" unique_id=595262608]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -399.0
+offset_top = -236.0
+offset_right = 449.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_cu0al")
+theme_override_fonts/bold_font = ExtResource("1_cu0al")
+theme_override_fonts/bold_italics_font = ExtResource("1_cu0al")
+theme_override_fonts/italics_font = ExtResource("1_cu0al")
+theme_override_fonts/mono_font = ExtResource("1_cu0al")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+bbcode_enabled = true
+
+[connection signal="pressed" from="CreditsLayer/Exit" to="." method="_on_exit_pressed"]
