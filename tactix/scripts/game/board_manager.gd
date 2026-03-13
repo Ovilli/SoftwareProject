@@ -17,7 +17,8 @@ func load_board():
 
 	
 	Globals.display_board()
-
+	
 func _ready():
 	Globals.times = 0
-	load_board()
+	if !Globals.how_to_open:
+		load_board()

@@ -1,28 +1,30 @@
 extends Control
 
 func _ready() -> void:
-	Globals.options_open = false
-	Globals.main_menu = true
-	Globals.how_to_open = false
+	Windowmng.open(Windowmng.Screen.MAIN_MENU)
+	Windowmng.window_changed.connect(_on_window_changed)
+	_update_visibility()
+
+func _on_window_changed(_from, _to) -> void:
+	_update_visibility()
+
+func _update_visibility() -> void:
+	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU):
+		show()
+	else:
+		hide()
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
-func _process(_delta):
-	
-	if Globals.how_to_open == true or Globals.options_open == true:
-		hide()
-	else:
-		show()
-
 func _on_options_pressed() -> void:
-	Debug.log("Not Ready Yet")
-	Globals.options_open = true
+	Debug.log("Opening Options")
+	Windowmng.open(Windowmng.Screen.OPTIONS)
 
 func _on_play_pressed() -> void:
 	Debug.log("Start Game")
-	Globals.main_menu = false
-	Globals.multiplayer_menu = true
+	Windowmng.open(Windowmng.Screen.MULTI)
 
 func _on_how_to_play_pressed() -> void:
 	Globals.how_to_open = true
+	get_tree().change_scene_to_file("res://scenes/game/main_game.tscn")

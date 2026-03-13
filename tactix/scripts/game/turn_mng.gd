@@ -272,6 +272,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 
 func move_possible(mp_from_x, mp_from_y, mp_to_x, mp_to_y, expected_id):
 	can_move = true
+	is_piece_zero = false
 	var tile_x = mp_from_x
 	var tile_y = mp_from_y
 
@@ -569,12 +570,23 @@ func backup_dice_states():
 func restore_dice_states():
 	Globals.dice_states.clear()
 	for key in dice_states_backup.keys():
-		var f = dice_states_backup[key]
+		var faces = dice_states_backup[key]
 		Globals.dice_states[key] = {
-			"top": f.top,
-			"bottom": f.bottom,
-			"north": f.north,
-			"south": f.south,
-			"east": f.east,
-			"west": f.west
+			"top": faces.top,
+			"bottom": faces.bottom,
+			"north": faces.north,
+			"south": faces.south,
+			"east": faces.east,
+			"west": faces.west
 		}
+func hard_reset_manager():
+	current_turn = Player.P_WHITE
+	game_over = false
+	black_wins = false
+	reset_turn_vars()
+	pos_moves.clear()
+	no_pos_moves.clear()
+	dice_states_backup.clear()
+	#Globals.board.clear() #WHAT the helli how why do i exist? does anything really exists? Igiveuop!?
+	#Globals.dice_states.clear()
+	
