@@ -6,7 +6,8 @@ enum Screen {
 	HOW_TO_PLAY,
 	MAIN_MENU,
 	CREDITS,
-	MULTI
+	MULTI,
+	SKINS
 }
 
 var current: Screen = Screen.NONE
