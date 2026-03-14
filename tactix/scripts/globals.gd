@@ -18,7 +18,7 @@ var times: int = 0
 var how_to_open: bool = false
 const BOARD_SIZE = 9
 const CELL_WIDTH = 1.10000002384186
-
+var equipped_skin: int = 0
 const DICE_BLACK = preload("uid://ca35rikf3jygt")
 const HIDDEN = preload("uid://dtr152fgi0j5n")
 const DICE_BLACK_KING = preload("uid://cetr5sbfhrby0")

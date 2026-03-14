@@ -1,4 +1,6 @@
 extends Control
+@onready var credits: Button = $"../Credits"
+@onready var skins: Button = $"../Skins"
 
 func _ready() -> void:
 	Windowmng.open(Windowmng.Screen.MAIN_MENU)
@@ -11,8 +13,13 @@ func _on_window_changed(_from, _to) -> void:
 func _update_visibility() -> void:
 	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU):
 		show()
+		credits.show()
+		skins.show()
 	else:
 		hide()
+		credits.hide()
+		skins.hide()
+		
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
@@ -32,3 +39,7 @@ func _on_how_to_play_pressed() -> void:
 
 func _on_credits_pressed() -> void:
 	Windowmng.open(Windowmng.Screen.CREDITS)
+
+
+func _on_skins_pressed() -> void:
+	Windowmng.open(Windowmng.Screen.SKINS)

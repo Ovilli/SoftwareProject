@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://8vmqrbt1hd1p"]
+
+[ext_resource type="Script" uid="uid://xah0ty75yeew" path="res://scripts/menus/skins.gd" id="1_i11cv"]
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="2_jd12k"]
+[ext_resource type="Texture2D" uid="uid://mvyyn8xq1ld5" path="res://assets/texture/overlay/5.png" id="3_i11cv"]
+
+[node name="Skins" type="Control" unique_id=1142104922]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i11cv")
+
+[node name="SkinLayer" type="CanvasLayer" parent="." unique_id=2086084283]
+
+[node name="Label" type="Label" parent="SkinLayer" unique_id=1382724343]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_jd12k")
+theme_override_font_sizes/font_size = 32
+text = "SKINS"
+
+[node name="Skins" type="ItemList" parent="SkinLayer" unique_id=715021288]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -571.0
+offset_top = -280.0
+offset_right = 112.0
+offset_bottom = 275.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_jd12k")
+theme_override_font_sizes/font_size = 32
+auto_width = true
+auto_height = true
+icon_mode = 0
+
+[node name="SkinTexure" type="TextureRect" parent="SkinLayer" unique_id=323393592]
+offset_left = 1153.0
+offset_top = 265.0
+offset_right = 1430.0
+offset_bottom = 537.0
+texture = ExtResource("3_i11cv")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" type="Button" parent="SkinLayer" unique_id=458155795]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -335.0
+offset_top = -165.0
+offset_right = -91.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_jd12k")
+theme_override_font_sizes/font_size = 32
+text = "EXIT"
+
+[node name="Equip_Uneqip" type="Button" parent="SkinLayer" unique_id=2067412579]
+offset_left = 1089.0
+offset_top = 687.0
+offset_right = 1525.0
+offset_bottom = 766.0
+
+[node name="TextBtn" type="Label" parent="SkinLayer" unique_id=2109039166]
+offset_left = 1089.0
+offset_top = 543.0
+offset_right = 1528.0
+offset_bottom = 622.0
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Refresh" type="Button" parent="SkinLayer" unique_id=1751098997]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="SkinLayer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="SkinLayer/Refresh" to="." method="_on_refresh_pressed"]
