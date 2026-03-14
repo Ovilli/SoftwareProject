@@ -100,8 +100,26 @@ same_column_width = true
 fixed_column_width = 200
 icon_mode = 0
 item_0/text = "ROOM PLAYER"
+item_1/text = "LOADING"
 item_2/text = "CODE"
-item_3/text = "6"
+item_3/text = "LOADING"
+
+[node name="Copy" type="Button" parent="CanvasLayer/Game" unique_id=1483853120]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 231.0
+offset_top = 7.0
+offset_right = 323.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "COPY"
 
 [node name="Ui" type="Control" parent="CanvasLayer" unique_id=1000215608]
 visible = false
@@ -203,7 +221,6 @@ theme_override_font_sizes/font_size = 32
 text = "MULTIPLAYER "
 
 [node name="UiMulti" type="Control" parent="CanvasLayer" unique_id=2054915234]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 349.0
@@ -274,6 +291,7 @@ theme_override_fonts/font = ExtResource("3_bwisl")
 theme_override_font_sizes/font_size = 32
 text = "EXIT"
 
+[connection signal="pressed" from="CanvasLayer/Game/Copy" to="." method="_on_copy_pressed"]
 [connection signal="pressed" from="CanvasLayer/Ui/QUIT" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Ui/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Ui/Singelplayer" to="." method="_on_singelplayer_pressed"]

@@ -159,3 +159,8 @@ func _generate_unique_id(existing_ids: Dictionary) -> String:
 
 	push_warning("Could not find unique ID in %d attempts" % MAX_ATTEMPTS)
 	return candidate
+
+
+func _on_copy_pressed() -> void:
+	DisplayServer.clipboard_set(Globals.GAME_ID)
+	Debug.log(Globals.GAME_ID)
