@@ -33,7 +33,12 @@ shader_parameter/amount = 0.0
 size = Vector3(4.1, 5.7, 4)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cn0rj"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0.30980393, 0.30980393, 0.30980393, 0.3882353)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+corner_detail = 20
 expand_margin_left = 10.0
 expand_margin_top = 10.0
 expand_margin_right = 10.0
@@ -168,9 +173,9 @@ script = ExtResource("9_5cwfu")
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 11.0
+offset_left = 23.0
 offset_top = -18.0
-offset_right = 176.0
+offset_right = 188.0
 offset_bottom = 18.0
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -192,9 +197,19 @@ theme_override_fonts/font = ExtResource("14_cn0rj")
 theme_override_font_sizes/font_size = 32
 text = "NEXT"
 
+[node name="prev" type="Button" parent="TutorialScript/TutorialLayer" unique_id=201961156]
+offset_left = 18.0
+offset_top = 14.0
+offset_right = 99.0
+offset_bottom = 58.0
+theme_override_fonts/font = ExtResource("14_cn0rj")
+theme_override_font_sizes/font_size = 32
+text = "PREV"
+
 [node name="Help" type="Node" parent="TutorialScript/TutorialLayer" unique_id=84131007]
 
 [node name="level" type="Label" parent="TutorialScript/TutorialLayer" unique_id=1105587608]
+visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -211,5 +226,17 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_cn0rj")
 text = "temp"
 
+[node name="GivenMoves" type="Label" parent="TutorialScript/TutorialLayer" unique_id=291065004]
+offset_left = 25.0
+offset_top = 145.0
+offset_right = 190.0
+offset_bottom = 181.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("14_cn0rj")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_cn0rj")
+text = "temp"
+
 [connection signal="pressed" from="TutorialScript/TutorialLayer/Next" to="Player" method="_on_next_pressed"]
 [connection signal="pressed" from="TutorialScript/TutorialLayer/Next" to="TutorialScript" method="_on_next_pressed"]
+[connection signal="pressed" from="TutorialScript/TutorialLayer/prev" to="TutorialScript" method="_on_prev_pressed"]

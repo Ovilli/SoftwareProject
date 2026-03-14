@@ -24,7 +24,7 @@ See Github[/center]
 
 """
 
-func _process(delta: float) -> void:
+func _process(_delta) -> void:
 	if Windowmng.is_open(Windowmng.Screen.CREDITS):
 		credits_layer.show()
 	else:
