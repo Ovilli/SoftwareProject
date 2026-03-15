@@ -23,15 +23,15 @@ func _process(_delta):
 			Globals.clear_move_markers()
 			if level == 1:
 				tutorial_1()
-				help.text = "This game is turn-based.\nIn this Tutorial you can do moves in a row\n\nClick on the table to go into board view\nMove the White-5 onto the\nBlack King to win the game!!"
+				help.text = "This game is turn-based.\nIn this Tutorial you can do moves in a row\n\nClick on the table to go into board view\nescape with `Esc`\nMove the White-5 onto the\nBlack King to win the game!!"
 				tutorial_running = true
 			elif level == 2:
 				tutorial_2()
-				help.text = "Your apponent is attacking your King\nyou can move your piece straight\nor turn once.\nMove your White-2 to save your King\n\nNormal-Pieces rotate as they move\nMove so you attack the Black-King"
+				help.text = "Your opponent is attacking your King\nyou can move your piece straight\nor turn once.\nMove your White-2 to save your King\n\nNormal-Pieces rotate as they move\nMove so you attack the Black-King"
 				tutorial_running = true
 			elif level == 3:
 				tutorial_3()
-				help.text = "Now we get to a little gameplay-simulation\nin this case the Black will move to\n\nMove a piece so the Black-King\ncan not move to a save square\n\nIf you make a mistake during your move\nyou can reset presing ´R´ "
+				help.text = "Now we get to a little gameplay-simulation\nin this case the Black will move to\n\nMove a piece so the Black-King\ncan not move to a save square\n\nIf you make a mistake during your move\nyou can reset presing `R` "
 				tutorial_running = true
 		reset_tutorial()
 		given_moves_label.text = "Moves left: " + str(given_moves)
@@ -92,10 +92,10 @@ func reset_tutorial():
 				help.text = "Please try again!\nclick on the White-5 \nthen on the Black-King"
 				tutorial_1()
 			elif level == 2:
-				help.text = "Okay, you´ve got this\nselect the White-2\nmove it once RIGHT and once BACK\nNow you got your setup to win the game"
+				help.text = "Okay, you´ve got this\nselect the White-2\nmove it once LEFT and once BACK\nNow you got your setup to win the game"
 				tutorial_2()
 			elif level == 3:
-				help.text = ""
+				help.text = "Just try again!\nMove a piece so the Black-King\ncan not move to a save square\n\nIf you make a mistake during your move\nyou can reset presing ´R´ "
 				tutorial_3()
 				
 	elif turn_counter != Globals.counter and TurnMng.current_turn == TurnMng.Player.P_BLACK and !turn_based:

@@ -28,7 +28,7 @@ func _ready() -> void:
 	skins.select(Globals.equipped_skin)
 	on_skin_selected(Globals.equipped_skin)
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	if Windowmng.is_open(Windowmng.Screen.SKINS):
 		skin_layer.show()
 	else:
