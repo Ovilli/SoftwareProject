@@ -221,6 +221,7 @@ offset_right = 10.0
 offset_bottom = 6.0
 
 [node name="How_to_Play" parent="GUI" unique_id=412701116 instance=ExtResource("3_88kup")]
+visible = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

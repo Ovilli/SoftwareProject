@@ -62,7 +62,7 @@ func _init_multiplayer() -> void:
 func _setup_poll_timer() -> void:
 	poll_timer = Timer.new()
 	add_child(poll_timer)
-	poll_timer.wait_time = 1.5
+	poll_timer.wait_time = 0.8
 	poll_timer.timeout.connect(_poll_server)
 	if Globals.multiplayer_enabeld:
 		poll_timer.start()
@@ -75,12 +75,6 @@ func _poll_server() -> void:
 
 func _on_server_state_received(parsed: Dictionary) -> void:
 	if not parsed.has("board") or not parsed.has("dice_states"):
-		return
-	if current_turn == my_player:
-		return
-	var server_turn = parsed.get("current_turn", "white")
-	var server_turn_enum = Player.P_BLACK if server_turn == "black" else Player.P_WHITE
-	if server_turn_enum != my_player:
 		return
 	_apply_server_state(parsed)
 
@@ -99,7 +93,10 @@ func _apply_server_state(parsed: Dictionary) -> void:
 	current_turn = Player.P_BLACK if turn_str == "black" else Player.P_WHITE
 
 	Globals.display_board()
-	Debug.log("State synced from server")
+	Debug.log("State synced from server - current_turn is now: %s" % turn_str)
+
+	if current_turn == my_player:
+		start_turn()
 
 func _send_state_to_server() -> void:
 	if not Globals.multiplayer_enabeld:
@@ -140,7 +137,10 @@ func switch_turn():
 		current_turn = Player.P_WHITE
 		print("w")
 	_send_state_to_server()
-	start_turn()
+	if not Globals.multiplayer_enabeld:
+		start_turn()
+	elif current_turn == my_player:
+		start_turn()
 
 func start_turn():
 	Globals.counter = Globals.counter + 1
@@ -184,6 +184,15 @@ func reset_turn():
 		reset_turn_vars()
 
 func legal_move(first_x, first_y, first_id, second_x, second_y):
+	# Block moving the wrong color piece in both single and multiplayer
+	if current_turn == Player.P_WHITE and first_id < 0:
+		Debug.log("WHITE cannot move BLACK pieces")
+		return
+	if current_turn == Player.P_BLACK and first_id > 0:
+		Debug.log("BLACK cannot move WHITE pieces")
+		return
+
+	# In multiplayer also block acting when it is not your turn
 	if Globals.multiplayer_enabeld and Globals.player_id != "" and current_turn != my_player:
 		Debug.log("Not your turn! current: %s my: %s" % [
 			"BLACK" if current_turn == Player.P_BLACK else "WHITE",
@@ -579,6 +588,7 @@ func restore_dice_states():
 			"east": faces.east,
 			"west": faces.west
 		}
+
 func hard_reset_manager():
 	current_turn = Player.P_WHITE
 	game_over = false
@@ -587,6 +597,3 @@ func hard_reset_manager():
 	pos_moves.clear()
 	no_pos_moves.clear()
 	dice_states_backup.clear()
-	#Globals.board.clear() #WHAT the helli how why do i exist? does anything really exists? Igiveuop!?
-	#Globals.dice_states.clear()
-	

@@ -223,16 +223,32 @@ value = 10.0
 [node name="Camera2D" type="Camera2D" parent="CanvasLayer" unique_id=1661559350]
 position = Vector2(581, 317)
 
+[node name="MAIN" type="Button" parent="CanvasLayer" unique_id=1889287935]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -258.5
+offset_top = -125.0
+offset_right = -79.5
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_slhc7")
+theme_override_font_sizes/font_size = 32
+text = "MAIN MENU"
+
 [node name="QUIT" type="Button" parent="CanvasLayer" unique_id=899745978]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -63.0
-offset_top = -62.0
-offset_right = 63.0
-offset_bottom = -18.0
+offset_left = 81.0
+offset_top = -126.0
+offset_right = 231.0
+offset_bottom = -66.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_slhc7")
@@ -259,5 +275,6 @@ text = "EXIT"
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/Settings/SENS/SENS-Slider" to="." method="_on_sens_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/Audio/Music/Music-Slider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/Audio/Sfx/SFX-Slider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/MAIN" to="." method="_on_main_pressed"]
 [connection signal="pressed" from="CanvasLayer/QUIT" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Exit" to="." method="_on_exit_pressed"]

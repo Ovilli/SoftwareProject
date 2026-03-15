@@ -2,6 +2,7 @@ extends Control
 
 @onready var canvas_layer: CanvasLayer = get_node("../Control/CanvasLayer")
 @onready var layer: CanvasLayer = get_node("CanvasLayer")
+@onready var main: Button = $CanvasLayer/MAIN
 
 func _ready() -> void:
 	layer.hide()
@@ -12,6 +13,15 @@ func _ready() -> void:
 
 	if Globals.DEBUG == true:
 		AudioServer.set_bus_volume_db(2, -40)
+
+func _process(delta: float) -> void:
+	if TurnMng.game_over == false:
+		if Windowmng.previous == Windowmng.Screen.MAIN_MENU:
+			main.hide()
+		else:
+			main.show()
+	else:
+		main.hide()
 
 func _on_window_changed(_from, _to):
 	_update_visibility()
@@ -44,3 +54,12 @@ func _on_sens_slider_value_changed(value: int) -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_main_pressed() -> void:
+	Windowmng.open(Windowmng.Screen.MAIN_MENU)
+	Globals.board_clear()
+	TurnMng.reset_turn_vars()
+	Globals.tisch_open = false
+	TurnMng.game_over = false
+	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")

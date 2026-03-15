@@ -38,7 +38,6 @@ func _process(delta: float) -> void:
 		time += delta
 
 func display_board():
-	#print("Displaying Board")
 	board_clear()
 	for x in range(BOARD_SIZE):
 		for y in range(BOARD_SIZE):
@@ -146,7 +145,11 @@ func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 	piece_data.set_meta("x", x)
 	piece_data.set_meta("y", y)
 	var key = str(x) + "|" + str(y)
-	if piece_id != 0 and not dice_states.has(key):
+
+	# Only initialise dice_states here in singleplayer and only if truly missing.
+	# In multiplayer dice_states is owned and written exclusively by game_manager
+	# so we must never overwrite it here or synced state gets corrupted.
+	if piece_id != 0 and not dice_states.has(key) and not multiplayer_enabeld:
 		if abs(piece_id) != 10:
 			dice_states[key] = create_default_dice_faces(piece_id)
 		else:
@@ -158,6 +161,7 @@ func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 				"east": 10,
 				"west": 10
 			}
+
 	var pivot = piece_instance.get_node_or_null("Pivot")
 	if pivot and dice_states.has(key):
 		pivot.rotation = find_rotation_of_piece(key)
@@ -202,7 +206,7 @@ func create_default_dice_faces(id: int) -> Dictionary:
 	}
 	var cur_id = abs(id)
 	var safety_counter = 0
-	while faces.top != cur_id and safety_counter < 10:
+	while faces.top != cur_id and safety_counter < 10:	
 		var old_top = faces.top
 		faces.top = faces.east
 		faces.east = faces.bottom
