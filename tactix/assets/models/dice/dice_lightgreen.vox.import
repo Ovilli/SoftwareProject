@@ -1,14 +1,21 @@
 [remap]
 
-importer="voxel_noop"
-type="Resource"
+importer="voxel_mesh"
+type="Mesh"
 uid="uid://c8y6wrccgmrw4"
-path="res://.godot/imported/dice_lightgreen.vox-6f4d3b4c164f42e04cd8853c841037fc.res"
+path="res://.godot/imported/dice_lightgreen.vox-6f4d3b4c164f42e04cd8853c841037fc.mesh"
 
 [deps]
 
 source_file="res://assets/models/dice/dice_lightgreen.vox"
-dest_files=["res://.godot/imported/dice_lightgreen.vox-6f4d3b4c164f42e04cd8853c841037fc.res"]
+dest_files=["res://.godot/imported/dice_lightgreen.vox-6f4d3b4c164f42e04cd8853c841037fc.mesh"]
 
 [params]
 
+mesh/scale=0.1
+mesh/frame_index=0
+mesh/unwrap_lightmap_uv2=false
+mesh/uv2_texel_size=0.2
+material/import_materials_textures=false
+material/material_path=""
+material/material_trans_path=""

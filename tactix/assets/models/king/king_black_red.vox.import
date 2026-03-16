@@ -1,14 +1,21 @@
 [remap]
 
-importer="voxel_noop"
-type="Resource"
+importer="voxel_mesh"
+type="Mesh"
 uid="uid://7yoy0o0db58t"
-path="res://.godot/imported/king_black_red.vox-e934c089c2028aa3f77345932905b564.res"
+path="res://.godot/imported/king_black_red.vox-e934c089c2028aa3f77345932905b564.mesh"
 
 [deps]
 
 source_file="res://assets/models/king/king_black_red.vox"
-dest_files=["res://.godot/imported/king_black_red.vox-e934c089c2028aa3f77345932905b564.res"]
+dest_files=["res://.godot/imported/king_black_red.vox-e934c089c2028aa3f77345932905b564.mesh"]
 
 [params]
 
+mesh/scale=0.1
+mesh/frame_index=0
+mesh/unwrap_lightmap_uv2=false
+mesh/uv2_texel_size=0.2
+material/import_materials_textures=false
+material/material_path=""
+material/material_trans_path=""

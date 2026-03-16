@@ -1,14 +1,21 @@
 [remap]
 
-importer="voxel_noop"
-type="Resource"
+importer="voxel_mesh"
+type="Mesh"
 uid="uid://c37t0le60i4jb"
-path="res://.godot/imported/dice_black_pink.vox-2a0081c614a458686618d1e64b6c55d7.res"
+path="res://.godot/imported/dice_black_pink.vox-2a0081c614a458686618d1e64b6c55d7.mesh"
 
 [deps]
 
 source_file="res://assets/models/dice/dice_black_pink.vox"
-dest_files=["res://.godot/imported/dice_black_pink.vox-2a0081c614a458686618d1e64b6c55d7.res"]
+dest_files=["res://.godot/imported/dice_black_pink.vox-2a0081c614a458686618d1e64b6c55d7.mesh"]
 
 [params]
 
+mesh/scale=0.1
+mesh/frame_index=0
+mesh/unwrap_lightmap_uv2=false
+mesh/uv2_texel_size=0.2
+material/import_materials_textures=false
+material/material_path=""
+material/material_trans_path=""

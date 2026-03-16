@@ -1,14 +1,21 @@
 [remap]
 
-importer="voxel_noop"
-type="Resource"
+importer="voxel_mesh"
+type="Mesh"
 uid="uid://dq071qx2pb84g"
-path="res://.godot/imported/king_lightblue.vox-00e5a3f2be550480195477a6e1bd1d3c.res"
+path="res://.godot/imported/king_lightblue.vox-00e5a3f2be550480195477a6e1bd1d3c.mesh"
 
 [deps]
 
 source_file="res://assets/models/king/king_lightblue.vox"
-dest_files=["res://.godot/imported/king_lightblue.vox-00e5a3f2be550480195477a6e1bd1d3c.res"]
+dest_files=["res://.godot/imported/king_lightblue.vox-00e5a3f2be550480195477a6e1bd1d3c.mesh"]
 
 [params]
 
+mesh/scale=0.1
+mesh/frame_index=0
+mesh/unwrap_lightmap_uv2=false
+mesh/uv2_texel_size=0.2
+material/import_materials_textures=false
+material/material_path=""
+material/material_trans_path=""

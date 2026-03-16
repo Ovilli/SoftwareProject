@@ -17,8 +17,7 @@ shape = SubResource("BoxShape3D_s4717")
 [node name="Pivot" type="Node3D" parent="." unique_id=1795181277]
 transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.046486497, 0.45895898, 0.027957082)
 
-[node name="Dice" type="MeshInstance3D" parent="Pivot" unique_id=752991878]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=752991878]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0.027957086)
 mesh = ExtResource("1_27nyo")
 skeleton = NodePath("../..")
-metadata/_edit_lock_ = true

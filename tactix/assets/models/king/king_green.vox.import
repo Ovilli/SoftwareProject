@@ -1,14 +1,21 @@
 [remap]
 
-importer="voxel_noop"
-type="Resource"
+importer="voxel_mesh"
+type="Mesh"
 uid="uid://djbybqi3v0d8i"
-path="res://.godot/imported/king_green.vox-c79b97279f007f9b08e4a0c88b5b6eec.res"
+path="res://.godot/imported/king_green.vox-c79b97279f007f9b08e4a0c88b5b6eec.mesh"
 
 [deps]
 
 source_file="res://assets/models/king/king_green.vox"
-dest_files=["res://.godot/imported/king_green.vox-c79b97279f007f9b08e4a0c88b5b6eec.res"]
+dest_files=["res://.godot/imported/king_green.vox-c79b97279f007f9b08e4a0c88b5b6eec.mesh"]
 
 [params]
 
+mesh/scale=0.1
+mesh/frame_index=0
+mesh/unwrap_lightmap_uv2=false
+mesh/uv2_texel_size=0.2
+material/import_materials_textures=false
+material/material_path=""
+material/material_trans_path=""

@@ -130,6 +130,13 @@ func find_top_of_piece(top, north):
 
 func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 	var piece_instance = scene.instantiate() as Node3D
+	
+	var skin_mesh = Diceskinmng.get_skin_mesh(piece_id)
+	if skin_mesh:
+		var mesh_instance = piece_instance.get_node_or_null("Pivot/MeshInstance3D")
+		if mesh_instance:
+			mesh_instance.mesh = skin_mesh
+	
 	piece_instance.add_to_group("visual_pieces")
 	add_child(piece_instance)
 	piece_instance.global_position = _0_0.global_position + Vector3(

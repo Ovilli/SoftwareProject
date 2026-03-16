@@ -1,14 +1,21 @@
 [remap]
 
-importer="voxel_noop"
-type="Resource"
+importer="voxel_mesh"
+type="Mesh"
 uid="uid://di65dbo03s1on"
-path="res://.godot/imported/dice_red.vox-5981880cbb72668feca4b2e135088e1a.res"
+path="res://.godot/imported/dice_red.vox-5981880cbb72668feca4b2e135088e1a.mesh"
 
 [deps]
 
 source_file="res://assets/models/dice/dice_red.vox"
-dest_files=["res://.godot/imported/dice_red.vox-5981880cbb72668feca4b2e135088e1a.res"]
+dest_files=["res://.godot/imported/dice_red.vox-5981880cbb72668feca4b2e135088e1a.mesh"]
 
 [params]
 
+mesh/scale=0.1
+mesh/frame_index=0
+mesh/unwrap_lightmap_uv2=false
+mesh/uv2_texel_size=0.2
+material/import_materials_textures=false
+material/material_path=""
+material/material_trans_path=""

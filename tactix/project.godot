@@ -35,6 +35,7 @@ TurnMng="*res://scripts/game/turn_mng.gd"
 Globals="*res://scripts/globals.gd"
 Debug="*res://scripts/debug.gd"
 Windowmng="*uid://82t18ipdh8l8"
+Diceskinmng="*uid://djyrqt0eovih7"
 
 [display]
 

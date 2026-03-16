@@ -1,23 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgbm78yds67ov"]
+[gd_scene format=3 uid="uid://cgbm78yds67ov"]
 
 [ext_resource type="ArrayMesh" uid="uid://dyg82xwpwinl3" path="res://assets/models/king/king.vox" id="1_mdhvv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mdhvv"]
 size = Vector3(0.90966797, 0.90185547, 0.9025879)
 
-[node name="Dice" type="Node3D"]
+[node name="Dice" type="Node3D" unique_id=129369150]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1904108533]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=454059644]
 transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.04516603, 0.44907233, 0.04870605)
 shape = SubResource("BoxShape3D_mdhvv")
 
-[node name="Pivot" type="Node3D" parent="."]
+[node name="Pivot" type="Node3D" parent="." unique_id=607842265]
 transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.046486497, 0.45895898, 0.027957082)
 
-[node name="Dice_King" type="MeshInstance3D" parent="Pivot"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1242964982]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0.027957086)
 mesh = ExtResource("1_mdhvv")
 skeleton = NodePath("../..")
-metadata/_edit_lock_ = true
