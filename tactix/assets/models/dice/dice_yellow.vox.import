@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://c7d53i06rfxc8"
+path="res://.godot/imported/dice_yellow.vox-aa65f81c79694b84669a3c5cad520f0e.res"
+
+[deps]
+
+source_file="res://assets/models/dice/dice_yellow.vox"
+dest_files=["res://.godot/imported/dice_yellow.vox-aa65f81c79694b84669a3c5cad520f0e.res"]
+
+[params]
+

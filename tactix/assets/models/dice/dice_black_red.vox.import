@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://7tuwyx7gm6pw"
+path="res://.godot/imported/dice_black_red.vox-1e0a5d9f0642d872df7b70342453b32d.res"
+
+[deps]
+
+source_file="res://assets/models/dice/dice_black_red.vox"
+dest_files=["res://.godot/imported/dice_black_red.vox-1e0a5d9f0642d872df7b70342453b32d.res"]
+
+[params]
+

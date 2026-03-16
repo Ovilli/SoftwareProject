@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://dq071qx2pb84g"
+path="res://.godot/imported/king_lightblue.vox-00e5a3f2be550480195477a6e1bd1d3c.res"
+
+[deps]
+
+source_file="res://assets/models/king/king_lightblue.vox"
+dest_files=["res://.godot/imported/king_lightblue.vox-00e5a3f2be550480195477a6e1bd1d3c.res"]
+
+[params]
+

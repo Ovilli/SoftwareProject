@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://djbybqi3v0d8i"
+path="res://.godot/imported/king_green.vox-c79b97279f007f9b08e4a0c88b5b6eec.res"
+
+[deps]
+
+source_file="res://assets/models/king/king_green.vox"
+dest_files=["res://.godot/imported/king_green.vox-c79b97279f007f9b08e4a0c88b5b6eec.res"]
+
+[params]
+

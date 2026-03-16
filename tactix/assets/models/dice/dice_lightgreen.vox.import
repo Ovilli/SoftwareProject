@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://c8y6wrccgmrw4"
+path="res://.godot/imported/dice_lightgreen.vox-6f4d3b4c164f42e04cd8853c841037fc.res"
+
+[deps]
+
+source_file="res://assets/models/dice/dice_lightgreen.vox"
+dest_files=["res://.godot/imported/dice_lightgreen.vox-6f4d3b4c164f42e04cd8853c841037fc.res"]
+
+[params]
+

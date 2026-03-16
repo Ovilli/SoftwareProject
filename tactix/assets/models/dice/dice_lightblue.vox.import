@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://bqwc105m4b2fh"
+path="res://.godot/imported/dice_lightblue.vox-704e0bb471f2324591db8661b73b9c32.res"
+
+[deps]
+
+source_file="res://assets/models/dice/dice_lightblue.vox"
+dest_files=["res://.godot/imported/dice_lightblue.vox-704e0bb471f2324591db8661b73b9c32.res"]
+
+[params]
+

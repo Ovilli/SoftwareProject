@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://7yoy0o0db58t"
+path="res://.godot/imported/king_black_red.vox-e934c089c2028aa3f77345932905b564.res"
+
+[deps]
+
+source_file="res://assets/models/king/king_black_red.vox"
+dest_files=["res://.godot/imported/king_black_red.vox-e934c089c2028aa3f77345932905b564.res"]
+
+[params]
+

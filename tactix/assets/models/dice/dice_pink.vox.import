@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://d3uhc45tkkhcc"
+path="res://.godot/imported/dice_pink.vox-e3cc77d8e9cb19010700c2d04f2566e9.res"
+
+[deps]
+
+source_file="res://assets/models/dice/dice_pink.vox"
+dest_files=["res://.godot/imported/dice_pink.vox-e3cc77d8e9cb19010700c2d04f2566e9.res"]
+
+[params]
+

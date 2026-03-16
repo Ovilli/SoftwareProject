@@ -1,0 +1,14 @@
+[remap]
+
+importer="voxel_noop"
+type="Resource"
+uid="uid://cc6sccdshimnu"
+path="res://.godot/imported/king_yellow.vox-b66ed7f80dd679a8806f8108f5fbb1ca.res"
+
+[deps]
+
+source_file="res://assets/models/king/king_yellow.vox"
+dest_files=["res://.godot/imported/king_yellow.vox-b66ed7f80dd679a8806f8108f5fbb1ca.res"]
+
+[params]
+
