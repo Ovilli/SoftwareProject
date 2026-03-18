@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://brpausctw7rmx"]
+
+[ext_resource type="ArrayMesh" uid="uid://bys08a6hi3eau" path="res://assets/models/anim_lib/whitecube.obj" id="1_uqhtg"]
+[ext_resource type="ArrayMesh" uid="uid://dyeqwp3bnqq5r" path="res://assets/models/anim_lib/blackcube.obj" id="2_amwon"]
+
+[sub_resource type="Animation" id="Animation_i7gh7"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Node3D2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_0xq4g"]
+resource_name = "black_rotation"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Node3D2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.99, 1, 0, 0, -0.70710677, 0.70710677)
+
+[sub_resource type="Animation" id="Animation_amwon"]
+resource_name = "white_rotation"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(-7.450581e-09, 1, 0, 0, 0, 1, 0.98, 1, 0, 0, -0.7121976, 0.70197904)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0xq4g"]
+_data = {
+&"RESET": SubResource("Animation_i7gh7"),
+&"black_rotation": SubResource("Animation_0xq4g"),
+&"white_rotation": SubResource("Animation_amwon")
+}
+
+[node name="WhiteRotation" type="Node3D" unique_id=193845657]
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1486857013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.51514745, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D" unique_id=1147976126]
+transform = Transform3D(0.99999994, -2.3622032e-08, 0, 2.3622032e-08, 0.99999994, 0, 0, 0, 1, -0.51514745, -1.216883e-08, 0)
+mesh = ExtResource("2_amwon")
+skeleton = NodePath("../..")
+
+[node name="Node3D2" type="Node3D" parent="." unique_id=803694757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D2" unique_id=960770375]
+transform = Transform3D(1, 2.3622034e-08, 0, -2.3622034e-08, 1, 0, 0, 0, 1, -0.5, 0, 0)
+mesh = ExtResource("1_uqhtg")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1663344763]
+root_node = NodePath("../Node3D")
+libraries/ = SubResource("AnimationLibrary_0xq4g")

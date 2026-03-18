@@ -14,7 +14,7 @@ func _ready() -> void:
 	if Globals.DEBUG == true:
 		AudioServer.set_bus_volume_db(2, -40)
 
-func _process(delta: float) -> void:
+func _process(_delta) -> void:
 	if TurnMng.game_over == false:
 		if Windowmng.previous == Windowmng.Screen.MAIN_MENU:
 			main.hide()
