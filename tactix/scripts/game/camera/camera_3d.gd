@@ -104,12 +104,13 @@ func check_for_piece_data(node: Node, is_click: bool = false) -> void:
 						if is_valid_piece:
 							Globals.waiting_for_first = false
 							Globals.clear_move_markers()
-							marker_click()
-							play_sound_sfx()
+							if !TurnMng.moved_sth:
+								marker_click()
+								play_sound_sfx()
 						else:
 							Debug.log("not your piece")
 							play_sound_sfx()
-							Globals.clear_move_markers()
+							#Globals.clear_move_markers()
 				else:
 					if not (first_x == x and first_y == y):
 						second_x = x
@@ -125,8 +126,9 @@ func check_for_piece_data(node: Node, is_click: bool = false) -> void:
 							second_x = -1
 							second_y = -1
 							Globals.waiting_for_first = false
-							Globals.clear_move_markers()
-							marker_click()
+							#Globals.clear_move_markers()
+							if !TurnMng.moved_sth:
+								marker_click()
 						else:
 							TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
 							if TurnMng.moved_sth:

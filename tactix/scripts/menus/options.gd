@@ -14,7 +14,7 @@ func _ready() -> void:
 	if Globals.DEBUG == true:
 		AudioServer.set_bus_volume_db(2, -40)
 
-func _process(delta: float) -> void:
+func _process(_delta) -> void:
 	if TurnMng.game_over == false:
 		if Windowmng.previous == Windowmng.Screen.MAIN_MENU:
 			main.hide()
@@ -62,4 +62,6 @@ func _on_main_pressed() -> void:
 	TurnMng.reset_turn_vars()
 	Globals.tisch_open = false
 	TurnMng.game_over = false
+	TurnMng.current_turn = TurnMng.Player.P_WHITE
+	Globals.clear_move_markers()
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")

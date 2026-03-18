@@ -45,11 +45,9 @@ func _on_continue_pressed() -> void:
 	TurnMng.reset_turn_vars()
 	Globals.tisch_open = false
 	TurnMng.game_over = false
+	TurnMng.current_turn = TurnMng.Player.P_WHITE
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
-#TODO: board speichern
-#TODO: multiple board & play states -> speichern/laden
 #TODO: multiplayer
 #TODO: KI Gegner
 #TODO: game revievs
 #TODO: niom niom niom
-#TODO: fix options
