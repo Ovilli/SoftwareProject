@@ -536,6 +536,7 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 	var faces = Globals.dice_states[key]
 	var delta_x = new_x - prev_x
 	var delta_y = new_y - prev_y
+	piece_moved.emit(prev_x, prev_y, delta_x, delta_y)
 	if not is_king_piece:
 		if delta_y != 0:
 			if delta_y > 0:
@@ -551,6 +552,7 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 			else:
 				for i in range(abs(delta_x)):
 					roll_left(faces)
+		
 		var updated_id = faces.top
 		Globals.dice_states.erase(key)
 		Globals.dice_states[new_key] = faces
@@ -566,8 +568,7 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 		Globals.dice_states.erase(key)
 		Globals.dice_states[new_key] = faces
 		from_id = 1
-# for loop
-	piece_moved.emit(prev_x, prev_y, delta_x, delta_y)
+	
 	
 
 func backup_dice_states():

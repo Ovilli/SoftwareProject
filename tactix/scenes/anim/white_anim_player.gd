@@ -26,17 +26,25 @@ func _on_piece_moved(from_x, from_y, delta_x, delta_y):
 	var anim_mesh
 	var piece = get_piece_at(from_x, from_y)
 	anim_instance.get_node("Node3D2").hide()
-	anim_mesh = anim_instance.get_node_or_null("Node3D/MeshInstance3D")
+	anim_mesh = anim_instance.get_node_or_null("Pivot/Rot/MeshInstance3D")
 	#TODO: adding of the correct mesh rotation
 	var times_moved := 0
 	var anim_player = anim_instance.get_node("AnimationPlayer")
-	
-	
+	var rot_mesh = anim_instance.get_node("Pivot/Rot")
+	var piece_mesh = piece.get_node_or_null("Pivot/MeshInstance3D")
+	var piece_pivot = piece.get_node_or_null("Pivot")
+	var key = str(from_x) + "|" + str(from_y)
+	if Globals.dice_states.has(key):
+		print("key = ", key)
+		piece_pivot.rotation = Globals.find_rotation_of_piece(key)
+		piece_pivot.rotation_degrees.x -=90
+	rot_mesh.rotation = piece_pivot.rotation
 	while times_moved != times:
-		
+		if piece and anim_mesh:
+			if piece_mesh and piece_pivot:
+				anim_mesh.mesh = piece_mesh.mesh
 		var x = from_x
 		var y = from_y
-		
 		if delta_x > 0:
 			anim_instance.rotation_degrees.y = 0
 			x+=times_moved
@@ -49,16 +57,8 @@ func _on_piece_moved(from_x, from_y, delta_x, delta_y):
 		elif delta_y < 0:
 			anim_instance.rotation_degrees.y = 90
 			y-=times_moved
-			
-		if piece and anim_mesh:
-			var piece_mesh = piece.get_node_or_null("Pivot/MeshInstance3D")
-			var piece_pivot = piece.get_node_or_null("Pivot")
-			if piece_mesh:
-				anim_mesh.mesh = piece_mesh.mesh
-			if piece_pivot:
-				print("piece_pivot rotation: ", piece_pivot.rotation)
-				anim_instance.get_node("Node3D").rotation = piece_pivot.rotation
-				print("Node3D rotation after set: ", anim_instance.get_node("Node3D").rotation)
+		
+# TODO: adding the faces &&renewing the pivot of animation
 		anim_instance.global_position = _0_0.global_position + Vector3(
 		x * CELL_WIDTH + CELL_WIDTH * 0.5,
 		-CELL_WIDTH / 2,
@@ -70,9 +70,10 @@ func _on_piece_moved(from_x, from_y, delta_x, delta_y):
 		times_moved += 1
 	
 	anim_instance.queue_free()
+	TurnMng.is_animating = false
 	Globals.display_board()
 	times_moved = 0
-	TurnMng.is_animating = false
+	
 	
 func get_piece_at(x, y) -> Node3D:
 	for piece in get_tree().get_nodes_in_group("visual_pieces"):

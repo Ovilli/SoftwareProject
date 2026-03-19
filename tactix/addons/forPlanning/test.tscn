@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://ijxbtu65s0su"]
+
+[ext_resource type="ArrayMesh" uid="uid://qybkw75qflsr" path="res://assets/models/dice/dice_black.vox" id="1_muula"]
+
+[node name="Test" type="Node" unique_id=1887570533]
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1313241531]
+transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.046486497, 0.45895898, 0.027957082)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1963856886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0.027957086)
+mesh = ExtResource("1_muula")
+skeleton = NodePath("../..")
+metadata/input_pickable = true
+
+[node name="Pivot2" type="Node3D" parent="." unique_id=417361427]
+transform = Transform3D(-4.3711402e-08, -1.0000001, 0, 1.0000004, -4.3711392e-08, 0, 0, 0, 0.9999999, 3.2690444, 0.45895898, 0.027957082)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot2" unique_id=2038066363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0.027957086)
+mesh = ExtResource("1_muula")
+skeleton = NodePath("../..")
+metadata/input_pickable = true
