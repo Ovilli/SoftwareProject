@@ -138,6 +138,10 @@ func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 			mesh_instance.mesh = skin_mesh
 	
 	piece_instance.add_to_group("visual_pieces")
+	#New
+	piece_instance.set_meta("board_x", x)
+	piece_instance.set_meta("board_y", y)
+	#new
 	add_child(piece_instance)
 	piece_instance.global_position = _0_0.global_position + Vector3(
 		x * CELL_WIDTH + CELL_WIDTH * 0.5,
