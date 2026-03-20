@@ -66,7 +66,7 @@ func _on_piece_moved(from_x, from_y, delta_x, delta_y):
 		if delta_x > 0:
 			anim_instance.rotation_degrees.y = 0
 			rot_mesh.rotation_degrees.y += 0
-			_temp_faces = _temp_faces.roll_right(_temp_faces)
+			_temp_faces = TurnMng.roll_right(_temp_faces)
 			x+=times_moved
 		elif delta_x < 0:
 			anim_instance.rotation_degrees.y = 180

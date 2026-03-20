@@ -29,7 +29,7 @@ func _ready() -> void:
 	switch_to_player_camera()
 
 func _input(event: InputEvent) -> void:
-	if TurnMng.is_animating:
+	if TurnMng.is_animating or is_transitioning:
 		return
 	if Input.is_action_just_pressed("esc"):
 		if Windowmng.is_open(Windowmng.Screen.OPTIONS):

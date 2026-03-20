@@ -93,41 +93,38 @@ func tutorial_3():
 	Globals.display_board()
 func reset_tutorial():
 	given_moves = turn_counter - Globals.counter
-	if !TurnMng.game_over and turn_counter == Globals.counter:
-		if TurnMng.current_turn == TurnMng.Player.P_BLACK:
+	if !TurnMng.is_animating:
+		if !TurnMng.game_over and turn_counter == Globals.counter:
+			if TurnMng.current_turn == TurnMng.Player.P_BLACK:
+				TurnMng.hard_reset_manager()
+				#set label text to help and reset board_state
+				if level == 1:
+					help.text = "Please try again!\nclick on the White-5 \nthen on the Black-King"
+					tutorial_1()
+				elif level == 2:
+					help.text = "Okay, you´ve got this\nselect the White-2\nmove it once LEFT and once BACK\nNow you got your setup to win the game"
+					tutorial_2()
+				elif level == 3:
+					help.text = "Just try again!\nMove a piece so the Black-King\ncan not move to a save square\n\nIf you make a mistake during your move\nyou can reset presing ´R´ "
+					tutorial_3()
+					
+		elif turn_counter != Globals.counter and TurnMng.current_turn == TurnMng.Player.P_BLACK and !turn_based:
 			TurnMng.hard_reset_manager()
-			#set label text to help and reset board_state
-			if level == 1:
-				help.text = "Please try again!\nclick on the White-5 \nthen on the Black-King"
-				tutorial_1()
-			elif level == 2:
-				help.text = "Okay, you´ve got this\nselect the White-2\nmove it once LEFT and once BACK\nNow you got your setup to win the game"
-				tutorial_2()
-			elif level == 3:
-				help.text = "Just try again!\nMove a piece so the Black-King\ncan not move to a save square\n\nIf you make a mistake during your move\nyou can reset presing ´R´ "
-				tutorial_3()
-				
-	elif turn_counter != Globals.counter and TurnMng.current_turn == TurnMng.Player.P_BLACK and !turn_based:
-		TurnMng.hard_reset_manager()
-		Globals.display_board()
-	elif turn_counter != Globals.counter and TurnMng.current_turn == TurnMng.Player.P_BLACK and turn_based:
-		if level == 3:
-			TurnMng.legal_move(0, 8, -10, 1, 8)    #TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
-		else:
-			pass
-		TurnMng.hard_reset_manager()
-		Globals.counter -= 1
-	elif TurnMng.game_over:
-		TurnMng.hard_reset_manager()
-		tutorial_running = false
-		Globals.display_board()
-		if level + 1 <= max_levels + 1:
-			level += 1
-			turn_based = false
-		
-		
-		
-		
+			Globals.display_board()
+		elif turn_counter != Globals.counter and TurnMng.current_turn == TurnMng.Player.P_BLACK and turn_based:
+			if level == 3:
+				TurnMng.legal_move(0, 8, -10, 1, 8)    #TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
+			else:
+				pass
+			TurnMng.hard_reset_manager()
+			Globals.counter -= 1
+		elif TurnMng.game_over:
+			TurnMng.hard_reset_manager()
+			tutorial_running = false
+			Globals.display_board()
+			if level + 1 <= max_levels + 1:
+				level += 1
+				turn_based = false
 		
 #BUTTONS--------------------------------------------------------------------------------------------
 
