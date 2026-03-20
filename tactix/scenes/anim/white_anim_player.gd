@@ -3,14 +3,14 @@ extends Node
 var _0_0: Marker3D:
 	get:
 		return get_tree().root.get_node("Main-Game/Board/0|0")
+		
 var CELL_WIDTH = Globals.CELL_WIDTH
 
-
+const DICE = preload("uid://c7afdlm1rpk1o")
+const DICE_BLACK = preload("uid://ca35rikf3jygt")
 
 var anim_scene = preload("res://scenes/anim/white_rotation.tscn")
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	TurnMng.piece_moved.connect(_on_piece_moved)
 
@@ -23,39 +23,59 @@ func _on_piece_moved(from_x, from_y, delta_x, delta_y):
 		times = abs(delta_y)
 	var anim_instance = anim_scene.instantiate()
 	get_tree().root.add_child(anim_instance)
-	var anim_mesh
+	var anim_mesh: MeshInstance3D
 	var piece = get_piece_at(from_x, from_y)
+	var piece_mesh: MeshInstance3D
+	var piece_instance: Node3D
+	
+	
+	if TurnMng.current_turn == TurnMng.Player.P_WHITE:
+		piece_instance = DICE.instantiate() as Node3D
+	if TurnMng.current_turn == TurnMng.Player.P_BLACK:
+		piece_instance = DICE_BLACK.instantiate() as Node3D
+	
 	anim_instance.get_node("Node3D2").hide()
+	
+	piece_mesh = piece_instance.get_node_or_null("Pivot/MeshInstance3D")
 	anim_mesh = anim_instance.get_node_or_null("Pivot/Rot/MeshInstance3D")
+	
 	#TODO: adding of the correct mesh rotation
 	var times_moved := 0
 	var anim_player = anim_instance.get_node("AnimationPlayer")
 	var rot_mesh = anim_instance.get_node("Pivot/Rot")
-	var piece_mesh = piece.get_node_or_null("Pivot/MeshInstance3D")
-	var piece_pivot = piece.get_node_or_null("Pivot")
+	var face_rot: Vector3
+	
+	
 	var key = str(from_x) + "|" + str(from_y)
 	if Globals.dice_states.has(key):
-		print("key = ", key)
-		piece_pivot.rotation = Globals.find_rotation_of_piece(key)
-		piece_pivot.rotation_degrees.x -=90
-	rot_mesh.rotation = piece_pivot.rotation
+		print(Globals.dice_states[key])
+		face_rot = Globals.find_rotation_of_piece(key)
+		rot_mesh.rotation = face_rot
+	if Globals.dice_states[key] == { "top": 10, "bottom": 10, "north": 10, "south": 10, "east": 10, "west": 10 }:
+		piece_mesh = piece.get_node("Pivot/MeshInstance3D")
+	
+	
 	while times_moved != times:
 		if piece and anim_mesh:
-			if piece_mesh and piece_pivot:
+			if piece_mesh:
 				anim_mesh.mesh = piece_mesh.mesh
 		var x = from_x
 		var y = from_y
 		if delta_x > 0:
 			anim_instance.rotation_degrees.y = 0
+			rot_mesh.rotation_degrees.y += 0
 			x+=times_moved
 		elif delta_x < 0:
 			anim_instance.rotation_degrees.y = 180
+			rot_mesh.rotation_degrees.y -= 180
 			x-=times_moved
 		elif delta_y > 0:
-			anim_instance.rotation_degrees.y = -90
+			anim_instance.rotation_degrees.y = -90 
+			rot_mesh.rotation_degrees.y += 90
 			y += times_moved
 		elif delta_y < 0:
 			anim_instance.rotation_degrees.y = 90
+			rot_mesh.rotation_degrees.y -= 90
 			y-=times_moved
 		
 # TODO: adding the faces &&renewing the pivot of animation

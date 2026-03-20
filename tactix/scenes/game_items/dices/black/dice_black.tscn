@@ -15,10 +15,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.045166016, 0.44907227, 0.04
 shape = SubResource("BoxShape3D_s4717")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=272582048]
-transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.046486497, 0.45895898, 0.027957082)
+transform = Transform3D(1.0000004, 0, 0, 0, 1.0000001, 0, 0, 0, 0.9999999, 0.046486497, 0.44984877, 0.046177506)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=1810195986]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0.027957086)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.4498487, -0.04617751)
 mesh = ExtResource("1_uf7bm")
 skeleton = NodePath("../..")
 metadata/input_pickable = true

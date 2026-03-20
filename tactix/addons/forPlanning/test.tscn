@@ -14,7 +14,7 @@ skeleton = NodePath("../..")
 metadata/input_pickable = true
 
 [node name="Pivot2" type="Node3D" parent="." unique_id=417361427]
-transform = Transform3D(-4.3711402e-08, -1.0000001, 0, 1.0000004, -4.3711392e-08, 0, 0, 0, 0.9999999, 3.2690444, 0.45895898, 0.027957082)
+transform = Transform3D(-4.3711402e-08, -1.0000001, -4.3711385e-08, 3.821372e-15, 4.3711392e-08, -0.9999999, 1.0000004, -4.3711392e-08, 1.9106853e-15, 3.2690444, 0.45895898, 0.027957082)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot2" unique_id=2038066363]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046486482, -0.45895892, -0.027957086)

@@ -217,7 +217,7 @@ func create_default_dice_faces(id: int) -> Dictionary:
 	}
 	var cur_id = abs(id)
 	var safety_counter = 0
-	while faces.top != cur_id and safety_counter < 10:	
+	while faces.top != cur_id and safety_counter < 10:
 		var old_top = faces.top
 		faces.top = faces.east
 		faces.east = faces.bottom
