@@ -33,6 +33,15 @@ func _process(_delta):
 				tutorial_3()
 				help.text = "Now we get to a little gameplay-simulation\nin this case the Black will move to\n\nMove a piece so the Black-King\ncan not move to a save square\n\nIf you make a mistake during your move\nyou can reset presing `R` "
 				tutorial_running = true
+			else:
+				Windowmng.open(Windowmng.Screen.MAIN_MENU)
+				Globals.board_clear()
+				Globals.dice_states.clear()
+				TurnMng.reset_turn_vars()
+				Globals.tisch_open = false
+				TurnMng.game_over = false
+				Globals.how_to_open = false
+				get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
 		reset_tutorial()
 		given_moves_label.text = "Moves left: " + str(given_moves)
 func tutorial_1():
@@ -112,7 +121,7 @@ func reset_tutorial():
 		TurnMng.hard_reset_manager()
 		tutorial_running = false
 		Globals.display_board()
-		if level + 1 <= max_levels:
+		if level + 1 <= max_levels + 1:
 			level += 1
 			turn_based = false
 		
@@ -134,4 +143,6 @@ func _on_prev_pressed() -> void:
 		tutorial_running = false
 	#TODO: adding more tutorials
 	#TODO: adding text to tutorial 2
+	#TODO: lock kamera rotation in tutorial
+	#TODO: animation of moving pieces
 	#You could add puzzles through same way like tutorial_3 (with a little debugging on faces)^.^

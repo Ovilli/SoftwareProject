@@ -62,4 +62,6 @@ func _on_main_pressed() -> void:
 	TurnMng.reset_turn_vars()
 	Globals.tisch_open = false
 	TurnMng.game_over = false
+	TurnMng.current_turn = TurnMng.Player.P_WHITE
+	Globals.clear_move_markers()
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
