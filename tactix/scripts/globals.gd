@@ -138,6 +138,10 @@ func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 			mesh_instance.mesh = skin_mesh
 	
 	piece_instance.add_to_group("visual_pieces")
+	#New
+	piece_instance.set_meta("board_x", x)
+	piece_instance.set_meta("board_y", y)
+	#new
 	add_child(piece_instance)
 	piece_instance.global_position = _0_0.global_position + Vector3(
 		x * CELL_WIDTH + CELL_WIDTH * 0.5,
@@ -213,7 +217,7 @@ func create_default_dice_faces(id: int) -> Dictionary:
 	}
 	var cur_id = abs(id)
 	var safety_counter = 0
-	while faces.top != cur_id and safety_counter < 10:	
+	while faces.top != cur_id and safety_counter < 10:
 		var old_top = faces.top
 		faces.top = faces.east
 		faces.east = faces.bottom
