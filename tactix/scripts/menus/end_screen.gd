@@ -14,7 +14,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
 	
-	if TurnMng.game_over:
+	if TurnMng.game_over and !TurnMng.is_animating:
 		canvas_layer.show()
 		Globals.clear_move_markers()
 		var formatted_time = format_time()

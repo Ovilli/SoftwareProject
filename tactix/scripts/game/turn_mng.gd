@@ -35,6 +35,10 @@ var original_id: int = 0
 var is_king_piece: bool = false
 var dice_states_backup := {}
 var black_wins: bool = false
+var is_animating: bool = false
+
+signal piece_moved(from_x: int, from_y: int, delta_x: int, delta_y: int)
+
 
 func _ready() -> void:
 	call_deferred("_init_multiplayer")
@@ -339,9 +343,9 @@ func check_for_piece(tile_x, tile_y, expected_id):
 		can_move = true
 
 func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
-	var piece = Globals.board[x_from_x][x_from_y]
+	#var piece = Globals.board[x_from_x][x_from_y]
 	Globals.board[x_from_x][x_from_y] = 0
-	Globals.board[x_to_x][x_to_y] = piece
+	#Globals.board[x_to_x][x_to_y] = piece
 	xmoved = true
 	last_changed = "x"
 	Globals.waiting_for_first = false
@@ -350,11 +354,11 @@ func x_place_piece(x_from_x, x_from_y, x_to_x, x_to_y):
 		x_moving_direction = "+"
 	elif x_from_x > x_to_x:
 		x_moving_direction = "-"
-
+	Globals.display_board()
 func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
-	var piece = Globals.board[y_from_x][y_from_y]
+	#var piece = Globals.board[y_from_x][y_from_y]
 	Globals.board[y_from_x][y_from_y] = 0
-	Globals.board[y_to_x][y_to_y] = piece
+	#Globals.board[y_to_x][y_to_y] = piece
 	ymoved = true
 	last_changed = "y"
 	Globals.waiting_for_first = false
@@ -363,6 +367,7 @@ func y_place_piece(y_from_x, y_from_y, y_to_x, y_to_y):
 		y_moving_direction = "+"
 	elif y_from_y > y_to_y:
 		y_moving_direction = "-"
+	Globals.display_board()
 
 func capture_piece(tile_x, tile_y):
 	print("Capturing piece at (%d, %d)" % [tile_x, tile_y])
@@ -531,6 +536,7 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 	var faces = Globals.dice_states[key]
 	var delta_x = new_x - prev_x
 	var delta_y = new_y - prev_y
+	piece_moved.emit(prev_x, prev_y, delta_x, delta_y)
 	if not is_king_piece:
 		if delta_y != 0:
 			if delta_y > 0:
@@ -546,6 +552,7 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 			else:
 				for i in range(abs(delta_x)):
 					roll_left(faces)
+		
 		var updated_id = faces.top
 		Globals.dice_states.erase(key)
 		Globals.dice_states[new_key] = faces
@@ -561,7 +568,8 @@ func update_piece_id_with_positions(prev_x, prev_y, new_x, new_y):
 		Globals.dice_states.erase(key)
 		Globals.dice_states[new_key] = faces
 		from_id = 1
-	Globals.display_board()
+	
+	
 
 func backup_dice_states():
 	dice_states_backup.clear()

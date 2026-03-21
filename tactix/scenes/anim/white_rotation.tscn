@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://brpausctw7rmx"]
+
+[ext_resource type="ArrayMesh" uid="uid://bys08a6hi3eau" path="res://assets/models/anim_lib/whitecube.obj" id="1_uqhtg"]
+[ext_resource type="ArrayMesh" uid="uid://dyeqwp3bnqq5r" path="res://assets/models/anim_lib/blackcube.obj" id="2_amwon"]
+[ext_resource type="Animation" uid="uid://dmrf5gv6k3pf3" path="res://assets/anim/RESET.res" id="3_3yrpa"]
+[ext_resource type="Animation" uid="uid://ck4rpvnxwu3l" path="res://assets/anim/black_rotation.res" id="4_0ps3j"]
+[ext_resource type="Animation" uid="uid://cgfwl2jdyx4w2" path="res://assets/anim/white_rotation.res" id="5_csgtk"]
+
+[sub_resource type="Animation" id="Animation_3yrpa"]
+resource_name = "rotation"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0xq4g"]
+_data = {
+&"RESET": ExtResource("3_3yrpa"),
+&"black_rotation": ExtResource("4_0ps3j"),
+&"rotation": SubResource("Animation_3yrpa"),
+&"white_rotation": ExtResource("5_csgtk")
+}
+
+[node name="WhiteRotation" type="Node3D" unique_id=193845657]
+
+[node name="Pivot" type="Node3D" parent="." unique_id=1486857013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, -0.05, -0.05)
+
+[node name="Rot" type="Node3D" parent="Pivot" unique_id=2077744104]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999998, 0, 0, 0, 1, -0.5, 0.49416095, -0.00029847398)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot/Rot" unique_id=1147976126]
+transform = Transform3D(0.9999999, -2.3622029e-08, -5.194742e-15, 2.3622052e-08, 1, 0, -4.1621895e-15, 7.1054274e-15, 1, -0.05000002, -0.4441611, 0.049)
+mesh = ExtResource("2_amwon")
+skeleton = NodePath("../../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1663344763]
+root_node = NodePath("../Pivot")
+libraries/ = SubResource("AnimationLibrary_0xq4g")
+speed_scale = 1.25
+
+[node name="Node3D2" type="Node3D" parent="." unique_id=803694757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D2" unique_id=960770375]
+transform = Transform3D(1, 2.3622034e-08, 0, -2.3622034e-08, 1, 0, 0, 0, 1, -0.5, 0, 0)
+visible = false
+mesh = ExtResource("1_uqhtg")
+skeleton = NodePath("../..")
