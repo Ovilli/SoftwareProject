@@ -211,7 +211,7 @@ func rotate_camera_nice() -> void:
 				tween.tween_property(top_camera_2, "global_transform", destination, 0.6)
 				tween.tween_callback(func(): is_transitioning = false)
 		else:
-			if not top_camera.current:
+			if not top_camera.current and Globals.how_to_open == false:
 				is_transitioning = true
 				var destination = top_camera.global_transform
 				top_camera.global_transform = top_camera_2.global_transform

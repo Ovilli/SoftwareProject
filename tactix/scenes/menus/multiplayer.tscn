@@ -184,7 +184,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_bwisl")
 theme_override_font_sizes/font_size = 32
-text = "EXIT"
+text = "CLOSE"
 
 [node name="Singelplayer" type="Button" parent="CanvasLayer/Ui" unique_id=1974743321]
 layout_mode = 1
@@ -289,7 +289,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_bwisl")
 theme_override_font_sizes/font_size = 32
-text = "EXIT"
+text = "CLOSE"
 
 [connection signal="pressed" from="CanvasLayer/Game/Copy" to="." method="_on_copy_pressed"]
 [connection signal="pressed" from="CanvasLayer/Ui/QUIT" to="." method="_on_quit_pressed"]

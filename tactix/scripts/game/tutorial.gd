@@ -16,7 +16,7 @@ func _ready():
 	tutorial_layer.hide()
 	
 func _process(_delta):
-	if Globals.how_to_open:
+	if Globals.how_to_open and Windowmng.is_not_open(Windowmng.Screen.QUIT) and Windowmng.is_not_open(Windowmng.Screen.OPTIONS):
 		tutorial_layer.show()
 		label_level.text = str(level)
 		if !tutorial_running:
@@ -44,6 +44,8 @@ func _process(_delta):
 				get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
 		reset_tutorial()
 		given_moves_label.text = "Moves left: " + str(given_moves)
+	else:
+		tutorial_layer.hide()
 func tutorial_1():
 	Globals.counter = 1
 	turn_counter = 2

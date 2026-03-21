@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://rdr4wg1qv0g3" path="res://scripts/game/tutorial.gd" id="9_5cwfu"]
 [ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/menus/options.tscn" id="9_qsdf0"]
 [ext_resource type="PackedScene" uid="uid://cg45efcd8aayw" path="res://scenes/multiplayer/data_sender.tscn" id="12_vde2q"]
+[ext_resource type="PackedScene" uid="uid://dimjsax4c5xw7" path="res://scenes/menus/quit_menu.tscn" id="13_xgagw"]
 [ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="14_cn0rj"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_25xmc"]
@@ -163,6 +164,8 @@ keep_aspect = 0
 [node name="DataSender" parent="." unique_id=215325833 instance=ExtResource("12_vde2q")]
 
 [node name="poll_timer" type="Timer" parent="." unique_id=553570815]
+
+[node name="QuitMenu" parent="." unique_id=922026062 instance=ExtResource("13_xgagw")]
 
 [node name="TutorialScript" type="Node" parent="." unique_id=1266031863]
 script = ExtResource("9_5cwfu")

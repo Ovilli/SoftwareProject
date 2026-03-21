@@ -12,7 +12,8 @@ func _ready() -> void:
 	_update_visibility()
 
 	if Globals.DEBUG == true:
-		AudioServer.set_bus_volume_db(2, -40)
+		var sfx_bus = AudioServer.get_bus_index("SFX")
+		AudioServer.set_bus_volume_db(sfx_bus, -80) # real silence
 
 func _process(_delta) -> void:
 	if TurnMng.game_over == false:
@@ -41,10 +42,12 @@ func _on_exit_pressed() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_music_slider_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(2, value)
+	var music_bus = AudioServer.get_bus_index("Music")
+	AudioServer.set_bus_volume_db(music_bus, clamp(value, -80, 0))
 
 func _on_sfx_slider_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(1, value)
+	var sfx_bus = AudioServer.get_bus_index("SFX")
+	AudioServer.set_bus_volume_db(sfx_bus, clamp(value, -80, 0))
 
 func _on_fov_slider_value_changed(value: int) -> void:
 	Globals.FOV = value
@@ -53,8 +56,7 @@ func _on_sens_slider_value_changed(value: int) -> void:
 	Globals.SENS = value
 
 func _on_quit_pressed() -> void:
-	get_tree().quit()
-
+	Windowmng.open(Windowmng.Screen.QUIT)
 
 func _on_main_pressed() -> void:
 	Windowmng.open(Windowmng.Screen.MAIN_MENU)
