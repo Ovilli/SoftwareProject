@@ -7,7 +7,8 @@ enum Screen {
 	MAIN_MENU,
 	CREDITS,
 	MULTI,
-	SKINS
+	SKINS,
+	QUIT
 }
 
 var current: Screen = Screen.NONE
@@ -25,10 +26,18 @@ func open(w: Screen) -> void:
 	current = w
 	window_changed.emit(previous, current)
 	play_effect()
+	
+	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU) and Globals.how_to_open == false: 
+		reset_data()
+		
 func close() -> void:
 	open(previous)
 	play_effect()
 	
+
+func reset_data():
+	TurnMng.hard_reset_manager()
+	print("Test")
 
 func is_open(w: Screen) -> bool:
 	return current == w

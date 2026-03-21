@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://dimjsax4c5xw7"]
+
+[ext_resource type="Script" uid="uid://d2rh4ps3a34vw" path="res://scenes/menus/quit_menu.gd" id="1_2ct2x"]
+[ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="1_hdr1l"]
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="1_sc4uk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ct2x"]
+shader = ExtResource("1_hdr1l")
+shader_parameter/amount = 1.48400007049
+
+[node name="QuitMenu" type="Control" unique_id=922026062]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ct2x")
+
+[node name="QuitLayer" type="CanvasLayer" parent="." unique_id=1958613508]
+
+[node name="ColorRect" type="ColorRect" parent="QuitLayer" unique_id=108876105]
+material = SubResource("ShaderMaterial_2ct2x")
+offset_left = -1846.0
+offset_top = -570.0
+offset_right = 4097.0
+offset_bottom = 1537.0
+
+[node name="NEIN" type="Button" parent="QuitLayer" unique_id=966286747]
+anchors_preset = -1
+anchor_left = 0.45900002
+anchor_top = 0.441
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 241.232
+offset_top = 122.231995
+offset_right = 438.786
+offset_bottom = 150.10498
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_sc4uk")
+theme_override_font_sizes/font_size = 32
+text = "I WANT TO STAY FOREVER"
+
+[node name="JA" type="Button" parent="QuitLayer" unique_id=1211615332]
+anchors_preset = -1
+anchor_left = 0.45900002
+anchor_top = 0.441
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -378.768
+offset_top = 118.231995
+offset_right = -220.0
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_sc4uk")
+theme_override_font_sizes/font_size = 32
+text = "I HATE THIS GAME . QUIT"
+
+[connection signal="pressed" from="QuitLayer/NEIN" to="." method="_on_nein_pressed"]
+[connection signal="pressed" from="QuitLayer/JA" to="." method="_on_ja_pressed"]

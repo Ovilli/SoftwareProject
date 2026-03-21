@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://u1pqii6p8qtv" path="res://scenes/menus/credits.tscn" id="12_88kup"]
 [ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="12_bh4e2"]
 [ext_resource type="PackedScene" uid="uid://8vmqrbt1hd1p" path="res://scenes/menus/skins.tscn" id="13_bh4e2"]
+[ext_resource type="PackedScene" uid="uid://dimjsax4c5xw7" path="res://scenes/menus/quit_menu.tscn" id="14_3w8rc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lgwnu"]
 
@@ -233,6 +234,9 @@ anchor_bottom = 0.5
 layout_mode = 1
 
 [node name="Credits" parent="GUI" unique_id=1840850347 instance=ExtResource("12_88kup")]
+layout_mode = 1
+
+[node name="QuitMenu" parent="GUI" unique_id=922026062 instance=ExtResource("14_3w8rc")]
 layout_mode = 1
 
 [connection signal="pressed" from="GUI/Control/CanvasLayer/How_to_play" to="GUI/Control/CanvasLayer/BoxContainer" method="_on_how_to_play_pressed"]
