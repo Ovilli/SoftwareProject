@@ -17,52 +17,60 @@ func _ready():
 func _on_piece_moved(from_x, from_y, delta_x, delta_y):
 	TurnMng.is_animating = true
 	var times: int
+	
 	if delta_x != 0:
 		times = abs(delta_x)
 	elif delta_y != 0:
 		times = abs(delta_y)
+		
 	var anim_instance = anim_scene.instantiate()
 	get_tree().root.add_child(anim_instance)
 	var anim_mesh: MeshInstance3D
 	var piece = get_piece_at(from_x, from_y)
 	var piece_mesh: MeshInstance3D
 	var piece_instance: Node3D
-	
-	
-	if TurnMng.current_turn == TurnMng.Player.P_WHITE:
-		piece_instance = DICE.instantiate() as Node3D
-	if TurnMng.current_turn == TurnMng.Player.P_BLACK:
-		piece_instance = DICE_BLACK.instantiate() as Node3D
-	
-	anim_instance.get_node("Node3D2").hide()
-	
-	piece_mesh = piece_instance.get_node_or_null("Pivot/MeshInstance3D")
-	anim_mesh = anim_instance.get_node_or_null("Pivot/Rot/MeshInstance3D")
-	
-	#TODO: adding of the correct mesh rotation
+	var _temp_faces
+	var piece_id := 0
 	var times_moved := 0
 	var anim_player = anim_instance.get_node("AnimationPlayer")
 	var rot_mesh = anim_instance.get_node("Pivot/Rot")
 	var face_rot: Vector3
-	var _temp_faces
-	
 	var key = str(from_x) + "|" + str(from_y)
+	
 	if Globals.dice_states.has(key):
 		print(Globals.dice_states[key])
 		face_rot = Globals.find_rotation_of_piece(key)
 		rot_mesh.rotation = face_rot
 		_temp_faces = Globals.dice_states[key].duplicate()
 		
+	if TurnMng.current_turn == TurnMng.Player.P_WHITE:
+		piece_id = _temp_faces.top
+		piece_instance = DICE.instantiate() as Node3D
+	if TurnMng.current_turn == TurnMng.Player.P_BLACK:
+		piece_id = -_temp_faces.top
+		piece_instance = DICE_BLACK.instantiate() as Node3D
+		
+	anim_instance.get_node("Node3D2").hide()
+	piece_mesh = piece_instance.get_node_or_null("Pivot/MeshInstance3D")
+	anim_mesh = anim_instance.get_node_or_null("Pivot/Rot/MeshInstance3D")	
+	piece_mesh = piece_instance.get_node_or_null("Pivot/MeshInstance3D")
+	var skin_mesh = Diceskinmng.get_skin_mesh(piece_id)
+	if skin_mesh and piece_mesh:
+			piece_mesh.mesh = skin_mesh
+	anim_mesh = anim_instance.get_node_or_null("Pivot/Rot/MeshInstance3D")
+	
 	if Globals.dice_states[key] == { "top": 10, "bottom": 10, "north": 10, "south": 10, "east": 10, "west": 10 }:
 		piece_mesh = piece.get_node("Pivot/MeshInstance3D")
-	
+		
 	while times_moved != times:
 		
 		if piece and anim_mesh:
 			if piece_mesh:
 				anim_mesh.mesh = piece_mesh.mesh
+				
 		var x = from_x
 		var y = from_y
+		
 		if delta_x > 0:
 			anim_instance.rotation_degrees.y = 0
 			rot_mesh.rotation_degrees.y += 0
