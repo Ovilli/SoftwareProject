@@ -153,6 +153,14 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.043701172, 0.35491943, 0.08343506)
 shape = SubResource("BoxShape3D_p2514")
 
+[node name="Camera-Top3" type="Camera3D" parent="." unique_id=21576758]
+transform = Transform3D(1, 8.742278e-08, -8.742276e-08, -1.3440392e-08, 0.7797861, 0.626046, 1.2290174e-07, -0.626046, 0.7797861, 2.7599192, 7.2148275, 8.765)
+keep_aspect = 0
+
+[node name="Camera-Top4" type="Camera3D" parent="." unique_id=1040190072]
+transform = Transform3D(-1, 5.477945e-08, -6.813189e-08, 0, 0.779338, 0.62660384, 8.742278e-08, 0.62660384, -0.779338, 2.7599192, 8.456372, -16.111828)
+keep_aspect = 0
+
 [node name="Camera-Top" type="Camera3D" parent="." unique_id=1556224283]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 3, 12, -3.2347698)
 keep_aspect = 0

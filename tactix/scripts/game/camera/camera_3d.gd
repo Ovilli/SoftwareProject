@@ -9,6 +9,8 @@ const WRONG_SELECT = preload("uid://bc5unvw46qnoy")
 
 @onready var top_camera = get_node("/root/Main-Game/Camera-Top")
 @onready var top_camera_2 = get_node("/root/Main-Game/Camera-Top2")
+@onready var top_camera_3 = get_node("/root/Main-Game/Camera-Top3")
+@onready var top_camera_4 = get_node("/root/Main-Game/Camera-Top4")
 @onready var sfx = get_node("../Sfx")
 @onready var texture_rect: TextureRect = get_node("/root/Main-Game/Control/CanvasLayer/TextureRect")
 @onready var top_camera_enabled: bool = false
@@ -25,7 +27,16 @@ var yaw: float = 0.0
 var pitch: float = 0.0
 var is_transitioning: bool = false
 
+var cam_home: Transform3D
+var cam2_home: Transform3D
+var cam3_home: Transform3D
+var cam4_home: Transform3D
+
 func _ready() -> void:
+	cam_home = top_camera.global_transform
+	cam2_home = top_camera_2.global_transform
+	cam3_home = top_camera_3.global_transform
+	cam4_home = top_camera_4.global_transform
 	switch_to_player_camera()
 
 func _input(event: InputEvent) -> void:
@@ -112,7 +123,6 @@ func check_for_piece_data(node: Node, is_click: bool = false) -> void:
 						else:
 							Debug.log("not your piece")
 							play_sound_sfx()
-							#Globals.clear_move_markers()
 				else:
 					if not (first_x == x and first_y == y):
 						second_x = x
@@ -128,7 +138,6 @@ func check_for_piece_data(node: Node, is_click: bool = false) -> void:
 							second_x = -1
 							second_y = -1
 							Globals.waiting_for_first = false
-							#Globals.clear_move_markers()
 							if !TurnMng.moved_sth:
 								marker_click()
 						else:
@@ -173,11 +182,19 @@ func switch_to_top_camera() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	var target: Camera3D
 	if TurnMng.current_turn == TurnMng.Player.P_WHITE:
-		target = top_camera_2
-		top_camera.current = false
+		if Globals.SPECHT_MODE == false:
+			target = top_camera_2
+			top_camera.current = false
+		else:
+			target = top_camera_4
+			top_camera_3.current = false
 	else:
-		target = top_camera
-		top_camera_2.current = false
+		if Globals.SPECHT_MODE == false:
+			target = top_camera
+			top_camera_2.current = false
+		else:
+			target = top_camera_3
+			top_camera_4.current = false
 	var destination = target.global_transform
 	target.global_transform = player_camera.global_transform
 	target.current = true
@@ -199,44 +216,83 @@ func _process(_delta: float) -> void:
 	rotate_camera_nice()
 
 func rotate_camera_nice() -> void:
-	if top_camera_enabled and not is_transitioning:
-		if TurnMng.current_turn == TurnMng.Player.P_WHITE:
-			if not top_camera_2.current:
-				is_transitioning = true
-				var destination = top_camera_2.global_transform
-				top_camera_2.global_transform = top_camera.global_transform
-				top_camera_2.current = true
-				top_camera.current = false
-				var tween = create_tween()
-				tween.set_ease(Tween.EASE_IN_OUT)
-				tween.set_trans(Tween.TRANS_CUBIC)
-				tween.tween_property(top_camera_2, "global_transform", destination, 0.6)
-				tween.tween_callback(func(): is_transitioning = false)
-		else:
-			if not top_camera.current and Globals.how_to_open == false:
-				is_transitioning = true
-				var destination = top_camera.global_transform
-				top_camera.global_transform = top_camera_2.global_transform
-				top_camera.current = true
-				top_camera_2.current = false
-				var tween = create_tween()
-				tween.set_ease(Tween.EASE_IN_OUT)
-				tween.set_trans(Tween.TRANS_CUBIC)
-				tween.tween_property(top_camera, "global_transform", destination, 0.6)
-				tween.tween_callback(func(): is_transitioning = false)
+	if Globals.SPECHT_MODE == false:
+		if top_camera_enabled and not is_transitioning:
+			if TurnMng.current_turn == TurnMng.Player.P_WHITE:
+				if not top_camera_2.current:
+					is_transitioning = true
+					top_camera_2.global_transform = top_camera.global_transform
+					top_camera_2.current = true
+					top_camera.current = false
+					var tween = create_tween()
+					tween.set_ease(Tween.EASE_IN_OUT)
+					tween.set_trans(Tween.TRANS_CUBIC)
+					tween.tween_property(top_camera_2, "global_transform", cam2_home, 0.6)
+					tween.tween_callback(func(): is_transitioning = false)
+			else:
+				if not top_camera.current and Globals.how_to_open == false:
+					is_transitioning = true
+					top_camera.global_transform = top_camera_2.global_transform
+					top_camera.current = true
+					top_camera_2.current = false
+					var tween = create_tween()
+					tween.set_ease(Tween.EASE_IN_OUT)
+					tween.set_trans(Tween.TRANS_CUBIC)
+					tween.tween_property(top_camera, "global_transform", cam_home, 0.6)
+					tween.tween_callback(func(): is_transitioning = false)
+	else:
+		if top_camera_enabled and not is_transitioning:
+			if TurnMng.current_turn == TurnMng.Player.P_WHITE:
+				if not top_camera_4.current:
+					is_transitioning = true
+					top_camera_4.global_transform = top_camera_3.global_transform
+					top_camera_4.current = true
+					top_camera_3.current = false
+					var tween = create_tween()
+					tween.set_ease(Tween.EASE_IN_OUT)
+					tween.set_trans(Tween.TRANS_CUBIC)
+					tween.tween_property(top_camera_4, "global_transform", cam4_home, 0.6)
+					tween.tween_callback(func(): is_transitioning = false)
+			else:
+				if not top_camera_3.current and Globals.how_to_open == false:
+					is_transitioning = true
+					top_camera_3.global_transform = top_camera_4.global_transform
+					top_camera_3.current = true
+					top_camera_4.current = false
+					var tween = create_tween()
+					tween.set_ease(Tween.EASE_IN_OUT)
+					tween.set_trans(Tween.TRANS_CUBIC)
+					tween.tween_property(top_camera_3, "global_transform", cam3_home, 0.6)
+					tween.tween_callback(func(): is_transitioning = false)
 
 func switch_to_player_camera() -> void:
-	top_camera_enabled = false
-	top_camera.current = false
-	top_camera_2.current = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	var prev_transform = get_viewport().get_camera_3d().global_transform
-	player_camera.current = true
-	var destination = player_camera.global_transform
-	player_camera.global_transform = prev_transform
-	is_transitioning = true
-	var tween = create_tween()
-	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(player_camera, "global_transform", destination, 0.6)
-	tween.tween_callback(func(): is_transitioning = false)
+	if Globals.SPECHT_MODE == false:
+		top_camera_enabled = false
+		top_camera.current = false
+		top_camera_2.current = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		var prev_transform = get_viewport().get_camera_3d().global_transform
+		player_camera.current = true
+		var destination = player_camera.global_transform
+		player_camera.global_transform = prev_transform
+		is_transitioning = true
+		var tween = create_tween()
+		tween.set_ease(Tween.EASE_IN_OUT)
+		tween.set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(player_camera, "global_transform", destination, 0.6)
+		tween.tween_callback(func(): is_transitioning = false)
+	else:
+		top_camera_enabled = false
+		top_camera_3.current = false
+		top_camera_4.current = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		var prev_transform = get_viewport().get_camera_3d().global_transform
+		player_camera.current = true
+		var destination = player_camera.global_transform
+		player_camera.global_transform = prev_transform
+		is_transitioning = true
+		var tween = create_tween()
+		tween.set_ease(Tween.EASE_IN_OUT)
+		tween.set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(player_camera, "global_transform", destination, 0.6)
+		tween.tween_callback(func(): is_transitioning = false)

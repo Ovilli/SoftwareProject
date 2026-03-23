@@ -28,6 +28,7 @@ const GREEN = preload("uid://b4npdqee326a2")
 const RED = preload("uid://c24i4tcdvluvv")
 const MARKER_GREEN = preload("uid://coqj1mfu810hm")
 const MARKER_RED = preload("uid://uloumind7w3b")
+var SPECHT_MODE : bool = true
 
 var _0_0: Marker3D:
 	get:
