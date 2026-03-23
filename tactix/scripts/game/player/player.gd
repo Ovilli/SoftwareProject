@@ -39,23 +39,24 @@ func _physics_process(delta: float) -> void:
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if Windowmng.is_not_open(Windowmng.Screen.OPTIONS) and Globals.tisch_open == false:
-		if direction:
-			velocity.x = direction.x * speed
-			velocity.z = direction.z * speed
-		else:
-			velocity.x = move_toward(velocity.x, 0, speed)
-			velocity.z = move_toward(velocity.z, 0, speed)
-			
-		if direction and is_on_floor():
-			if not sfx.playing:
-				sfx.stream = walking
-				sfx.play()
-		else:
-			if sfx.playing:
-				sfx.stop()
-			
-		_rotate_camera(delta)
-		move_and_slide()
+		if Windowmng.is_not_open(Windowmng.Screen.QUIT):
+			if direction:
+				velocity.x = direction.x * speed
+				velocity.z = direction.z * speed
+			else:
+				velocity.x = move_toward(velocity.x, 0, speed)
+				velocity.z = move_toward(velocity.z, 0, speed)
+				
+			if direction and is_on_floor():
+				if not sfx.playing:
+					sfx.stream = walking
+					sfx.play()
+			else:
+				if sfx.playing:
+					sfx.stop()
+				
+			_rotate_camera(delta)
+			move_and_slide()
 
 func _rotate_camera(delta: float, sens_mod: float = 1.0):
 	if not camera:

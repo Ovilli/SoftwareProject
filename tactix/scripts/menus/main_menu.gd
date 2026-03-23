@@ -22,7 +22,7 @@ func _update_visibility() -> void:
 		
 
 func _on_quit_pressed() -> void:
-	get_tree().quit()
+	Windowmng.open(Windowmng.Screen.QUIT)
 
 func _on_options_pressed() -> void:
 	Debug.log("Opening Options")

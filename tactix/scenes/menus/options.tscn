@@ -269,7 +269,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_slhc7")
 theme_override_font_sizes/font_size = 32
-text = "EXIT"
+text = "CLOSE"
 
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/Settings/FOV/FOV-Slider" to="." method="_on_fov_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/Settings/SENS/SENS-Slider" to="." method="_on_sens_slider_value_changed"]
