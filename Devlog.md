@@ -93,7 +93,7 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 
 ## Entwicklungszeitstrahl
 
-### Januar 2026
+### Entwicklung 2026
 
 **01.01.2026**
 * Erstellung des GitHub-Repositories
@@ -205,7 +205,37 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 * Qualtiy of Life Updates
 
 **6.03.2026**
-* Ui Bug Fixes 
+* Ui Bug Fixes
+
+**13.03.2026**
+* 2'ter versuc von Multiplayer
+* UI (Multi) Hinzugefügt
+* Windowmng
+* Small Fixes
+
+**14.03.2026**
+* Added Tutorials
+* Added Credits
+* Added Skins
+* Added Sound effects
+
+**15.03.2026**
+* Small Fixes
+
+**16.03.2026**
+* Skin Support Working
+
+**18.03.2026**
+* Fixes
+* Small test Animation
+
+**19.l03.2026**
+* Added Test Scene
+* Small Anim Fixes
+
+**20.03.20206**
+* Fixes to Camera
+* Git
 
 
 
