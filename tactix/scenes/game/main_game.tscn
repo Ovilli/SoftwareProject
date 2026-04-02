@@ -248,7 +248,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_cn0rj")
 text = "temp"
 
-[node name="Node" type="Node" parent="." unique_id=177228795]
+[node name="Anim" type="Node" parent="." unique_id=177228795]
 script = ExtResource("15_xgagw")
 
 [connection signal="pressed" from="TutorialScript/TutorialLayer/Next" to="Player" method="_on_next_pressed"]

@@ -189,6 +189,7 @@ func reset_turn():
 
 func legal_move(first_x, first_y, first_id, second_x, second_y):
 	# Block moving the wrong color piece in both single and multiplayer
+	
 	if current_turn == Player.P_WHITE and first_id < 0:
 		Debug.log("WHITE cannot move BLACK pieces")
 		return
@@ -198,6 +199,7 @@ func legal_move(first_x, first_y, first_id, second_x, second_y):
 
 	# In multiplayer also block acting when it is not your turn
 	if Globals.multiplayer_enabeld and Globals.player_id != "" and current_turn != my_player:
+		
 		Debug.log("Not your turn! current: %s my: %s" % [
 			"BLACK" if current_turn == Player.P_BLACK else "WHITE",
 			"BLACK" if my_player == Player.P_BLACK else "WHITE"

@@ -27,7 +27,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, -0.05, -0.05)
 transform = Transform3D(0.9999999, 0, 0, 0, 0.9999998, 0, 0, 0, 1, -0.5, 0.49416095, -0.00029847398)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot/Rot" unique_id=1147976126]
-transform = Transform3D(0.9999999, -2.3622029e-08, -5.194742e-15, 2.3622052e-08, 1, 0, -4.1621895e-15, 7.1054274e-15, 1, -0.05000002, -0.4441611, 0.049)
+transform = Transform3D(0.9999999, -2.3622029e-08, -5.194742e-15, 2.3622055e-08, 1, 0, -4.1621895e-15, 7.1054274e-15, 1, -0.05000002, -0.44416115, 0.049)
 mesh = ExtResource("2_amwon")
 skeleton = NodePath("../../..")
 

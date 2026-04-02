@@ -40,7 +40,7 @@ func _ready() -> void:
 	switch_to_player_camera()
 
 func _input(event: InputEvent) -> void:
-	if TurnMng.is_animating or is_transitioning:
+	if is_transitioning:
 		return
 	if Input.is_action_just_pressed("esc"):
 		if Windowmng.is_open(Windowmng.Screen.OPTIONS):
@@ -58,7 +58,8 @@ func _input(event: InputEvent) -> void:
 				Globals.tisch_open = false
 				texture_rect.visible = true
 				switch_to_player_camera()
-
+	if TurnMng.is_animating:
+		return
 	if event is InputEventMouseMotion:
 		shoot_ray()
 	elif event is InputEventMouseButton and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and event.pressed:
@@ -142,6 +143,7 @@ func check_for_piece_data(node: Node, is_click: bool = false) -> void:
 								marker_click()
 						else:
 							TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
+							#------------
 							if TurnMng.moved_sth:
 								play_sound_sfx()
 								if not Globals.waiting_for_first:
