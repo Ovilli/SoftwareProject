@@ -16,7 +16,7 @@ transform = Transform3D(-0.9994203, 0, -0.03404475, 0, 1, 0, 0.03404475, 0, -0.9
 script = ExtResource("1_8ga58")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=713109013]
-transform = Transform3D(-0.9998657, 0, -0.016387833, 0, 1, 0, 0.016387833, 0, -0.9998657, 0, 19, 6)
+transform = Transform3D(-0.9998657, 0, -0.016387835, 0, 1, 0, 0.016387835, 0, -0.9998657, -0.031926334, 19, 6.9372315)
 keep_aspect = 0
 v_offset = -1.0
 fov = 90.0

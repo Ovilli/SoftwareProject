@@ -8,7 +8,7 @@ enum Screen {
 	CREDITS,
 	MULTI,
 	SKINS,
-	QUIT
+	QUIT,
 }
 
 var current: Screen = Screen.NONE

@@ -1,0 +1,260 @@
+[gd_scene format=3 uid="uid://did22sx424q51"]
+
+[ext_resource type="PackedScene" uid="uid://cdb7s7mv8kosa" path="res://scenes/game_items/board.tscn" id="1_p2514"]
+[ext_resource type="AudioStream" uid="uid://w1amtigquqd7" path="res://assets/sounds/lounge-jazz-elevator-music-372734.mp3" id="2_11nld"]
+[ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="2_rpywg"]
+[ext_resource type="AudioStream" uid="uid://cb2wk80llpl5y" path="res://assets/sounds/elevator-music-bossa-nova-background-music-version-60s-10900.mp3" id="3_qsdf0"]
+[ext_resource type="Texture2D" uid="uid://ch3dhv7x8vhqy" path="res://assets/cursor/cursor.png" id="4_11nld"]
+[ext_resource type="AudioStream" uid="uid://dr74sh8vbo1cv" path="res://assets/sounds/jazz-lounge-elevator-music-332339.mp3" id="6_ef7fl"]
+[ext_resource type="PackedScene" uid="uid://bnnq35t23urw5" path="res://scenes/game_items/player/player.tscn" id="6_rpywg"]
+[ext_resource type="PackedScene" uid="uid://dvpcnpov0ds1p" path="res://scenes/game_items/room/room.tscn" id="7_ef7fl"]
+[ext_resource type="Shader" uid="uid://camr32px8h06k" path="res://scripts/shader/speedlines.gdshader" id="7_i2osx"]
+[ext_resource type="PackedScene" uid="uid://c2oy44novm04t" path="res://scenes/menus/end_screen.tscn" id="7_vde2q"]
+[ext_resource type="Script" uid="uid://rdr4wg1qv0g3" path="res://scripts/game/tutorial.gd" id="9_5cwfu"]
+[ext_resource type="PackedScene" uid="uid://c2perhnc4uvvi" path="res://scenes/menus/options.tscn" id="9_qsdf0"]
+[ext_resource type="PackedScene" uid="uid://cg45efcd8aayw" path="res://scenes/multiplayer/data_sender.tscn" id="12_vde2q"]
+[ext_resource type="PackedScene" uid="uid://dimjsax4c5xw7" path="res://scenes/menus/quit_menu.tscn" id="13_xgagw"]
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="14_cn0rj"]
+[ext_resource type="Script" uid="uid://cppwsq17cwgfg" path="res://scenes/anim/white_anim_player.gd" id="15_xgagw"]
+[ext_resource type="Script" uid="uid://bcmtmmuw8fca5" path="res://scripts/game/turn_mng.gd" id="17_v72ow"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_25xmc"]
+shuffle = true
+stream_count = 4
+stream_0 = ExtResource("6_ef7fl")
+stream_1 = ExtResource("6_ef7fl")
+stream_2 = ExtResource("2_11nld")
+stream_3 = ExtResource("3_qsdf0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5cwfu"]
+shader = ExtResource("7_i2osx")
+shader_parameter/amount = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_11nld"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p2514"]
+size = Vector3(4.1, 5.7, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cn0rj"]
+bg_color = Color(0.30980393, 0.30980393, 0.30980393, 0.3882353)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+corner_detail = 20
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[node name="Main-Game" type="Node3D" unique_id=619824366]
+
+[node name="Player" parent="." unique_id=720996690 instance=ExtResource("6_rpywg")]
+transform = Transform3D(-0.9994203, 0, -0.03404475, 0, 1, 0, 0.03404475, 0, -0.9994203, 0, -12.764812, 27.25145)
+
+[node name="SFX" type="AudioStreamPlayer" parent="." unique_id=375843063]
+bus = &"SFX"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=421442419]
+stream = SubResource("AudioStreamPlaylist_25xmc")
+autoplay = true
+bus = &"Music"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1164980618]
+transform = Transform3D(0.99765456, -0.019564716, -0.065594964, 0.06845063, 0.2851519, 0.95603526, 2.4334446e-09, -0.9582829, 0.28582227, 0, -7.401053, -2.1744833)
+
+[node name="Board" parent="." unique_id=1817829140 instance=ExtResource("1_p2514")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7306299, 6.484985e-05, 1.7331934)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1777851351]
+transform = Transform3D(1, 0, 0, 0, -0.48819485, 0.87273467, 0, -0.87273467, -0.48819485, 5.9610333, 7.988303, -7.698599)
+light_color = Color(0.954374, 0.95869964, 0.96239454, 1)
+light_energy = 170.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.772
+light_bake_mode = 0
+distance_fade_enabled = true
+distance_fade_shadow = 4096.0
+distance_fade_length = 4096.0
+spot_range = 18.314
+spot_attenuation = 1.91
+spot_angle = 44.28
+spot_angle_attenuation = 0.21022487
+
+[node name="Camera-Pivot" type="Marker3D" parent="." unique_id=217044035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9826846, 0, -5.609953)
+
+[node name="Options" parent="." unique_id=53060940 instance=ExtResource("9_qsdf0")]
+
+[node name="Control" type="Control" parent="." unique_id=1191017771]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Control" unique_id=871763769]
+
+[node name="TextureRect" type="TextureRect" parent="Control/CanvasLayer" unique_id=314862995]
+anchors_preset = -1
+anchor_left = 0.4778646
+anchor_top = 0.46064815
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 25.5
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+texture = ExtResource("4_11nld")
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Speedlines" type="CanvasLayer" parent="Control" unique_id=162656329]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Control/Speedlines" unique_id=1574566808]
+material = SubResource("ShaderMaterial_5cwfu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -3.0
+offset_right = 2.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="endScreen" parent="." unique_id=1692871385 instance=ExtResource("7_vde2q")]
+light_mask = 64
+visibility_layer = 128
+
+[node name="Room2" parent="." unique_id=545514577 instance=ExtResource("7_ef7fl")]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="Tabel" type="Node3D" parent="." unique_id=1722820585]
+
+[node name="Tabel" type="MeshInstance3D" parent="Tabel" unique_id=1290490369]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.1056402, -13.018314, -3.8002245)
+material_overlay = SubResource("ShaderMaterial_11nld")
+mesh = ExtResource("2_rpywg")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tabel/Tabel" unique_id=351170870]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tabel/Tabel/StaticBody3D" unique_id=698093001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.043701172, 0.35491943, 0.08343506)
+shape = SubResource("BoxShape3D_p2514")
+
+[node name="Camera-Top3" type="Camera3D" parent="." unique_id=21576758]
+transform = Transform3D(1, 8.742278e-08, -8.742276e-08, -1.3440392e-08, 0.7797861, 0.626046, 1.2290174e-07, -0.626046, 0.7797861, 2.7599192, 7.2148275, 8.765)
+keep_aspect = 0
+
+[node name="Camera-Top4" type="Camera3D" parent="." unique_id=1040190072]
+transform = Transform3D(-1, 5.477945e-08, -6.813189e-08, 0, 0.779338, 0.62660384, 8.742278e-08, 0.62660384, -0.779338, 2.7599192, 8.456372, -16.111828)
+keep_aspect = 0
+
+[node name="Camera-Top" type="Camera3D" parent="." unique_id=1556224283]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 3, 12, -3.2347698)
+keep_aspect = 0
+metadata/_edit_lock_ = true
+
+[node name="Camera-Top2" type="Camera3D" parent="." unique_id=1191773799]
+transform = Transform3D(-1, -8.742278e-08, -3.821371e-15, 0, -4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, 3.39, 12, -3.235)
+keep_aspect = 0
+
+[node name="DataSender" parent="." unique_id=215325833 instance=ExtResource("12_vde2q")]
+
+[node name="poll_timer" type="Timer" parent="." unique_id=553570815]
+
+[node name="QuitMenu" parent="." unique_id=922026062 instance=ExtResource("13_xgagw")]
+
+[node name="TutorialScript" type="Node" parent="." unique_id=1266031863]
+script = ExtResource("9_5cwfu")
+
+[node name="TutorialLayer" type="CanvasLayer" parent="TutorialScript" unique_id=1922169075]
+
+[node name="Label" type="Label" parent="TutorialScript/TutorialLayer" unique_id=1023837802]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 23.0
+offset_top = -18.0
+offset_right = 188.0
+offset_bottom = 18.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("14_cn0rj")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_cn0rj")
+text = "temp"
+
+[node name="Next" type="Button" parent="TutorialScript/TutorialLayer" unique_id=1824268759]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = 59.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("14_cn0rj")
+theme_override_font_sizes/font_size = 32
+text = "NEXT"
+
+[node name="prev" type="Button" parent="TutorialScript/TutorialLayer" unique_id=201961156]
+offset_left = 18.0
+offset_top = 14.0
+offset_right = 99.0
+offset_bottom = 58.0
+theme_override_fonts/font = ExtResource("14_cn0rj")
+theme_override_font_sizes/font_size = 32
+text = "PREV"
+
+[node name="Help" type="Node" parent="TutorialScript/TutorialLayer" unique_id=84131007]
+
+[node name="level" type="Label" parent="TutorialScript/TutorialLayer" unique_id=1105587608]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -18.0
+offset_bottom = 18.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("14_cn0rj")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_cn0rj")
+text = "temp"
+
+[node name="GivenMoves" type="Label" parent="TutorialScript/TutorialLayer" unique_id=291065004]
+offset_left = 25.0
+offset_top = 145.0
+offset_right = 190.0
+offset_bottom = 181.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("14_cn0rj")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_cn0rj")
+text = "temp"
+
+[node name="Anim" type="Node" parent="." unique_id=177228795]
+script = ExtResource("15_xgagw")
+
+[node name="TurnMng" type="Node" parent="." unique_id=1617142848]
+script = ExtResource("17_v72ow")
+
+[connection signal="pressed" from="TutorialScript/TutorialLayer/Next" to="Player" method="_on_next_pressed"]
+[connection signal="pressed" from="TutorialScript/TutorialLayer/Next" to="TutorialScript" method="_on_next_pressed"]
+[connection signal="pressed" from="TutorialScript/TutorialLayer/prev" to="TutorialScript" method="_on_prev_pressed"]

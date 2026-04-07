@@ -221,6 +221,7 @@ theme_override_font_sizes/font_size = 32
 text = "MULTIPLAYER "
 
 [node name="UiMulti" type="Control" parent="CanvasLayer" unique_id=2054915234]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 349.0

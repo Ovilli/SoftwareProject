@@ -46,8 +46,15 @@ func _on_continue_pressed() -> void:
 	Globals.tisch_open = false
 	TurnMng.game_over = false
 	TurnMng.current_turn = TurnMng.Player.P_WHITE
+	Globals.multiplayer_enabeld = false
+	Globals.GAME_ID = " "
+	Globals.player_id = "        "
+	Globals.first_state_received = false
+	Globals.last_server_version = -1
+	Debug.log("Reset", Debug.TYPES.SUCCSESS)
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
-#TODO: multiplayer
+
+
 #TODO: KI Gegner
 #TODO: game revievs
 #TODO: niom niom niom

@@ -13,7 +13,7 @@ var waiting_for_first: bool = true
 var tisch_open: bool = false
 var multiplayer_enabeld: bool = false
 var GAME_ID: String
-var player_id: String = ""
+var player_id: String = "        "
 var times: int = 0
 var how_to_open: bool = false
 const BOARD_SIZE = 9
@@ -29,9 +29,12 @@ const RED = preload("uid://c24i4tcdvluvv")
 const MARKER_GREEN = preload("uid://coqj1mfu810hm")
 const MARKER_RED = preload("uid://uloumind7w3b")
 var SPECHT_MODE : bool = true
-
+var first_state_received: bool = false
+var last_server_version = -1
 var _0_0: Marker3D:
 	get:
+		if Windowmng.is_open(Windowmng.Screen.MAIN_MENU):
+			return
 		return get_tree().root.get_node("Main-Game/Board/0|0")
 
 func _process(delta: float) -> void:
@@ -39,6 +42,9 @@ func _process(delta: float) -> void:
 		time += delta
 
 func display_board():
+	Debug.log("display_board() called. Board snapshot: %s" % str(board))
+	if TurnMng.is_animating:
+		return
 	board_clear()
 	for x in range(BOARD_SIZE):
 		for y in range(BOARD_SIZE):
@@ -130,6 +136,10 @@ func find_top_of_piece(top, north):
 	return [x, y, z]
 
 func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
+	if TurnMng.game_over == true:
+		return
+	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU):
+		return
 	var piece_instance = scene.instantiate() as Node3D
 	
 	var skin_mesh = Diceskinmng.get_skin_mesh(piece_id)
@@ -139,10 +149,8 @@ func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 			mesh_instance.mesh = skin_mesh
 	
 	piece_instance.add_to_group("visual_pieces")
-	#New
 	piece_instance.set_meta("board_x", x)
 	piece_instance.set_meta("board_y", y)
-	#new
 	add_child(piece_instance)
 	piece_instance.global_position = _0_0.global_position + Vector3(
 		x * CELL_WIDTH + CELL_WIDTH * 0.5,
@@ -157,10 +165,6 @@ func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 	piece_data.set_meta("x", x)
 	piece_data.set_meta("y", y)
 	var key = str(x) + "|" + str(y)
-
-	# Only initialise dice_states here in singleplayer and only if truly missing.
-	# In multiplayer dice_states is owned and written exclusively by game_manager
-	# so we must never overwrite it here or synced state gets corrupted.
 	if piece_id != 0 and not dice_states.has(key) and not multiplayer_enabeld:
 		if abs(piece_id) != 10:
 			dice_states[key] = create_default_dice_faces(piece_id)
@@ -235,3 +239,4 @@ func create_default_dice_faces(id: int) -> Dictionary:
 		faces.west = faces.east
 		faces.east = old_west
 		return faces
+		

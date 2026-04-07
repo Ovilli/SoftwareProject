@@ -25,11 +25,11 @@ func _on_quit_pressed() -> void:
 	Windowmng.open(Windowmng.Screen.QUIT)
 
 func _on_options_pressed() -> void:
-	Debug.log("Opening Options")
+	Debug.log("Opening Options",Debug.TYPES.NONE)
 	Windowmng.open(Windowmng.Screen.OPTIONS)
 
 func _on_play_pressed() -> void:
-	Debug.log("Start Game")
+	Debug.log("Start Game",Debug.TYPES.NONE)
 	Windowmng.open(Windowmng.Screen.MULTI)
 
 func _on_how_to_play_pressed() -> void:

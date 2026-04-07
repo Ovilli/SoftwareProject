@@ -143,7 +143,6 @@ func check_for_piece_data(node: Node, is_click: bool = false) -> void:
 								marker_click()
 						else:
 							TurnMng.legal_move(first_x, first_y, first_id, second_x, second_y)
-							#------------
 							if TurnMng.moved_sth:
 								play_sound_sfx()
 								if not Globals.waiting_for_first:
@@ -268,33 +267,45 @@ func rotate_camera_nice() -> void:
 					tween.tween_callback(func(): is_transitioning = false)
 
 func switch_to_player_camera() -> void:
+	# Disable top cameras
+	top_camera_enabled = false
 	if Globals.SPECHT_MODE == false:
-		top_camera_enabled = false
 		top_camera.current = false
 		top_camera_2.current = false
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		var prev_transform = get_viewport().get_camera_3d().global_transform
-		player_camera.current = true
-		var destination = player_camera.global_transform
-		player_camera.global_transform = prev_transform
-		is_transitioning = true
-		var tween = create_tween()
-		tween.set_ease(Tween.EASE_IN_OUT)
-		tween.set_trans(Tween.TRANS_CUBIC)
-		tween.tween_property(player_camera, "global_transform", destination, 0.6)
-		tween.tween_callback(func(): is_transitioning = false)
 	else:
-		top_camera_enabled = false
 		top_camera_3.current = false
 		top_camera_4.current = false
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		var prev_transform = get_viewport().get_camera_3d().global_transform
+
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	var player = get_parent()
+	if not player:
 		player_camera.current = true
-		var destination = player_camera.global_transform
-		player_camera.global_transform = prev_transform
-		is_transitioning = true
-		var tween = create_tween()
-		tween.set_ease(Tween.EASE_IN_OUT)
-		tween.set_trans(Tween.TRANS_CUBIC)
-		tween.tween_property(player_camera, "global_transform", destination, 0.6)
-		tween.tween_callback(func(): is_transitioning = false)
+		return
+
+	var forward = -player.global_transform.basis.z
+	var up = Vector3.UP
+	var right = forward.cross(up).normalized()
+	up = right.cross(forward).normalized()
+	var target_global_basis = Basis(right, up, -forward)
+
+	var target_local_rotation = target_global_basis.get_euler()
+
+	var start_rotation = rotation
+
+	yaw = rad_to_deg(target_local_rotation.y)
+	pitch = rad_to_deg(target_local_rotation.x)
+
+	player_camera.current = true
+	is_transitioning = true
+
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(self, "rotation", target_local_rotation, 0.6)
+	tween.tween_callback(func():
+		is_transitioning = false
+		var rot = rotation
+		yaw = rad_to_deg(rot.y)
+		pitch = rad_to_deg(rot.x)
+	)

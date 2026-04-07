@@ -22,6 +22,11 @@ const b_side_4 = preload("res://assets/texture/overlay/4b.png")
 const b_side_5 = preload("res://assets/texture/overlay/5b.png")
 const b_side_6 = preload("res://assets/texture/overlay/6b.png")
 const b_side_king = preload("res://assets/texture/overlay/kingb.png")
+@onready var player_id: Label = $"CanvasLayer/Player-ID"
+@onready var player_game_id: Label = $CanvasLayer/PlayerGameId
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -29,6 +34,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
+	player_id.text = Globals.player_id
+	player_game_id.text = Globals.GAME_ID
 	if !TurnMng.game_over:
 		display_moves_left()
 		display_dice()
