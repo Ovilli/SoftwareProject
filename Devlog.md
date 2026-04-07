@@ -253,7 +253,21 @@ Ein kompetitives, rundenbasiertes Brettspiel für **zwei Spieler**.
 **Turn Mng.gd**
 
 **Globals.gd**
+
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/ad05190c-c049-4e03-85e8-8557552aa627" />
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/5eab3823-ff99-46aa-941d-c4e23fe49902" />
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/e725e20e-006d-4697-8004-5ee44daf05a0" />
+
+<img width="963" height="624" alt="image" src="https://github.com/user-attachments/assets/92941d56-c569-4d32-a66f-deeb5620ebd0" />
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2a189950-9250-4b72-8d74-c6c2543d7f90" />
  
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/074c61b6-5c2b-497b-8d55-4082124cf172" />
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/8944f538-c0e6-4f28-b5d6-4bab45118d3d" />
 
 ### Danke fürs Durchlesen
 
