@@ -122,7 +122,6 @@ theme_override_font_sizes/font_size = 32
 text = "COPY"
 
 [node name="Ui" type="Control" parent="CanvasLayer" unique_id=1000215608]
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -292,6 +291,62 @@ theme_override_fonts/font = ExtResource("3_bwisl")
 theme_override_font_sizes/font_size = 32
 text = "CLOSE"
 
+[node name="UiSingle" type="Control" parent="CanvasLayer" unique_id=1497333679]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -20.0
+offset_right = 36.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="NewGame" type="Button" parent="CanvasLayer/UiSingle" unique_id=888575334]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.0900002
+anchor_top = 0.8
+anchor_right = -2.0900002
+anchor_bottom = 0.8
+offset_left = -104.51993
+offset_top = -41.0
+offset_right = 104.48004
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "NEW GAME "
+
+[node name="LoadGames" type="Button" parent="CanvasLayer/UiSingle" unique_id=1741424633]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.5790002
+anchor_right = -2.5790002
+offset_left = 348.68802
+offset_right = 548.6881
+offset_bottom = 77.37201
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "LOAD GAME "
+
+[node name="Close" type="Button" parent="CanvasLayer/UiSingle" unique_id=802181822]
+layout_mode = 0
+offset_left = -54.0
+offset_top = 174.0
+offset_right = 137.0
+offset_bottom = 289.0
+theme_override_fonts/font = ExtResource("3_bwisl")
+theme_override_font_sizes/font_size = 32
+text = "CLOSE"
+
 [connection signal="pressed" from="CanvasLayer/Game/Copy" to="." method="_on_copy_pressed"]
 [connection signal="pressed" from="CanvasLayer/Ui/QUIT" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Ui/Exit" to="." method="_on_exit_pressed"]
@@ -302,3 +357,6 @@ text = "CLOSE"
 [connection signal="pressed" from="CanvasLayer/UiMulti/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UiMulti/QUIT" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/UiMulti/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/UiSingle/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/UiSingle/LoadGames" to="." method="_on_load_games_pressed"]
+[connection signal="pressed" from="CanvasLayer/UiSingle/Close" to="." method="_on_close_pressed"]

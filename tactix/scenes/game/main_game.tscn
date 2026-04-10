@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cg45efcd8aayw" path="res://scenes/multiplayer/data_sender.tscn" id="12_vde2q"]
 [ext_resource type="PackedScene" uid="uid://dimjsax4c5xw7" path="res://scenes/menus/quit_menu.tscn" id="13_xgagw"]
 [ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="14_cn0rj"]
-[ext_resource type="Script" uid="uid://cppwsq17cwgfg" path="res://scenes/anim/white_anim_player.gd" id="15_xgagw"]
+[ext_resource type="Script" uid="uid://cppwsq17cwgfg" path="res://scripts/game/white_anim_player.gd" id="15_xgagw"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_25xmc"]
 shuffle = true

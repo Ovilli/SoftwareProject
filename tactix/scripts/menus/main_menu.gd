@@ -43,3 +43,7 @@ func _on_credits_pressed() -> void:
 
 func _on_skins_pressed() -> void:
 	Windowmng.open(Windowmng.Screen.SKINS)
+
+
+func _on_login_pressed() -> void:
+	Windowmng.open(Windowmng.Screen.LOGIN)

@@ -37,6 +37,7 @@ Debug="*res://scripts/debug.gd"
 Windowmng="*uid://82t18ipdh8l8"
 Diceskinmng="*uid://djyrqt0eovih7"
 Sender="*uid://dv65vf2aqwwqb"
+SaveLoadGame="*uid://driqcwoo5y78n"
 
 [display]
 

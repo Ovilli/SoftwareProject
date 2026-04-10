@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dimjsax4c5xw7"]
 
-[ext_resource type="Script" uid="uid://d2rh4ps3a34vw" path="res://scenes/menus/quit_menu.gd" id="1_2ct2x"]
+[ext_resource type="Script" uid="uid://d2rh4ps3a34vw" path="res://scripts/menus/quit_menu.gd" id="1_2ct2x"]
 [ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="1_hdr1l"]
 [ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="1_sc4uk"]
 
@@ -58,5 +58,51 @@ theme_override_fonts/font = ExtResource("1_sc4uk")
 theme_override_font_sizes/font_size = 32
 text = "I HATE THIS GAME . QUIT"
 
+[node name="SAVELOADASK" type="Control" parent="QuitLayer" unique_id=98548245]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NAH" type="Button" parent="QuitLayer/SAVELOADASK" unique_id=912601089]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 9.225
+anchor_top = -0.35000002
+anchor_right = 9.225
+anchor_bottom = -0.35000002
+offset_left = -200.0
+offset_top = -55.0
+offset_right = 200.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("1_sc4uk")
+theme_override_font_sizes/font_size = 32
+text = "NAHH I AM FINE"
+
+[node name="SAVE" type="Button" parent="QuitLayer/SAVELOADASK" unique_id=1611047988]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -7.3500004
+anchor_top = -0.45000002
+anchor_right = -7.3500004
+anchor_bottom = -0.45000002
+offset_left = -200.0
+offset_top = -55.0
+offset_right = 200.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("1_sc4uk")
+theme_override_font_sizes/font_size = 32
+text = "I WANT TO SAVE THE GAME"
+
 [connection signal="pressed" from="QuitLayer/NEIN" to="." method="_on_nein_pressed"]
 [connection signal="pressed" from="QuitLayer/JA" to="." method="_on_ja_pressed"]
+[connection signal="pressed" from="QuitLayer/SAVELOADASK/NAH" to="." method="_on_nah_pressed"]
+[connection signal="pressed" from="QuitLayer/SAVELOADASK/SAVE" to="." method="_on_save_pressed"]

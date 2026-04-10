@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://ci4muikge5ntt"]
+
+[ext_resource type="Script" uid="uid://c8qdlpb0k6t46" path="res://scripts/menus/save_load_game.gd" id="1_g1lts"]
+[ext_resource type="Script" uid="uid://driqcwoo5y78n" path="res://scripts/save_load_game.gd" id="1_utgsv"]
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="2_dawsm"]
+
+[node name="SaveLoadGame" type="Control" unique_id=804623397]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g1lts")
+
+[node name="LoadSaveGame" type="Node" parent="." unique_id=1077546847]
+script = ExtResource("1_utgsv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1404023645]
+
+[node name="SavedGames" type="ItemList" parent="CanvasLayer" unique_id=2028422285]
+anchors_preset = -1
+anchor_left = 0.367
+anchor_top = 0.328
+anchor_right = 0.70400006
+anchor_bottom = 0.84200007
+offset_left = -0.29599
+offset_top = -0.044006348
+offset_right = -0.52001953
+offset_bottom = -0.11602783
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_dawsm")
+theme_override_font_sizes/font_size = 64
+
+[node name="Close" type="Button" parent="CanvasLayer" unique_id=745673585]
+anchors_preset = -1
+anchor_left = 0.54300004
+anchor_top = 0.93700004
+anchor_right = 0.54300004
+anchor_bottom = 0.93700004
+offset_left = -40.048035
+offset_top = -21.991943
+offset_right = 39.951965
+offset_bottom = 22.008057
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_dawsm")
+theme_override_font_sizes/font_size = 32
+text = "CLOSE"
+
+[node name="Delete" type="Button" parent="CanvasLayer" unique_id=285927036]
+anchors_preset = -1
+anchor_left = 0.81000006
+anchor_top = 0.63600004
+anchor_right = 0.81000006
+anchor_bottom = 0.63600004
+offset_left = -49.899963
+offset_top = -22.128021
+offset_right = 50.100037
+offset_bottom = 21.871979
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_dawsm")
+theme_override_font_sizes/font_size = 32
+text = "DELETE"
+
+[node name="Load" type="Button" parent="CanvasLayer" unique_id=1578683228]
+anchors_preset = -1
+anchor_left = 0.201
+anchor_top = 0.63600004
+anchor_right = 0.201
+anchor_bottom = 0.63600004
+offset_left = -36.552002
+offset_top = -22.128021
+offset_right = 36.447998
+offset_bottom = 21.871979
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_dawsm")
+theme_override_font_sizes/font_size = 32
+text = "LOAD"
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1101142288]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -129.0
+offset_top = 5.0
+offset_right = 184.0
+offset_bottom = 41.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_dawsm")
+theme_override_font_sizes/font_size = 32
+text = "SAVE AND LOAD GAMES"
+
+[connection signal="pressed" from="CanvasLayer/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="CanvasLayer/Delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="CanvasLayer/Load" to="." method="_on_load_pressed"]

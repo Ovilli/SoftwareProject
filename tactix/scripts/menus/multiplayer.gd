@@ -8,6 +8,7 @@ extends Control
 @onready var data: ItemList = $CanvasLayer/Game/Data
 @onready var button: Button = $CanvasLayer/UiMulti/Button
 @onready var line_edit: LineEdit = $CanvasLayer/UiMulti/LineEdit
+@onready var ui_single: Control = $CanvasLayer/UiSingle
 
 var sender: Node
 
@@ -40,6 +41,7 @@ func _update_visibility():
 		canvas_layer.show()
 		ui.show()
 		ui_multi.hide()
+		ui_single.hide()
 		game.hide()
 	else:
 		canvas_layer.hide()
@@ -47,9 +49,14 @@ func _update_visibility():
 func _on_multiplayer_btn_pressed():
 	ui.hide()
 	ui_multi.show()
+	ui_single.hide()
 
 func _on_singelplayer_pressed():
-	get_tree().change_scene_to_file("res://scenes/game/main_game.tscn")
+	game.hide()
+	ui_multi.hide()
+	ui.hide()
+	ui_single.show()
+	
 
 func _on_exit_pressed():
 	Windowmng.open(Windowmng.Screen.MAIN_MENU)
@@ -225,3 +232,15 @@ func _generate_unique_id(existing_ids: Dictionary) -> String:
 func _on_copy_pressed() -> void:
 	DisplayServer.clipboard_set(Globals.GAME_ID)
 	Debug.log("Copied game ID: %s" % Globals.GAME_ID, Debug.TYPES.NONE)
+
+
+func _on_load_games_pressed() -> void:
+	Windowmng.open(Windowmng.Screen.SAVELOAD)
+
+
+func _on_new_game_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/game/main_game.tscn")
+
+
+func _on_close_pressed() -> void:
+	Windowmng.open(Windowmng.Screen.MULTI)

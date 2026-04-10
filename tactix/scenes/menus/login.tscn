@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://cfyv1ueyfqsr2"]
+
+[ext_resource type="Script" uid="uid://b0eipk4de2af3" path="res://scripts/menus/login.gd" id="1_bxr3y"]
+[ext_resource type="PackedScene" uid="uid://cg45efcd8aayw" path="res://scenes/multiplayer/data_sender.tscn" id="1_vpaga"]
+[ext_resource type="Shader" uid="uid://bu6gmyxs71e2l" path="res://scripts/shader/blur.gdshader" id="2_bxr3y"]
+[ext_resource type="FontFile" uid="uid://c50cxw1y1sjqs" path="res://assets/font/jmh_beda/JMH Beda.otf" id="3_6t0op"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h1hfh"]
+shader = ExtResource("2_bxr3y")
+shader_parameter/amount = 1.48400007049
+
+[node name="Login" type="Control" unique_id=993222422]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bxr3y")
+
+[node name="DataSender" parent="." unique_id=215325833 instance=ExtResource("1_vpaga")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1604122188]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=90841020]
+material = SubResource("ShaderMaterial_h1hfh")
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.44200003
+anchor_right = 0.5
+anchor_bottom = 0.44200003
+offset_left = -2604.0
+offset_top = -1054.416
+offset_right = 3339.0
+offset_bottom = 1052.584
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Login" type="Control" parent="CanvasLayer" unique_id=1955100443]
+layout_mode = 3
+anchor_left = 0.509
+anchor_top = 0.41500002
+anchor_right = 0.509
+anchor_bottom = 0.41500002
+offset_left = -0.36798096
+offset_top = -1.9200134
+offset_right = -0.36798096
+offset_bottom = -1.9200134
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Username" type="LineEdit" parent="CanvasLayer/Login" unique_id=182931764]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.509
+anchor_right = 0.509
+anchor_bottom = 0.448
+offset_left = -127.0
+offset_top = -83.0
+offset_right = 131.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_6t0op")
+theme_override_font_sizes/font_size = 32
+placeholder_text = "USERNAME"
+alignment = 1
+max_length = 10
+
+[node name="Password" type="LineEdit" parent="CanvasLayer/Login" unique_id=347260570]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.51000005
+anchor_top = 0.62
+anchor_right = 0.51000005
+anchor_bottom = 0.62
+offset_left = -125.0
+offset_top = 30.0
+offset_right = 132.0
+offset_bottom = 125.0
+theme_override_fonts/font = ExtResource("3_6t0op")
+theme_override_font_sizes/font_size = 32
+placeholder_text = "PASSWORD"
+alignment = 1
+max_length = 10
+secret = true
+secret_character = "*"
+
+[node name="Submit" type="Button" parent="CanvasLayer/Login" unique_id=1585846946]
+layout_mode = 0
+offset_left = -149.0
+offset_top = 136.0
+offset_right = 149.0
+offset_bottom = 226.0
+theme_override_fonts/font = ExtResource("3_6t0op")
+theme_override_font_sizes/font_size = 32
+text = "SUBMMIT"
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1572591514]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -69.0
+offset_right = 116.0
+offset_bottom = 97.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_6t0op")
+theme_override_font_sizes/font_size = 64
+text = "LOGIN"
+horizontal_alignment = 1
+
+[node name="ErrorLable" type="Label" parent="CanvasLayer" unique_id=1453806690]
+anchors_preset = -1
+anchor_left = 0.51100004
+anchor_top = 0.177
+anchor_right = 0.51100004
+anchor_bottom = 0.177
+offset_left = -92.67206
+offset_top = -8.695999
+offset_right = 92.32794
+offset_bottom = 33.304
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_6t0op")
+theme_override_font_sizes/font_size = 32
+text = "ERROR LABLE"
+horizontal_alignment = 1
+
+[node name="Close" type="Button" parent="CanvasLayer" unique_id=1460757715]
+anchors_preset = -1
+anchor_left = 0.513
+anchor_top = 0.91400003
+anchor_right = 0.513
+anchor_bottom = 0.91400003
+offset_left = -110.97601
+offset_top = -38.272034
+offset_right = 110.02399
+offset_bottom = 38.727966
+theme_override_fonts/font = ExtResource("3_6t0op")
+theme_override_font_sizes/font_size = 32
+text = "CLOSE"
+
+[connection signal="pressed" from="CanvasLayer/Close" to="." method="_on_close_pressed"]

@@ -31,11 +31,15 @@ const MARKER_RED = preload("uid://uloumind7w3b")
 var SPECHT_MODE : bool = true
 var first_state_received: bool = false
 var last_server_version = -1
+var game_loaded:bool = false
 var _0_0: Marker3D:
 	get:
 		if Windowmng.is_open(Windowmng.Screen.MAIN_MENU):
 			return
-		return get_tree().root.get_node("Main-Game/Board/0|0")
+		var node = get_tree().root.get_node_or_null("Main-Game/Board/0|0")
+		if node == null:
+			push_error("Missing node: Main-Game/Board/0|0")
+		return node
 
 func _process(delta: float) -> void:
 	if !TurnMng.game_over:
@@ -138,7 +142,7 @@ func find_top_of_piece(top, north):
 func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 	if TurnMng.game_over == true:
 		return
-	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU):
+	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU) and Globals.how_to_open == false:
 		return
 	var piece_instance = scene.instantiate() as Node3D
 	
@@ -152,11 +156,13 @@ func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 	piece_instance.set_meta("board_x", x)
 	piece_instance.set_meta("board_y", y)
 	add_child(piece_instance)
+	
 	piece_instance.global_position = _0_0.global_position + Vector3(
-		x * CELL_WIDTH + CELL_WIDTH * 0.5,
-		-CELL_WIDTH / 2,
-		y * CELL_WIDTH + CELL_WIDTH * 0.5
+	x * CELL_WIDTH + CELL_WIDTH * 0.5,
+	-CELL_WIDTH / 2,
+	y * CELL_WIDTH + CELL_WIDTH * 0.5
 	)
+	
 	times += 1
 	var piece_data := Node.new()
 	piece_data.name = "PieceData"
