@@ -34,6 +34,8 @@ func _on_play_pressed() -> void:
 
 func _on_how_to_play_pressed() -> void:
 	Globals.how_to_open = true
+	# Ensure the main menu is closed so the game scene can initialize board nodes
+	Windowmng.open(Windowmng.Screen.NONE)
 	get_tree().change_scene_to_file("res://scenes/game/main_game.tscn")
 	Globals.how_to_open = true
 

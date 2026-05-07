@@ -29,7 +29,7 @@ func open(w: Screen) -> void:
 	window_changed.emit(previous, current)
 	play_effect()
 	
-	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU) and Globals.how_to_open == false: 
+	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU): 
 		reset_data()
 		
 func close() -> void:
