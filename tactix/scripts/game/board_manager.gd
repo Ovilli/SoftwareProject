@@ -3,6 +3,8 @@ extends Node3D
 
 func load_board():
 	Debug.log("Cleard the Board",Debug.TYPES.NONE)
+	if Globals._0_0 == null:
+		return
 	
 	if Globals.game_loaded == false:
 		Globals.board.clear()

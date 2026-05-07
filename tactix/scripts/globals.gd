@@ -142,9 +142,10 @@ func find_top_of_piece(top, north):
 func spawn_piece(scene: PackedScene, x, y, piece_id) -> void:
 	if TurnMng.game_over == true:
 		return
-	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU) and Globals.how_to_open == false:
+	if Windowmng.is_open(Windowmng.Screen.MAIN_MENU):
 		return
-	var piece_instance = scene.instantiate() as Node3D
+		
+	var piece_instance = scene.instantiate() as Node3D	
 	
 	var skin_mesh = Diceskinmng.get_skin_mesh(piece_id)
 	if skin_mesh:
