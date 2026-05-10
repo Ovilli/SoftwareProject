@@ -243,4 +243,5 @@ func _on_new_game_pressed() -> void:
 
 
 func _on_close_pressed() -> void:
-	Windowmng.open(Windowmng.Screen.MULTI)
+	Windowmng.open(Windowmng.Screen.MAIN_MENU)
+	
