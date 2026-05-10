@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://did22sx424q51"]
 
 [ext_resource type="PackedScene" uid="uid://cdb7s7mv8kosa" path="res://scenes/game_items/board.tscn" id="1_p2514"]
+[ext_resource type="Script" uid="uid://pdhhb1f0fkvu" path="res://scenes/game/main_game.gd" id="1_v72ow"]
 [ext_resource type="AudioStream" uid="uid://w1amtigquqd7" path="res://assets/sounds/lounge-jazz-elevator-music-372734.mp3" id="2_11nld"]
 [ext_resource type="ArrayMesh" uid="uid://b0po0dga87kwk" path="res://assets/models/tabel/tabel.vox" id="2_rpywg"]
 [ext_resource type="AudioStream" uid="uid://cb2wk80llpl5y" path="res://assets/sounds/elevator-music-bossa-nova-background-music-version-60s-10900.mp3" id="3_qsdf0"]
@@ -47,6 +48,7 @@ expand_margin_right = 10.0
 expand_margin_bottom = 10.0
 
 [node name="Main-Game" type="Node3D" unique_id=619824366]
+script = ExtResource("1_v72ow")
 
 [node name="Player" parent="." unique_id=720996690 instance=ExtResource("6_rpywg")]
 transform = Transform3D(-0.9994203, 0, -0.03404475, 0, 1, 0, 0.03404475, 0, -0.9994203, 0, -12.764812, 27.25145)

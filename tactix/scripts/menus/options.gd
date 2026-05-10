@@ -59,6 +59,7 @@ func _on_quit_pressed() -> void:
 	Windowmng.open(Windowmng.Screen.QUIT)
 
 func _on_main_pressed() -> void:
+	Globals.in_game = false
 	if TurnMng.is_animating == true:
 		return
 	Globals.board_clear()

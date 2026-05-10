@@ -32,6 +32,7 @@ var SPECHT_MODE : bool = true
 var first_state_received: bool = false
 var last_server_version = -1
 var game_loaded:bool = false
+var in_game:bool = false
 var _0_0: Marker3D:
 	get:
 		if Windowmng.is_open(Windowmng.Screen.MAIN_MENU):

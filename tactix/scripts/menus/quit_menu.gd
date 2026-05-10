@@ -19,7 +19,13 @@ func _process(delta: float) -> void:
 
 func _on_ja_pressed() -> void:
 	quit_layer.hide()
-	saveloadask.show()
+	if Windowmng.previous != Windowmng.Screen.MAIN_MENU :
+		if Windowmng.previous == Windowmng.Screen.OPTIONS and Globals.in_game == true and Globals.how_to_open == false:
+			saveloadask.show()
+		else:
+			get_tree().quit()
+	else:
+		get_tree().quit()
 
 
 func _on_nein_pressed() -> void:
