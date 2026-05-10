@@ -59,11 +59,21 @@ func _on_quit_pressed() -> void:
 	Windowmng.open(Windowmng.Screen.QUIT)
 
 func _on_main_pressed() -> void:
-	Windowmng.open(Windowmng.Screen.MAIN_MENU)
+	if TurnMng.is_animating == true:
+		return
 	Globals.board_clear()
 	TurnMng.reset_turn_vars()
 	Globals.tisch_open = false
 	TurnMng.game_over = false
 	TurnMng.current_turn = TurnMng.Player.P_WHITE
-	Globals.clear_move_markers()
+	Globals.multiplayer_enabeld = false
+	Globals.GAME_ID = " "
+	Globals.player_id = "        "
+	Globals.first_state_received = false
+	Globals.last_server_version = -1
+	Debug.log("Reset", Debug.TYPES.SUCCSESS)
+	Windowmng.open(Windowmng.Screen.MAIN_MENU)
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+	Globals.clear_move_markers()
+	
+	
