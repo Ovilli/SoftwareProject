@@ -1,6 +1,6 @@
 extends Node
 
-const URL = "https://myhiddenserver-production.up.railway.app"
+const URL = "https://web-production-a0031.up.railway.app"
 
 enum RequestType { NONE, GET, SEND, CREATE, DELETE, GAMES, JOIN, GET_PLAYERS }
 
